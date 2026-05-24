@@ -116,8 +116,8 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
 /* ── WATERFALL BRIDGE ── */
 .wf-container{display:flex;align-items:flex-end;gap:8px;height:160px;margin-bottom:24px;position:relative;padding-top:28px;}
 .wf-container::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(99,120,180,0.2);}
-.wf-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;cursor:default;height:100%;}
-.wf-bar{width:100%;border-radius:4px 4px 0 0;transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;}
+.wf-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;cursor:pointer;height:100%;}
+.wf-bar{width:100%;border-radius:4px 4px 0 0;transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:visible;}
 .wf-bar:hover{filter:brightness(1.2);}
 .wf-bar-base{background:linear-gradient(180deg,rgba(99,102,241,0.7),rgba(99,102,241,0.4));}
 .wf-bar-neg{background:linear-gradient(180deg,rgba(244,63,94,0.8),rgba(244,63,94,0.4));}
@@ -125,7 +125,14 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
 .wf-bar-buy{background:linear-gradient(180deg,rgba(59,130,246,0.9),rgba(59,130,246,0.5));box-shadow:0 0 16px rgba(59,130,246,0.3);}
 .wf-bar-sell{background:linear-gradient(180deg,rgba(251,146,60,0.9),rgba(251,146,60,0.5));box-shadow:0 0 16px rgba(251,146,60,0.3);}
 .wf-label{font-family:var(--mono);font-size:9px;color:var(--text-dim);text-align:center;margin-top:6px;letter-spacing:0.03em;line-height:1.45;white-space:nowrap;}
-.wf-val-tip{position:absolute;top:0;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;font-weight:700;white-space:nowrap;line-height:1;}
+.wf-val-tip{
+  position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;white-space:nowrap;
+  background:rgba(15,23,42,0.92);border:1px solid rgba(99,120,180,0.35);
+  padding:3px 7px;border-radius:5px;pointer-events:none;
+  opacity:0;transition:opacity .15s ease;z-index:10;
+}
+.wf-bar-wrap:hover .wf-val-tip,.wf-bar:hover .wf-val-tip{opacity:1;}
 .wf-connector{position:absolute;bottom:0;right:-6px;width:6px;border-top:1px dashed rgba(99,120,180,0.4);z-index:1;}
 
 /* ── FLOW CHIPS (bridge steps) ── */
@@ -640,13 +647,13 @@ const ESG_INDICATORS = {
     {id:'e5', name:'폐기물 발생량 및 재활용률',      score:65, weight:10},
     {id:'e6', name:'대기·수질 오염물질 배출 관리',   score:70, weight:11},
     {id:'e7', name:'환경법규 준수 및 위반 이력',     score:80, weight:13},
-    {id:'e8', name:'환경경영시스템(ISO 14001 등)',   score:55, weight:10},
+    {id:'e8', name:'환경경영시스템',                score:55, weight:10},
     {id:'e9', name:'공급망 환경 리스크 관리',        score:45, weight:10},
     {id:'e10',name:'기후변화 대응 전략 수립',        score:40, weight:10},
   ],
   S:[
     {id:'s1', name:'산업재해율 및 중대재해 이력',    score:60, weight:14},
-    {id:'s2', name:'안전보건 관리 체계(ISO 45001)',  score:65, weight:13},
+    {id:'s2', name:'안전보건 관리 체계',             score:65, weight:13},
     {id:'s3', name:'임직원 교육·훈련 시간',          score:70, weight:11},
     {id:'s4', name:'고용안정성(정규직 비율)',         score:55, weight:11},
     {id:'s5', name:'여성 및 취약계층 고용 비율',     score:45, weight:10},
@@ -911,8 +918,9 @@ function updateMBFlow(base,buyAdj,sellAdj,{sa,ev,ac,ci,dev}){
     const tipCol=b.type==='buy'?'var(--accent)':b.type==='sell'?'#fb923c':b.type==='neg'?'#f87171':b.type==='pos'?'#4ade80':'#a5b4fc';
     const labelLines=b.label.split('\n').join('<br>');
     wfHtml+=`<div class="wf-bar-wrap">
-      <div class="wf-val-tip" style="color:${tipCol};">${b.tip}</div>
-      <div class="${barCls}" style="height:${barH}px;"></div>
+      <div class="${barCls}" style="height:${barH}px;">
+        <div class="wf-val-tip">${b.tip}</div>
+      </div>
       <div class="wf-label">${labelLines}</div>
     </div>`;
   });
