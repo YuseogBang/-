@@ -103,34 +103,87 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
 .peer-live-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulse 1.5s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 
-/* ── MULTIPLE BRIDGE ── */
-.multiple-bridge{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:14px;}
-.mb-title{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;}
-.mb-flow{display:flex;align-items:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;}
-.mb-step{text-align:center;flex-shrink:0;}
-.mb-step-val{font-family:var(--head);font-size:16px;font-weight:800;color:var(--text-bright);}
-.mb-step-val.accent{color:var(--accent);}
-.mb-step-val.gold{color:var(--gold);}
-.mb-step-val.red{color:var(--red);}
-.mb-step-val.orange{color:#fb923c;}
-.mb-step-label{font-family:var(--mono);font-size:9px;color:var(--text-dim);letter-spacing:0.06em;margin-top:2px;}
-.mb-arrow{font-size:14px;color:var(--text-dim);padding:0 6px;flex-shrink:0;padding-bottom:12px;}
-.mb-adj-badge{font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:4px;margin-top:3px;display:inline-block;}
-.mb-adj-pos{background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.25);}
-.mb-adj-neg{background:rgba(244,63,94,0.15);color:#fda4af;border:1px solid rgba(244,63,94,0.25);}
-.mb-adj-neu{background:rgba(99,102,241,0.15);color:#a5b4fc;border:1px solid rgba(99,102,241,0.25);}
+/* ══ HERO BRIDGE SECTION ══ */
+.hero-bridge{background:linear-gradient(135deg,rgba(10,15,30,0.97),rgba(15,23,42,0.97));border:1px solid rgba(59,130,246,0.25);border-radius:16px;padding:22px 24px 18px;margin-bottom:18px;position:relative;overflow:hidden;}
+.hero-bridge::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.08),transparent 70%);pointer-events:none;}
+.hero-bridge::after{content:'';position:absolute;bottom:-30px;left:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,0.06),transparent 70%);pointer-events:none;}
 
-/* ── FINAL RESULT CARD ── */
-.result-card{border-radius:14px;padding:20px;border:1px solid;margin-bottom:16px;position:relative;overflow:hidden;}
-.result-card::before{content:'';position:absolute;inset:0;opacity:0.04;background:radial-gradient(circle at 30% 50%, currentColor 0%, transparent 70%);}
-.result-card.buy{border-color:rgba(59,130,246,0.4);background:rgba(59,130,246,0.05);color:var(--accent);}
-.result-card.sell{border-color:rgba(251,146,60,0.4);background:rgba(251,146,60,0.05);color:#fb923c;}
-.result-card.gap-card{border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.05);color:var(--green);}
-.result-card.gap-card.neg{border-color:rgba(244,63,94,0.4);background:rgba(244,63,94,0.05);color:var(--red);}
-.rc-label{font-family:var(--mono);font-size:10px;opacity:.7;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
-.rc-value{font-family:var(--head);font-size:32px;font-weight:800;line-height:1;color:inherit;}
-.rc-sub{font-size:10px;opacity:.7;margin-top:4px;}
-.rc-multiple{font-family:var(--mono);font-size:13px;opacity:.8;margin-top:6px;}
+.hb-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.hb-title{font-family:var(--head);font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-bright);display:flex;align-items:center;gap:10px;}
+.hb-title-line{width:3px;height:16px;border-radius:2px;background:linear-gradient(180deg,var(--accent),var(--accent2));}
+.hb-subtitle{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.06em;}
+
+/* ── WATERFALL BRIDGE ── */
+.wf-container{display:flex;align-items:flex-end;gap:6px;height:90px;margin-bottom:16px;position:relative;}
+.wf-container::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(99,120,180,0.2);}
+.wf-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;cursor:default;}
+.wf-bar{width:100%;border-radius:4px 4px 0 0;transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;}
+.wf-bar:hover{filter:brightness(1.2);}
+.wf-bar-base{background:linear-gradient(180deg,rgba(99,102,241,0.7),rgba(99,102,241,0.4));}
+.wf-bar-neg{background:linear-gradient(180deg,rgba(244,63,94,0.8),rgba(244,63,94,0.4));}
+.wf-bar-pos{background:linear-gradient(180deg,rgba(34,197,94,0.8),rgba(34,197,94,0.4));}
+.wf-bar-buy{background:linear-gradient(180deg,rgba(59,130,246,0.9),rgba(59,130,246,0.5));box-shadow:0 0 16px rgba(59,130,246,0.3);}
+.wf-bar-sell{background:linear-gradient(180deg,rgba(251,146,60,0.9),rgba(251,146,60,0.5));box-shadow:0 0 16px rgba(251,146,60,0.3);}
+.wf-label{font-family:var(--mono);font-size:8px;color:var(--text-dim);text-align:center;margin-top:4px;letter-spacing:0.04em;line-height:1.3;white-space:nowrap;}
+.wf-val-tip{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;font-weight:600;white-space:nowrap;}
+.wf-connector{position:absolute;bottom:0;right:-6px;width:6px;border-top:1px dashed rgba(99,120,180,0.4);z-index:1;}
+
+/* ── FLOW CHIPS (bridge steps) ── */
+.bridge-chips{display:flex;align-items:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none;}
+.bridge-chips::-webkit-scrollbar{display:none;}
+.bc-item{display:flex;align-items:center;gap:0;flex-shrink:0;}
+.bc-chip{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 10px;text-align:center;min-width:72px;}
+.bc-chip.base-chip{border-color:rgba(99,102,241,0.4);background:rgba(99,102,241,0.08);}
+.bc-chip.neg-chip{border-color:rgba(244,63,94,0.3);background:rgba(244,63,94,0.06);}
+.bc-chip.pos-chip{border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.06);}
+.bc-chip.buy-chip{border-color:rgba(59,130,246,0.5);background:rgba(59,130,246,0.12);box-shadow:0 0 12px rgba(59,130,246,0.15);}
+.bc-chip.sell-chip{border-color:rgba(251,146,60,0.5);background:rgba(251,146,60,0.12);box-shadow:0 0 12px rgba(251,146,60,0.15);}
+.bc-val{font-family:var(--head);font-size:15px;font-weight:800;line-height:1;}
+.bc-val.col-base{color:#a5b4fc;}
+.bc-val.col-neg{color:#f87171;}
+.bc-val.col-pos{color:#4ade80;}
+.bc-val.col-buy{color:var(--accent);}
+.bc-val.col-sell{color:#fb923c;}
+.bc-lbl{font-family:var(--mono);font-size:8px;color:var(--text-dim);letter-spacing:0.04em;margin-top:2px;}
+.bc-arrow{font-size:12px;color:rgba(99,120,180,0.4);padding:0 4px;flex-shrink:0;}
+.bc-sep{width:1px;height:28px;background:rgba(99,120,180,0.2);margin:0 4px;}
+
+/* ══ HERO EV CARDS ══ */
+.ev-hero-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;}
+.ev-hero-card{border-radius:14px;padding:18px 16px 14px;border:1px solid;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;}
+.ev-hero-card:hover{transform:translateY(-2px);}
+.ev-hero-card::before{content:'';position:absolute;top:0;right:0;width:80px;height:80px;border-radius:50%;opacity:0.08;background:radial-gradient(circle,currentColor,transparent);}
+.ev-hero-card.buy{border-color:rgba(59,130,246,0.45);background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(59,130,246,0.04));color:var(--accent);}
+.ev-hero-card.sell{border-color:rgba(251,146,60,0.45);background:linear-gradient(135deg,rgba(251,146,60,0.1),rgba(251,146,60,0.04));color:#fb923c;}
+.ev-hero-card.gap{border-color:rgba(34,197,94,0.45);background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(34,197,94,0.04));color:var(--green);}
+.ev-hero-card.gap.neg{border-color:rgba(244,63,94,0.45);background:linear-gradient(135deg,rgba(244,63,94,0.1),rgba(244,63,94,0.04));color:var(--red);}
+.ehc-badge{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;opacity:.75;margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.ehc-badge-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+.ehc-amount{font-family:var(--head);font-size:28px;font-weight:800;line-height:1;color:inherit;letter-spacing:-0.02em;}
+.ehc-unit{font-family:var(--mono);font-size:11px;opacity:.6;margin-top:2px;}
+.ehc-mult{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);}
+.ehc-mult-num{font-family:var(--head);font-size:16px;font-weight:800;color:inherit;}
+.ehc-mult-lbl{font-family:var(--mono);font-size:9px;color:var(--text-dim);}
+.ehc-divider{width:1px;height:16px;background:rgba(255,255,255,0.1);}
+.ehc-sub{font-size:10px;color:var(--text-dim);margin-top:6px;font-family:var(--mono);}
+
+/* ── GAP INDICATOR BAR ── */
+.gap-bar-section{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:14px;}
+.gap-bar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.gap-bar-title{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;}
+.gap-bar-pct{font-family:var(--head);font-size:14px;font-weight:800;color:var(--text-bright);}
+.gap-track{height:12px;border-radius:99px;background:var(--surface);position:relative;overflow:hidden;}
+.gap-buy-fill{position:absolute;left:0;top:0;height:100%;border-radius:99px 0 0 99px;background:linear-gradient(90deg,rgba(59,130,246,0.9),rgba(59,130,246,0.6));transition:width .5s cubic-bezier(.4,0,.2,1);}
+.gap-sell-fill{position:absolute;top:0;height:100%;border-radius:0 99px 99px 0;background:linear-gradient(90deg,rgba(251,146,60,0.6),rgba(251,146,60,0.9));transition:all .5s cubic-bezier(.4,0,.2,1);}
+.gap-labels{display:flex;justify-content:space-between;margin-top:5px;}
+.gap-label-item{font-family:var(--mono);font-size:9px;}
+
+/* legacy compat */
+.result-card{display:none;}
+.rc-label,.rc-value,.rc-sub,.rc-multiple{display:none;}
+/* ── MULTIPLE BRIDGE (legacy - replaced) ── */
+.multiple-bridge{display:none;}
+.mb-title,.mb-flow,.mb-step,.mb-step-val,.mb-step-label,.mb-arrow,.mb-adj-badge,.mb-adj-pos,.mb-adj-neg,.mb-adj-neu{display:none;}
 
 /* ── INDICATOR TABLE ── */
 .indicator-group{margin-bottom:12px;}
@@ -323,40 +376,87 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
 <!-- ── RIGHT PANEL ── -->
 <div>
 
-  <!-- MULTIPLE BRIDGE -->
-  <div class="multiple-bridge">
-    <div class="mb-title">EV 멀티플 브릿지 (BUY-SIDE 기준)</div>
-    <div class="mb-flow" id="mbFlow">
+  <!-- ══ HERO BRIDGE SECTION ══ -->
+  <div class="hero-bridge">
+    <div class="hb-header">
+      <div class="hb-title">
+        <div class="hb-title-line"></div>
+        EV 멀티플 브릿지
+      </div>
+      <div class="hb-subtitle" id="hbSubtitle">BUY-SIDE · SELL-SIDE 조정 분해</div>
+    </div>
+
+    <!-- Waterfall Bar Chart -->
+    <div class="wf-container" id="wfContainer">
+      <!-- JS로 채워짐 -->
+    </div>
+
+    <!-- Chip Flow Row -->
+    <div class="bridge-chips" id="bridgeChips">
       <!-- JS로 채워짐 -->
     </div>
   </div>
 
-  <!-- FINAL RESULTS -->
-  <div class="layout l-3col" style="margin-bottom:14px;">
-    <div class="result-card buy">
-      <div class="rc-label">BUY-SIDE EV</div>
-      <div class="rc-value" id="rcBuyEV">—</div>
-      <div class="rc-multiple" id="rcBuyMult">×— EBITDA</div>
-      <div class="rc-sub" id="rcBuySub">조정 멀티플: —</div>
+  <!-- ══ HERO EV CARDS ══ -->
+  <div class="ev-hero-row">
+    <!-- BUY EV -->
+    <div class="ev-hero-card buy">
+      <div class="ehc-badge"><div class="ehc-badge-dot"></div>BUY-SIDE EV</div>
+      <div class="ehc-amount" id="hBuyEV">—</div>
+      <div class="ehc-unit">억원</div>
+      <div class="ehc-mult">
+        <div class="ehc-mult-num" id="hBuyMult">—</div>
+        <div class="ehc-divider"></div>
+        <div class="ehc-mult-lbl">EV/EBITDA</div>
+      </div>
+      <div class="ehc-sub" id="hBuySub">—</div>
     </div>
-    <div class="result-card sell">
-      <div class="rc-label">SELL-SIDE EV</div>
-      <div class="rc-value" id="rcSellEV">—</div>
-      <div class="rc-multiple" id="rcSellMult">×— EBITDA</div>
-      <div class="rc-sub" id="rcSellSub">요구 멀티플: —</div>
+    <!-- SELL EV -->
+    <div class="ev-hero-card sell">
+      <div class="ehc-badge"><div class="ehc-badge-dot"></div>SELL-SIDE EV</div>
+      <div class="ehc-amount" id="hSellEV">—</div>
+      <div class="ehc-unit">억원</div>
+      <div class="ehc-mult">
+        <div class="ehc-mult-num" id="hSellMult">—</div>
+        <div class="ehc-divider"></div>
+        <div class="ehc-mult-lbl">EV/EBITDA</div>
+      </div>
+      <div class="ehc-sub" id="hSellSub">—</div>
     </div>
-    <div class="result-card gap-card" id="rcGapCard">
-      <div class="rc-label">밸류에이션 갭</div>
-      <div class="rc-value" id="rcGap">—</div>
-      <div class="rc-multiple" id="rcGapMult">멀티플 차: —</div>
-      <div class="rc-sub" id="rcGapSub">—</div>
+    <!-- VALUATION GAP -->
+    <div class="ev-hero-card gap" id="hGapCard">
+      <div class="ehc-badge"><div class="ehc-badge-dot"></div>밸류에이션 갭</div>
+      <div class="ehc-amount" id="hGapEV">—</div>
+      <div class="ehc-unit">억원</div>
+      <div class="ehc-mult">
+        <div class="ehc-mult-num" id="hGapMult">—</div>
+        <div class="ehc-divider"></div>
+        <div class="ehc-mult-lbl">멀티플 차</div>
+      </div>
+      <div class="ehc-sub" id="hGapSub">—</div>
+    </div>
+  </div>
+
+  <!-- ── GAP VISUAL BAR ── -->
+  <div class="gap-bar-section">
+    <div class="gap-bar-header">
+      <div class="gap-bar-title">BUY vs SELL EV 비교</div>
+      <div class="gap-bar-pct" id="gapBarPct">갭 —%</div>
+    </div>
+    <div class="gap-track">
+      <div class="gap-buy-fill" id="gapBuyFill" style="width:50%"></div>
+      <div class="gap-sell-fill" id="gapSellFill" style="left:50%;width:50%"></div>
+    </div>
+    <div class="gap-labels">
+      <div class="gap-label-item" style="color:var(--accent);">● BUY <span id="gapBuyLabel">—</span></div>
+      <div class="gap-label-item" style="color:#fb923c;">● SELL <span id="gapSellLabel">—</span></div>
     </div>
   </div>
 
   <!-- CHARTS ROW -->
   <div class="layout l-2col" style="margin-bottom:14px;">
     <div class="chart-wrap">
-      <div class="chart-label">ESG 리스크 레이더 (E·S·G × 리스크)</div>
+      <div class="chart-label">ESG 리스크 레이더</div>
       <canvas id="radarChart" height="190"></canvas>
     </div>
     <div class="chart-wrap">
@@ -369,6 +469,14 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
   <div class="card">
     <div class="card-title"><span class="card-title-dot"></span>세부 지표별 EV 영향 (억원)</div>
     <div id="impactBars"></div>
+  </div>
+
+  <!-- Hidden legacy IDs for JS compat -->
+  <div style="display:none">
+    <div id="rcBuyEV"></div><div id="rcBuyMult"></div><div id="rcBuySub"></div>
+    <div id="rcSellEV"></div><div id="rcSellMult"></div><div id="rcSellSub"></div>
+    <div id="rcGap"></div><div id="rcGapMult"></div><div id="rcGapSub"></div>
+    <div id="rcGapCard"></div><div id="mbFlow"></div>
   </div>
 </div>
 
@@ -747,21 +855,8 @@ function recalc(){
   // ── MULTIPLE BRIDGE
   updateMBFlow(baseMult,buyAdjMult,sellAdjMult,{sa,ev,ac,ci,dev});
 
-  // ── RESULT CARDS
-  document.getElementById('rcBuyEV').textContent=fmt(buyEV);
-  document.getElementById('rcBuyMult').textContent='×'+buyMult.toFixed(2)+' EBITDA';
-  document.getElementById('rcBuySub').textContent='기준 '+baseMult.toFixed(2)+'x → 조정 '+fmtPct(buyAdjMult);
-  document.getElementById('rcSellEV').textContent=fmt(sellEV);
-  document.getElementById('rcSellMult').textContent='×'+sellMult.toFixed(2)+' EBITDA';
-  document.getElementById('rcSellSub').textContent='기준 '+baseMult.toFixed(2)+'x → 프리미엄 '+fmtPct(sellAdjMult);
-  document.getElementById('rcGap').textContent=fmt(Math.abs(gapEV));
-  document.getElementById('rcGapMult').textContent='멀티플 차: '+(gapMult>=0?'+':'')+gapMult.toFixed(2)+'x';
-  const gapCard=document.getElementById('rcGapCard');
-  gapCard.className='result-card gap-card'+(gapEV>0?' neg':'');
-  document.getElementById('rcGapSub').textContent=gapEV>0
-    ? '매도자 우위 · Earn-out 협상 필요'
-    : gapEV<0?'매수자 우위 · 유리한 구간'
-    : '가격 합의 구간';
+  // ── HERO EV CARDS
+  updateHeroCards(buyEV,buyMult,baseMult,buyAdjMult,sellEV,sellMult,sellAdjMult,gapEV,gapMult);
 
   updateCharts(total,eS,sS,gS,baseMult,buyMult,sellMult,{sa,ev});
   updateImpactBars(ebitda,baseMult,{sa,ev,ac,ci,dev});
@@ -769,41 +864,106 @@ function recalc(){
 }
 
 // ═══════════════════════════════════════
-//  MULTIPLE BRIDGE FLOW
+//  HERO BRIDGE: WATERFALL + CHIPS
 // ═══════════════════════════════════════
 function updateMBFlow(base,buyAdj,sellAdj,{sa,ev,ac,ci,dev}){
   const ebitda=parseFloat(document.getElementById('ebitda').value)||200;
-  const parts=[
-    {label:'피어 기준 멀티플',val:base,type:'base'},
-    {label:`중대재해 (${sa}건)`,val:betaCoeffs.sa*sa*0.08,type:'neg'},
-    {label:`환경위반 (${ev}건)`,val:betaCoeffs.ev*ev*0.03,type:'neg'},
-    {label:`반부패 (${ac}건)`,val:betaCoeffs.ac*ac*0.02,type:ac>0?'neg':'zero'},
-    {label:`정보보안 (${ci}건)`,val:betaCoeffs.ci*ci*0.01,type:ci>0?'neg':'zero'},
-    {label:'ESG 점수 조정',val:0.005*dev,type:dev>=0?'pos':'neg'},
-    {label:'→ BUY 적용 멀티플',val:Math.max(0.5,base+buyAdj),type:'buy',final:true},
+  const buyMult=Math.max(0.5,base+buyAdj);
+  const sellMult=Math.max(0.5,base+sellAdj);
+
+  const adjSA=betaCoeffs.sa*sa*0.08;
+  const adjEV=betaCoeffs.ev*ev*0.03;
+  const adjAC=betaCoeffs.ac*ac*0.02;
+  const adjCI=betaCoeffs.ci*ci*0.01;
+  const adjESG=0.005*dev;
+
+  // ── WATERFALL BARS
+  const allMults=[base,buyMult,sellMult];
+  const maxM=Math.max(...allMults)*1.15;
+  const H=80; // px height reference
+
+  const wfBars=[
+    {label:'피어\n기준',mult:base,type:'base',tip:base.toFixed(2)+'x'},
+    ...(sa>0?[{label:`중대재해\n(${sa}건)`,mult:adjSA,type:'neg',tip:(adjSA>=0?'+':'')+adjSA.toFixed(3)+'x'}]:[]),
+    ...(ev>0?[{label:`환경위반\n(${ev}건)`,mult:adjEV,type:'neg',tip:(adjEV>=0?'+':'')+adjEV.toFixed(3)+'x'}]:[]),
+    ...(ac>0?[{label:`반부패\n(${ac}건)`,mult:adjAC,type:'neg',tip:(adjAC>=0?'+':'')+adjAC.toFixed(3)+'x'}]:[]),
+    ...(ci>0?[{label:`정보보안\n(${ci}건)`,mult:adjCI,type:'neg',tip:(adjCI>=0?'+':'')+adjCI.toFixed(3)+'x'}]:[]),
+    ...(Math.abs(adjESG)>0.001?[{label:'ESG\n점수',mult:adjESG,type:adjESG>=0?'pos':'neg',tip:(adjESG>=0?'+':'')+adjESG.toFixed(3)+'x'}]:[]),
+    {label:'BUY\nEV',mult:buyMult,type:'buy',tip:buyMult.toFixed(2)+'x'},
+    {label:'SELL\nEV',mult:sellMult,type:'sell',tip:sellMult.toFixed(2)+'x'},
   ];
 
-  let html='';
-  parts.forEach((p,i)=>{
-    if(p.type==='zero') return;
-    const isFinal=p.final;
-    const cls=isFinal?'mb-step-val accent':
-              p.type==='base'?'mb-step-val':
-              p.type==='neg'?'mb-step-val red':
-              p.type==='pos'?'mb-step-val' :'mb-step-val accent';
-    const valStr=isFinal?p.val.toFixed(2)+'x':
-                 p.type==='base'?p.val.toFixed(2)+'x':
-                 (p.val>=0?'+':'')+p.val.toFixed(3)+'x';
-    const adjCls=p.type==='neg'?'mb-adj-badge mb-adj-neg':p.type==='pos'?'mb-adj-badge mb-adj-pos':isFinal?'mb-adj-badge mb-adj-neu':'';
-    if(i>0&&!isFinal) html+=`<div class="mb-arrow">→</div>`;
-    if(isFinal) html+=`<div class="mb-arrow" style="color:rgba(99,120,180,0.4);">═</div>`;
-    html+=`<div class="mb-step">
-      <div class="${isFinal?'mb-step-val accent':cls}">${valStr}</div>
-      <div class="mb-step-label">${p.label}</div>
-      ${adjCls?`<div class="${adjCls}">${isFinal?fmt(p.val*parseFloat(document.getElementById('ebitda').value||200)):''}</div>`:''}
+  let wfHtml='';
+  wfBars.forEach(b=>{
+    const isAdj=b.type==='neg'||b.type==='pos';
+    const barH=isAdj?Math.max(4,Math.abs(b.mult)/maxM*H):Math.max(6,b.mult/maxM*H);
+    const barCls=`wf-bar wf-bar-${b.type}`;
+    const tipCol=b.type==='buy'?'var(--accent)':b.type==='sell'?'#fb923c':b.type==='neg'?'#f87171':b.type==='pos'?'#4ade80':'#a5b4fc';
+    const labelLines=b.label.split('\n').join('<br>');
+    wfHtml+=`<div class="wf-bar-wrap">
+      <div class="wf-val-tip" style="color:${tipCol};">${b.tip}</div>
+      <div class="${barCls}" style="height:${barH}px;"></div>
+      <div class="wf-label">${labelLines}</div>
     </div>`;
   });
-  document.getElementById('mbFlow').innerHTML=html;
+  document.getElementById('wfContainer').innerHTML=wfHtml;
+
+  // ── CHIP FLOW
+  const chips=[
+    {label:'피어 기준',val:base.toFixed(2)+'x',cls:'base-chip',col:'col-base'},
+    ...(adjSA!==0?[{label:`중대재해×${sa}`,val:(adjSA>=0?'+':'')+adjSA.toFixed(3)+'x',cls:'neg-chip',col:'col-neg'}]:[]),
+    ...(adjEV!==0?[{label:`환경위반×${ev}`,val:(adjEV>=0?'+':'')+adjEV.toFixed(3)+'x',cls:'neg-chip',col:'col-neg'}]:[]),
+    ...(adjAC!==0?[{label:`반부패×${ac}`,val:(adjAC>=0?'+':'')+adjAC.toFixed(3)+'x',cls:'neg-chip',col:'col-neg'}]:[]),
+    ...(adjCI!==0?[{label:`정보보안×${ci}`,val:(adjCI>=0?'+':'')+adjCI.toFixed(3)+'x',cls:'neg-chip',col:'col-neg'}]:[]),
+    ...(Math.abs(adjESG)>0.001?[{label:'ESG 점수',val:(adjESG>=0?'+':'')+adjESG.toFixed(3)+'x',cls:adjESG>=0?'pos-chip':'neg-chip',col:adjESG>=0?'col-pos':'col-neg'}]:[]),
+    {label:'BUY 적용',val:buyMult.toFixed(2)+'x',cls:'buy-chip',col:'col-buy'},
+    {label:'SELL 요구',val:sellMult.toFixed(2)+'x',cls:'sell-chip',col:'col-sell'},
+  ];
+
+  let chipHtml='';
+  chips.forEach((c,i)=>{
+    if(i>0) chipHtml+=`<div class="bc-arrow">›</div>`;
+    chipHtml+=`<div class="bc-item"><div class="bc-chip ${c.cls}">
+      <div class="bc-val ${c.col}">${c.val}</div>
+      <div class="bc-lbl">${c.label}</div>
+    </div></div>`;
+  });
+  document.getElementById('bridgeChips').innerHTML=chipHtml;
+
+  // update subtitle
+  document.getElementById('hbSubtitle').textContent=`BUY ${buyMult.toFixed(2)}x · SELL ${sellMult.toFixed(2)}x · 갭 ${(sellMult-buyMult>=0?'+':'')+(sellMult-buyMult).toFixed(2)}x`;
+}
+
+// ═══════════════════════════════════════
+//  HERO EV CARDS UPDATE
+// ═══════════════════════════════════════
+function updateHeroCards(buyEV,buyMult,baseMult,buyAdjMult,sellEV,sellMult,sellAdjMult,gapEV,gapMult){
+  // BUY
+  document.getElementById('hBuyEV').textContent=Math.round(buyEV).toLocaleString('ko-KR');
+  document.getElementById('hBuyMult').textContent=buyMult.toFixed(2)+'x';
+  document.getElementById('hBuySub').textContent=`기준 ${baseMult.toFixed(2)}x → 조정 ${buyAdjMult>=0?'+':''}${buyAdjMult.toFixed(3)}x`;
+  // SELL
+  document.getElementById('hSellEV').textContent=Math.round(sellEV).toLocaleString('ko-KR');
+  document.getElementById('hSellMult').textContent=sellMult.toFixed(2)+'x';
+  document.getElementById('hSellSub').textContent=`기준 ${baseMult.toFixed(2)}x → 프리미엄 ${sellAdjMult>=0?'+':''}${sellAdjMult.toFixed(3)}x`;
+  // GAP
+  document.getElementById('hGapEV').textContent=Math.round(Math.abs(gapEV)).toLocaleString('ko-KR');
+  document.getElementById('hGapMult').textContent=(gapMult>=0?'+':'')+gapMult.toFixed(2)+'x';
+  const gapCard=document.getElementById('hGapCard');
+  gapCard.className='ev-hero-card gap'+(gapEV>0?' neg':'');
+  document.getElementById('hGapSub').textContent=gapEV>0?'매도자 우위 · Earn-out 협상 필요':gapEV<0?'매수자 우위 · 유리한 구간':'가격 합의 구간';
+
+  // GAP BAR
+  const total=buyEV+sellEV;
+  const buyPct=(buyEV/total*100).toFixed(1);
+  const sellPct=(sellEV/total*100).toFixed(1);
+  document.getElementById('gapBuyFill').style.width=buyPct+'%';
+  document.getElementById('gapSellFill').style.left=buyPct+'%';
+  document.getElementById('gapSellFill').style.width=(100-parseFloat(buyPct))+'%';
+  const pctDiff=((sellEV-buyEV)/buyEV*100);
+  document.getElementById('gapBarPct').textContent=`갭 ${pctDiff>=0?'+':''}${pctDiff.toFixed(1)}%`;
+  document.getElementById('gapBuyLabel').textContent=Math.round(buyEV).toLocaleString('ko-KR')+'억';
+  document.getElementById('gapSellLabel').textContent=Math.round(sellEV).toLocaleString('ko-KR')+'억';
 }
 
 // ═══════════════════════════════════════
