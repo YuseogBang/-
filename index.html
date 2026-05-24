@@ -5,15 +5,15 @@
 <title>ESG M&A Valuation Engine — Pro</title>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
 <style>
 :root{
   --bg:#050810;--surface:#0a0f1e;--surface2:#0f172a;
   --border:rgba(99,120,180,0.18);--border-bright:rgba(99,120,180,0.38);
   --accent:#3b82f6;--accent2:#06b6d4;--red:#f43f5e;--green:#22c55e;--gold:#f59e0b;
   --text:#e2e8f0;--text-dim:#64748b;--text-bright:#f8fafc;
-  --mono:'DM Mono',monospace;--head:'Syne',sans-serif;--body:'Inter',sans-serif;
+  --mono:'Pretendard',monospace;--head:'Pretendard',sans-serif;--body:'Pretendard',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -39,7 +39,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 /* LAYOUT */
 .layout{display:grid;gap:18px;align-items:start;}
-.l-left-right{grid-template-columns:360px 1fr;}
+.l-left-right{grid-template-columns:400px 1fr;}
 .l-2col{grid-template-columns:1fr 1fr;}
 .l-3col{grid-template-columns:1fr 1fr 1fr;}
 
@@ -104,17 +104,17 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 
 /* ══ HERO BRIDGE SECTION ══ */
-.hero-bridge{background:linear-gradient(135deg,rgba(10,15,30,0.97),rgba(15,23,42,0.97));border:1px solid rgba(59,130,246,0.25);border-radius:16px;padding:22px 24px 18px;margin-bottom:18px;position:relative;overflow:hidden;}
+.hero-bridge{background:linear-gradient(135deg,rgba(10,15,30,0.97),rgba(15,23,42,0.97));border:1px solid rgba(59,130,246,0.25);border-radius:16px;padding:30px 30px 24px;margin-bottom:18px;position:relative;overflow:hidden;}
 .hero-bridge::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.08),transparent 70%);pointer-events:none;}
 .hero-bridge::after{content:'';position:absolute;bottom:-30px;left:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,0.06),transparent 70%);pointer-events:none;}
 
 .hb-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
-.hb-title{font-family:var(--head);font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-bright);display:flex;align-items:center;gap:10px;}
-.hb-title-line{width:3px;height:16px;border-radius:2px;background:linear-gradient(180deg,var(--accent),var(--accent2));}
-.hb-subtitle{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.06em;}
+.hb-title{font-family:var(--head);font-size:15px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-bright);display:flex;align-items:center;gap:10px;}
+.hb-title-line{width:3px;height:18px;border-radius:2px;background:linear-gradient(180deg,var(--accent),var(--accent2));}
+.hb-subtitle{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:0.06em;}
 
 /* ── WATERFALL BRIDGE ── */
-.wf-container{display:flex;align-items:flex-end;gap:6px;height:90px;margin-bottom:16px;position:relative;}
+.wf-container{display:flex;align-items:flex-end;gap:8px;height:130px;margin-bottom:20px;position:relative;}
 .wf-container::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(99,120,180,0.2);}
 .wf-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;cursor:default;}
 .wf-bar{width:100%;border-radius:4px 4px 0 0;transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;}
@@ -124,29 +124,29 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
 .wf-bar-pos{background:linear-gradient(180deg,rgba(34,197,94,0.8),rgba(34,197,94,0.4));}
 .wf-bar-buy{background:linear-gradient(180deg,rgba(59,130,246,0.9),rgba(59,130,246,0.5));box-shadow:0 0 16px rgba(59,130,246,0.3);}
 .wf-bar-sell{background:linear-gradient(180deg,rgba(251,146,60,0.9),rgba(251,146,60,0.5));box-shadow:0 0 16px rgba(251,146,60,0.3);}
-.wf-label{font-family:var(--mono);font-size:8px;color:var(--text-dim);text-align:center;margin-top:4px;letter-spacing:0.04em;line-height:1.3;white-space:nowrap;}
-.wf-val-tip{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;font-weight:600;white-space:nowrap;}
+.wf-label{font-family:var(--mono);font-size:10px;color:var(--text-dim);text-align:center;margin-top:5px;letter-spacing:0.04em;line-height:1.4;white-space:nowrap;}
+.wf-val-tip{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;font-weight:700;white-space:nowrap;}
 .wf-connector{position:absolute;bottom:0;right:-6px;width:6px;border-top:1px dashed rgba(99,120,180,0.4);z-index:1;}
 
 /* ── FLOW CHIPS (bridge steps) ── */
-.bridge-chips{display:flex;align-items:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none;}
+.bridge-chips{display:flex;align-items:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding:16px 0 6px;scrollbar-width:none;}
 .bridge-chips::-webkit-scrollbar{display:none;}
 .bc-item{display:flex;align-items:center;gap:0;flex-shrink:0;}
-.bc-chip{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 10px;text-align:center;min-width:72px;}
+.bc-chip{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 14px;text-align:center;min-width:84px;}
 .bc-chip.base-chip{border-color:rgba(99,102,241,0.4);background:rgba(99,102,241,0.08);}
 .bc-chip.neg-chip{border-color:rgba(244,63,94,0.3);background:rgba(244,63,94,0.06);}
 .bc-chip.pos-chip{border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.06);}
 .bc-chip.buy-chip{border-color:rgba(59,130,246,0.5);background:rgba(59,130,246,0.12);box-shadow:0 0 12px rgba(59,130,246,0.15);}
 .bc-chip.sell-chip{border-color:rgba(251,146,60,0.5);background:rgba(251,146,60,0.12);box-shadow:0 0 12px rgba(251,146,60,0.15);}
-.bc-val{font-family:var(--head);font-size:15px;font-weight:800;line-height:1;}
+.bc-val{font-family:var(--head);font-size:17px;font-weight:800;line-height:1;}
 .bc-val.col-base{color:#a5b4fc;}
 .bc-val.col-neg{color:#f87171;}
 .bc-val.col-pos{color:#4ade80;}
 .bc-val.col-buy{color:var(--accent);}
 .bc-val.col-sell{color:#fb923c;}
-.bc-lbl{font-family:var(--mono);font-size:8px;color:var(--text-dim);letter-spacing:0.04em;margin-top:2px;}
-.bc-arrow{font-size:12px;color:rgba(99,120,180,0.4);padding:0 4px;flex-shrink:0;}
-.bc-sep{width:1px;height:28px;background:rgba(99,120,180,0.2);margin:0 4px;}
+.bc-lbl{font-family:var(--mono);font-size:9px;color:var(--text-dim);letter-spacing:0.04em;margin-top:3px;}
+.bc-arrow{font-size:14px;color:rgba(99,120,180,0.4);padding:0 5px;flex-shrink:0;}
+.bc-sep{width:1px;height:32px;background:rgba(99,120,180,0.2);margin:0 5px;}
 
 /* ══ HERO EV CARDS ══ */
 .ev-hero-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;}
@@ -192,10 +192,10 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
 .ig-s{background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.25);color:#fb923c;}
 .ig-g{background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.25);color:#c4b5fd;}
 .ig-score{font-family:var(--mono);font-size:12px;}
-.ind-row{display:grid;grid-template-columns:1fr 80px 50px 44px;gap:6px;align-items:center;padding:5px 10px;border:1px solid var(--border);border-top:none;font-size:11px;background:var(--surface2);}
+.ind-row{display:grid;grid-template-columns:1fr 88px 52px 46px;gap:6px;align-items:center;padding:6px 10px;border:1px solid var(--border);border-top:none;font-size:11px;background:var(--surface2);}
 .ind-row:last-child{border-radius:0 0 8px 8px;}
 .ind-row:hover{background:rgba(59,130,246,0.04);}
-.ind-name{color:var(--text);}
+.ind-name{color:var(--text);font-size:11px;line-height:1.4;}
 .ind-bar{height:4px;border-radius:99px;background:var(--surface);overflow:hidden;}
 .ind-bar-fill{height:100%;border-radius:99px;transition:width .4s ease;}
 .fe{background:linear-gradient(90deg,#0891b2,#22d3ee);}
@@ -633,27 +633,37 @@ const PEER_SETS = {
 
 const ESG_INDICATORS = {
   E:[
-    {id:'e1',name:'온실가스 배출 저감률',  score:65,weight:25},
-    {id:'e2',name:'재생에너지 사용 비율',  score:55,weight:20},
-    {id:'e3',name:'용수 재활용률',         score:70,weight:15},
-    {id:'e4',name:'환경경영시스템 인증',   score:80,weight:15},
-    {id:'e5',name:'폐기물 재활용률',       score:60,weight:15},
-    {id:'e6',name:'생물다양성 관리',       score:50,weight:10},
+    {id:'e1', name:'온실가스 배출 관리 체계',       score:65, weight:14},
+    {id:'e2', name:'에너지 사용량 및 절감 실적',     score:55, weight:12},
+    {id:'e3', name:'재생에너지 사용 비율',           score:45, weight:10},
+    {id:'e4', name:'용수 사용량 및 재활용률',        score:60, weight:10},
+    {id:'e5', name:'폐기물 발생량 및 재활용률',      score:65, weight:10},
+    {id:'e6', name:'대기·수질 오염물질 배출 관리',   score:70, weight:11},
+    {id:'e7', name:'환경법규 준수 및 위반 이력',     score:80, weight:13},
+    {id:'e8', name:'환경경영시스템(ISO 14001 등)',   score:55, weight:10},
+    {id:'e9', name:'공급망 환경 리스크 관리',        score:45, weight:10},
+    {id:'e10',name:'기후변화 대응 전략 수립',        score:40, weight:10},
   ],
   S:[
-    {id:'s1',name:'산업재해율',            score:60,weight:25},
-    {id:'s2',name:'임직원 교육 시간',      score:70,weight:15},
-    {id:'s3',name:'여성 임원 비율',        score:45,weight:15},
-    {id:'s4',name:'협력사 ESG 관리',       score:55,weight:20},
-    {id:'s5',name:'지역사회 기여',         score:65,weight:15},
-    {id:'s6',name:'정보보호·개인정보',     score:75,weight:10},
+    {id:'s1', name:'산업재해율 및 중대재해 이력',    score:60, weight:14},
+    {id:'s2', name:'안전보건 관리 체계(ISO 45001)',  score:65, weight:13},
+    {id:'s3', name:'임직원 교육·훈련 시간',          score:70, weight:11},
+    {id:'s4', name:'고용안정성(정규직 비율)',         score:55, weight:11},
+    {id:'s5', name:'여성 및 취약계층 고용 비율',     score:45, weight:10},
+    {id:'s6', name:'협력사(공급망) ESG 관리',        score:50, weight:12},
+    {id:'s7', name:'지역사회 기여 및 상생 활동',     score:60, weight:10},
+    {id:'s8', name:'개인정보·정보보호 관리',         score:70, weight:10},
+    {id:'s9', name:'소비자·제품 안전 관리',          score:65, weight:9},
   ],
   G:[
-    {id:'g1',name:'이사회 독립성',         score:70,weight:25},
-    {id:'g2',name:'감사위원회 운영',       score:65,weight:20},
-    {id:'g3',name:'ESG 공시 투명성',       score:60,weight:20},
-    {id:'g4',name:'반부패·윤리 경영',      score:75,weight:20},
-    {id:'g5',name:'주주권리 보호',         score:55,weight:15},
+    {id:'g1', name:'이사회 구성 및 독립성',          score:65, weight:15},
+    {id:'g2', name:'감사기구 운영 실태',             score:60, weight:13},
+    {id:'g3', name:'ESG 정보공시 수준',              score:55, weight:13},
+    {id:'g4', name:'반부패·윤리경영 정책',           score:70, weight:14},
+    {id:'g5', name:'내부통제 시스템 운영',           score:60, weight:12},
+    {id:'g6', name:'주주권리 보호 및 배당 정책',     score:55, weight:11},
+    {id:'g7', name:'임원 보수 체계 투명성',          score:50, weight:11},
+    {id:'g8', name:'리스크 관리 체계',               score:65, weight:11},
   ],
 };
 
@@ -880,7 +890,7 @@ function updateMBFlow(base,buyAdj,sellAdj,{sa,ev,ac,ci,dev}){
   // ── WATERFALL BARS
   const allMults=[base,buyMult,sellMult];
   const maxM=Math.max(...allMults)*1.15;
-  const H=80; // px height reference
+  const H=120; // px height reference
 
   const wfBars=[
     {label:'피어\n기준',mult:base,type:'base',tip:base.toFixed(2)+'x'},
@@ -1114,10 +1124,22 @@ function loadPreset(name,btn){
   if(name==='custom') return;
 
   const presets={
-    construction:{ebitda:300,sa:3,ev:4,ac:1,ci:0,E:[50,40,60,70,55,45],S:[45,60,40,50,60,65],G:[65,60,55,70,50]},
-    mfg:         {ebitda:250,sa:1,ev:3,ac:0,ci:1,E:[60,50,65,75,65,55],S:[65,70,50,60,65,70],G:[70,65,60,75,60]},
-    tech:        {ebitda:500,sa:0,ev:1,ac:0,ci:2,E:[75,70,80,85,75,70],S:[75,80,70,65,70,85],G:[80,75,80,85,70]},
-    env:         {ebitda:150,sa:2,ev:5,ac:0,ci:0,E:[55,65,70,80,75,60],S:[55,65,45,65,70,60],G:[60,60,65,70,55]},
+    construction:{ebitda:300,sa:3,ev:4,ac:1,ci:0,
+      E:[50,45,35,55,60,65,70,55,40,35],
+      S:[45,55,60,50,35,50,55,65,60],
+      G:[65,60,55,70,60,50,45,62]},
+    mfg:         {ebitda:250,sa:1,ev:3,ac:0,ci:1,
+      E:[60,55,48,65,68,72,78,60,50,42],
+      S:[65,68,70,58,48,60,65,72,68],
+      G:[70,65,60,75,65,58,52,68]},
+    tech:        {ebitda:500,sa:0,ev:1,ac:0,ci:2,
+      E:[75,72,65,80,78,82,88,75,68,65],
+      S:[75,78,80,72,65,65,70,88,80],
+      G:[80,75,80,85,75,70,68,78]},
+    env:         {ebitda:150,sa:2,ev:5,ac:0,ci:0,
+      E:[55,65,58,72,78,62,55,80,58,45],
+      S:[55,62,65,48,42,65,72,62,60],
+      G:[60,58,62,68,60,52,48,62]},
   };
   const p=presets[name];
   document.getElementById('ebitda').value=p.ebitda;
@@ -1229,7 +1251,7 @@ async function analyzeText(){
 ${text.slice(0,3000)}
 
 다음 JSON 형식으로만 응답 (코드블록·기타 텍스트 없이):
-{"E_score":0~100,"S_score":0~100,"G_score":0~100,"serious_accidents":0~10,"env_violations":0~15,"anti_corruption":0~10,"cyber_incidents":0~10,"indicators":{"e1":0~100,"e2":0~100,"e3":0~100,"e4":0~100,"e5":0~100,"e6":0~100,"s1":0~100,"s2":0~100,"s3":0~100,"s4":0~100,"s5":0~100,"s6":0~100,"g1":0~100,"g2":0~100,"g3":0~100,"g4":0~100,"g5":0~100},"key_findings":["발견1","발견2","발견3"],"risk_flags":["리스크1","리스크2"],"opportunities":["기회1","기회2"]}`;
+{"E_score":0~100,"S_score":0~100,"G_score":0~100,"serious_accidents":0~10,"env_violations":0~15,"anti_corruption":0~10,"cyber_incidents":0~10,"indicators":{"e1":0~100,"e2":0~100,"e3":0~100,"e4":0~100,"e5":0~100,"e6":0~100,"e7":0~100,"e8":0~100,"e9":0~100,"e10":0~100,"s1":0~100,"s2":0~100,"s3":0~100,"s4":0~100,"s5":0~100,"s6":0~100,"s7":0~100,"s8":0~100,"s9":0~100,"g1":0~100,"g2":0~100,"g3":0~100,"g4":0~100,"g5":0~100,"g6":0~100,"g7":0~100,"g8":0~100},"key_findings":["발견1","발견2","발견3"],"risk_flags":["리스크1","리스크2"],"opportunities":["기회1","기회2"]}`;
 
   try{
     const response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
