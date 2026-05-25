@@ -269,6 +269,130 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
 ::-webkit-scrollbar-track{background:var(--surface);}
 ::-webkit-scrollbar-thumb{background:var(--border-bright);border-radius:3px;}
 @media(max-width:960px){.l-left-right,.l-2col,.l-3col{grid-template-columns:1fr;}}
+
+/* ══════════════════════════════════════
+   AGENT LIVE FEED BAR
+══════════════════════════════════════ */
+.agent-feed-bar{
+  display:flex;align-items:center;gap:0;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:0;margin-bottom:18px;
+  overflow:hidden;
+}
+.agent-feed-status{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 14px;border-right:1px solid var(--border);
+  flex-shrink:0;
+}
+.agent-feed-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.afd-online{background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,0.7);animation:pulse 1.5s infinite;}
+.afd-warn{background:#f59e0b;box-shadow:0 0 6px rgba(245,158,11,0.7);}
+.afd-info{background:#3b82f6;box-shadow:0 0 6px rgba(59,130,246,0.5);}
+.agent-feed-label{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;}
+.agent-feed-scroll{flex:1;overflow:hidden;position:relative;height:36px;}
+.agent-feed-track{display:flex;align-items:center;gap:0;white-space:nowrap;animation:feedScroll 28s linear infinite;height:100%;}
+.agent-feed-track:hover{animation-play-state:paused;}
+.agent-feed-item{display:inline-flex;align-items:center;gap:7px;padding:0 20px;font-family:var(--mono);font-size:10px;color:var(--text-dim);border-right:1px solid var(--border);height:100%;}
+.agent-feed-item .fi-tag{font-size:9px;padding:2px 6px;border-radius:3px;font-weight:700;}
+.fi-ghg{background:rgba(34,197,94,0.12);color:#4ade80;border:1px solid rgba(34,197,94,0.25);}
+.fi-risk{background:rgba(244,63,94,0.12);color:#f87171;border:1px solid rgba(244,63,94,0.25);}
+.fi-trace{background:rgba(6,182,212,0.12);color:#22d3ee;border:1px solid rgba(6,182,212,0.25);}
+.fi-dpp{background:rgba(167,139,250,0.12);color:#c4b5fd;border:1px solid rgba(167,139,250,0.25);}
+.fi-audit{background:rgba(245,158,11,0.12);color:#fbbf24;border:1px solid rgba(245,158,11,0.25);}
+.fi-report{background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(59,130,246,0.25);}
+@keyframes feedScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ══════════════════════════════════════
+   REGULATION FRAMEWORK TAGS
+══════════════════════════════════════ */
+.reg-framework-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.reg-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:var(--mono);font-size:9px;font-weight:700;
+  padding:3px 8px;border-radius:4px;letter-spacing:0.07em;
+  cursor:default;transition:all .15s;
+}
+.reg-tag.pass{background:rgba(34,197,94,0.12);color:#4ade80;border:1px solid rgba(34,197,94,0.3);}
+.reg-tag.warn{background:rgba(245,158,11,0.12);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);}
+.reg-tag.fail{background:rgba(244,63,94,0.12);color:#f87171;border:1px solid rgba(244,63,94,0.3);}
+.reg-tag.neutral{background:rgba(99,120,180,0.1);color:var(--text-dim);border:1px solid var(--border);}
+.reg-tag-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.reg-framework-legend{display:flex;gap:12px;font-family:var(--mono);font-size:9px;color:var(--text-dim);margin-top:5px;}
+.reg-framework-legend span{display:flex;align-items:center;gap:4px;}
+
+/* ══════════════════════════════════════
+   AUDIT READINESS GAUGE
+══════════════════════════════════════ */
+.audit-gauge-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px;}
+.audit-gauge-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.audit-gauge-title{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;}
+.audit-grade-badge{font-family:var(--head);font-size:12px;font-weight:800;padding:3px 10px;border-radius:6px;}
+.audit-gauge-svg-wrap{display:flex;justify-content:center;margin-bottom:10px;}
+.audit-gauge-svg{width:180px;height:100px;}
+.audit-factors{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.audit-factor-item{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;}
+.audit-factor-name{font-size:10px;color:var(--text-dim);}
+.audit-factor-val{font-family:var(--mono);font-size:11px;font-weight:700;}
+.af-pass{color:#4ade80;} .af-warn{color:#fbbf24;} .af-fail{color:#f87171;}
+
+/* ══════════════════════════════════════
+   SUPPLIER RISK SCORING
+══════════════════════════════════════ */
+.supplier-risk-wrap{margin-bottom:14px;}
+.supplier-risk-item{
+  display:grid;grid-template-columns:130px 1fr 60px 70px;
+  gap:8px;align-items:center;
+  padding:8px 10px;border:1px solid var(--border);border-top:none;
+  background:var(--surface2);font-size:11px;transition:background .15s;
+}
+.supplier-risk-item:first-of-type{border-radius:8px 8px 0 0;border-top:1px solid var(--border);}
+.supplier-risk-item:last-of-type{border-radius:0 0 8px 8px;}
+.supplier-risk-item:hover{background:rgba(59,130,246,0.04);}
+.sr-name{color:var(--text);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sr-bar-wrap{height:5px;border-radius:99px;background:var(--surface);overflow:hidden;}
+.sr-bar-fill{height:100%;border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.sr-score{font-family:var(--mono);font-size:11px;font-weight:700;text-align:right;}
+.sr-badge{font-family:var(--mono);font-size:9px;padding:2px 7px;border-radius:3px;text-align:center;font-weight:700;}
+.sr-high{color:#f87171;background:rgba(244,63,94,0.12);border:1px solid rgba(244,63,94,0.25);}
+.sr-med{color:#fbbf24;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.25);}
+.sr-low{color:#4ade80;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);}
+.supplier-risk-header{
+  display:grid;grid-template-columns:130px 1fr 60px 70px;
+  gap:8px;padding:6px 10px;
+  font-family:var(--mono);font-size:9px;color:var(--text-dim);letter-spacing:0.07em;
+  border:1px solid var(--border);border-radius:8px 8px 0 0;
+  background:var(--surface);
+}
+
+/* ══════════════════════════════════════
+   DEAL TIMELINE / DUE DILIGENCE
+══════════════════════════════════════ */
+.deal-timeline{padding:4px 0;}
+.deal-phase{display:flex;gap:12px;margin-bottom:4px;position:relative;}
+.deal-phase::before{content:'';position:absolute;left:15px;top:32px;width:1px;height:calc(100% - 8px);background:var(--border);}
+.deal-phase:last-child::before{display:none;}
+.deal-phase-icon{
+  width:30px;height:30px;border-radius:8px;
+  display:grid;place-items:center;font-size:13px;
+  flex-shrink:0;border:1px solid;
+}
+.dp-done{background:rgba(34,197,94,0.12);border-color:rgba(34,197,94,0.4);}
+.dp-active{background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.5);box-shadow:0 0 10px rgba(59,130,246,0.2);}
+.dp-pending{background:var(--surface2);border-color:var(--border);}
+.deal-phase-body{flex:1;padding-bottom:14px;}
+.deal-phase-title{font-family:var(--head);font-size:12px;font-weight:700;color:var(--text-bright);margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.dp-status-chip{font-family:var(--mono);font-size:9px;padding:1px 7px;border-radius:3px;}
+.dps-done{background:rgba(34,197,94,0.12);color:#4ade80;border:1px solid rgba(34,197,94,0.25);}
+.dps-active{background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(59,130,246,0.25);animation:blink .8s ease infinite alternate;}
+.dps-pending{background:var(--surface);color:var(--text-dim);border:1px solid var(--border);}
+@keyframes blink{from{opacity:.6}to{opacity:1}}
+.deal-checklist{display:flex;flex-direction:column;gap:3px;margin-top:4px;}
+.dc-item{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--text-dim);padding:3px 0;}
+.dc-check{width:14px;height:14px;border-radius:3px;display:grid;place-items:center;font-size:9px;flex-shrink:0;}
+.dc-done{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:#4ade80;}
+.dc-active{background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#60a5fa;}
+.dc-pend{background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);}
+.dc-done-text{color:var(--text);}
 </style>
 </head>
 <body>
@@ -286,11 +410,25 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
   </div>
 </div>
 
+<!-- ══ AGENT LIVE FEED BAR ══ -->
+<div class="agent-feed-bar">
+  <div class="agent-feed-status">
+    <div class="agent-feed-dot afd-online"></div>
+    <div class="agent-feed-label">AGENTS LIVE</div>
+  </div>
+  <div class="agent-feed-scroll">
+    <div class="agent-feed-track" id="agentFeedTrack">
+      <!-- JS로 채워짐 -->
+    </div>
+  </div>
+</div>
+
 <div class="tabs">
   <div class="tab active" onclick="switchTab('simulator')">시뮬레이터</div>
   <div class="tab" onclick="switchTab('weights')">가중치 커스텀</div>
   <div class="tab" onclick="switchTab('ai')">AI 문서 분석</div>
   <div class="tab" onclick="switchTab('sensitivity')">민감도 분석</div>
+  <div class="tab" onclick="switchTab('dealroom')">딜룸 · 실사</div>
 </div>
 
 <!-- ══════════════════════════════════════════
@@ -478,6 +616,44 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
     <div id="impactBars"></div>
   </div>
 
+  <!-- ══ REGULATION FRAMEWORK COMPLIANCE ══ -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-dot"></span>규제 프레임워크 준수 현황</div>
+    <div class="reg-framework-row" id="regFrameworkRow">
+      <!-- JS로 채워짐 -->
+    </div>
+    <div class="reg-framework-legend">
+      <span><span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;"></span>충족</span>
+      <span><span style="width:6px;height:6px;border-radius:50%;background:#fbbf24;display:inline-block;"></span>일부 미충족</span>
+      <span><span style="width:6px;height:6px;border-radius:50%;background:#f87171;display:inline-block;"></span>미충족</span>
+    </div>
+  </div>
+
+  <!-- ══ AUDIT READINESS GAUGE ══ -->
+  <div class="audit-gauge-wrap">
+    <div class="audit-gauge-header">
+      <div class="audit-gauge-title">감사 준비도 (Audit Readiness)</div>
+      <div class="audit-grade-badge" id="auditGradeBadge">—</div>
+    </div>
+    <div class="audit-gauge-svg-wrap">
+      <svg class="audit-gauge-svg" viewBox="0 0 180 100" id="auditGaugeSvg">
+        <!-- 배경 반원 -->
+        <path d="M15,90 A75,75 0 0,1 165,90" fill="none" stroke="rgba(99,120,180,0.15)" stroke-width="14" stroke-linecap="round"/>
+        <!-- 채워지는 반원 -->
+        <path d="M15,90 A75,75 0 0,1 165,90" fill="none" id="auditGaugePath"
+          stroke="#22c55e" stroke-width="14" stroke-linecap="round"
+          stroke-dasharray="235" stroke-dashoffset="235"
+          style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1),stroke .5s;"/>
+        <!-- 중앙 수치 -->
+        <text x="90" y="82" text-anchor="middle" font-size="26" font-weight="800" font-family="Pretendard,sans-serif" fill="#f8fafc" id="auditGaugeVal">0</text>
+        <text x="90" y="96" text-anchor="middle" font-size="9" font-family="Pretendard,monospace" fill="#64748b">/ 100점</text>
+      </svg>
+    </div>
+    <div class="audit-factors" id="auditFactors">
+      <!-- JS로 채워짐 -->
+    </div>
+  </div>
+
   <!-- Hidden legacy IDs for JS compat -->
   <div style="display:none">
     <div id="rcBuyEV"></div><div id="rcBuyMult"></div><div id="rcBuySub"></div>
@@ -543,8 +719,8 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
            ondrop="handleDrop(event)">
         <div class="upload-icon">📄</div>
         <div class="upload-text">파일 드래그 또는 클릭</div>
-        <div class="upload-sub">PDF · TXT · DOCX · CSV / 최대 10MB</div>
-        <input type="file" id="fileInput" accept=".pdf,.txt,.doc,.docx,.csv" onchange="handleFile(event)"/>
+        <div class="upload-sub">TXT · CSV / 최대 10MB<br><span style="color:rgba(99,120,180,0.5);font-size:9px;">PDF·DOCX는 텍스트 직접 붙여넣기를 이용하세요</span></div>
+        <input type="file" id="fileInput" accept=".txt,.csv" onchange="handleFile(event)"/>
       </div>
       <div id="fileStatus" style="margin-top:7px;font-family:var(--mono);font-size:10px;color:var(--text-dim);"></div>
     </div>
@@ -594,13 +770,65 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
 </div>
 </div>
 
+<!-- ══════════════════════════════════════════
+     TAB 5: DEALROOM · 실사
+══════════════════════════════════════════ -->
+<div id="tab-dealroom" class="tab-panel">
+<div class="layout l-left-right">
+
+  <!-- LEFT: 딜 타임라인 -->
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot"></span>M&A 딜 타임라인 · 실사 진행</div>
+      <div class="deal-timeline" id="dealTimeline">
+        <!-- JS로 채워짐 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: 공급망 리스크 + 전체 현황 -->
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot"></span>공급망 리스크 스코어링</div>
+      <p style="font-size:10px;color:var(--text-dim);margin-bottom:10px;">현재 ESG 점수 기반으로 주요 공급사 리스크를 자동 산출합니다. 점수가 낮을수록 리스크 높음.</p>
+      <div class="supplier-risk-header">
+        <span>공급사</span><span>리스크 수준</span><span style="text-align:right;">점수</span><span style="text-align:center;">등급</span>
+      </div>
+      <div class="supplier-risk-wrap" id="supplierRiskList">
+        <!-- JS로 채워짐 -->
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <div class="card-title"><span class="card-title-dot"></span>딜 리스크 종합 현황</div>
+      <div id="dealRiskSummary" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <!-- JS로 채워짐 -->
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
 </div><!-- /app -->
 
 <script>
 // ═══════════════════════════════════════
-//  PEER GROUP DATA  (업종별 피어 세트)
+//  CONSTANTS (매직 넘버 → 명명된 상수)
 // ═══════════════════════════════════════
-const PEER_SETS = {
+const COEFFS = {
+  SA_UNIT: 0.08,   // 중대재해 1건당 멀티플 조정 단위
+  EV_UNIT: 0.03,   // 환경위반 1건당 조정 단위
+  AC_UNIT: 0.02,   // 반부패 1건당 조정 단위
+  CI_UNIT: 0.01,   // 정보보안 1건당 조정 단위
+  ESG_DEV_UNIT: 0.005, // ESG 점수 편차 1점당 조정 단위
+  ESG_BASELINE: 70,    // ESG 기준점수
+  LIVE_INTERVAL_MS: 3000, // 피어 실시간 갱신 주기(ms)
+  LIVE_DRIFT: 0.15,       // 피어 EV 변동폭
+};
+
+// 원본 피어 데이터 보존 (실시간 변동에 의한 원본 오염 방지)
+const PEER_SETS_ORIGINAL = {
   custom: [
     { name:'삼성물산',      sector:'건설/종합',   ev:9.1,  esg:'A',  mktcap:35000, ev_val:42000 },
     { name:'현대건설',      sector:'건설',         ev:7.8,  esg:'B+', mktcap:18000, ev_val:22000 },
@@ -637,6 +865,10 @@ const PEER_SETS = {
     { name:'와이엔텍',      sector:'소각처리',     ev:9.3,  esg:'B',  mktcap:1600,  ev_val:1900  },
   ],
 };
+
+// 실시간 변동에 사용할 사본 (원본은 PEER_SETS_ORIGINAL에 보존)
+// 원본에서 깊은 복사로 라이브 데이터 세트 생성
+const PEER_SETS = JSON.parse(JSON.stringify(PEER_SETS_ORIGINAL));
 
 const ESG_INDICATORS = {
   E:[
@@ -685,15 +917,16 @@ let peerOpen=false;
 // ═══════════════════════════════════════
 //  BOOT
 // ═══════════════════════════════════════
-window.onload=()=>{
+document.addEventListener('DOMContentLoaded',()=>{
   renderSimIndicators();
   renderIndicatorWeightEditor();
   updateCatWeights();
   initCharts();
+  initAgentFeed();
   renderPeerTable('custom');
   simulateLivePeer();
   recalc();
-};
+});
 
 // ═══════════════════════════════════════
 //  PEER PANEL
@@ -768,14 +1001,20 @@ function syncSelect(){
   document.getElementById('customMultipleField').style.display=mode==='custom'?'block':'none';
 }
 
-// 실시간 연동 시뮬레이션: 2초마다 소폭 변동
+// 실시간 연동 시뮬레이션: 원본 보존, 라이브 사본만 변동
 function simulateLivePeer(){
   setInterval(()=>{
     const peers=PEER_SETS[currentPreset]||PEER_SETS.custom;
-    peers.forEach(p=>{ p.ev=Math.max(3,p.ev+(Math.random()-0.5)*0.15); p.ev=Math.round(p.ev*10)/10; });
+    const origPeers=PEER_SETS_ORIGINAL[currentPreset]||PEER_SETS_ORIGINAL.custom;
+    peers.forEach((p,i)=>{
+      const orig=origPeers[i];
+      // 원본 기준 ±15% 범위를 벗어나지 않도록 제한
+      p.ev=Math.max(orig.ev*0.85,Math.min(orig.ev*1.15,p.ev+(Math.random()-0.5)*COEFFS.LIVE_DRIFT));
+      p.ev=Math.round(p.ev*10)/10;
+    });
     renderPeerTable(currentPreset);
     recalc();
-  },3000);
+  },COEFFS.LIVE_INTERVAL_MS);
 }
 
 // ═══════════════════════════════════════
@@ -798,20 +1037,30 @@ function fmtPctStr(v){return(v>=0?'+':'')+v.toFixed(1)+'%';}
 //  TABS
 // ═══════════════════════════════════════
 function switchTab(name){
-  const names=['simulator','weights','ai','sensitivity'];
+  const names=['simulator','weights','ai','sensitivity','dealroom'];
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',names[i]===name));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   if(name==='sensitivity') buildSensitivity();
+  if(name==='dealroom') renderDealRoom();
 }
 
 // ═══════════════════════════════════════
 //  CAT WEIGHTS
 // ═══════════════════════════════════════
 function updateCatWeights(){
-  const eW=parseInt(document.getElementById('wEnv').value);
-  const sW=parseInt(document.getElementById('wSoc').value);
-  let gW=100-eW-sW; if(gW<5)gW=5;
+  const eSlider=document.getElementById('wEnv');
+  const sSlider=document.getElementById('wSoc');
+  const eW=parseInt(eSlider.value);
+  const sW=parseInt(sSlider.value);
+
+  // G 가중치가 최소 5% 이하로 내려가지 않도록 슬라이더 최댓값 동적 제한
+  const maxE=100-parseInt(sSlider.value)-5;
+  const maxS=100-parseInt(eSlider.value)-5;
+  eSlider.max=Math.max(10,Math.min(70,maxE));
+  sSlider.max=Math.max(10,Math.min(60,maxS));
+
+  const gW=Math.max(5,100-eW-sW);
   catWeights={E:eW,S:sW,G:gW};
   document.getElementById('wE').textContent=eW;
   document.getElementById('wS').textContent=sW;
@@ -852,16 +1101,16 @@ function recalc(){
 
   const baseMult=getPeerMultiple();
   const {total,eS,sS,gS}=calcESG();
-  const dev=total-70;
+  const dev=total-COEFFS.ESG_BASELINE;
 
   // BUY-SIDE: 리스크 기반 멀티플 조정 (배수 단위)
-  let buyAdjMult=betaCoeffs.sa*sa*0.08+betaCoeffs.ev*ev*0.03+betaCoeffs.ac*ac*0.02+betaCoeffs.ci*ci*0.01+0.005*dev;
+  let buyAdjMult=betaCoeffs.sa*sa*COEFFS.SA_UNIT+betaCoeffs.ev*ev*COEFFS.EV_UNIT+betaCoeffs.ac*ac*COEFFS.AC_UNIT+betaCoeffs.ci*ci*COEFFS.CI_UNIT+COEFFS.ESG_DEV_UNIT*dev;
   buyAdjMult=Math.max(-baseMult*0.6,Math.min(baseMult*0.15,buyAdjMult));
   const buyMult=Math.max(0.5,baseMult+buyAdjMult);
   const buyEV=ebitda*buyMult;
 
   // SELL-SIDE: 개선·프리미엄 요구
-  let sellAdjMult=0.008*dev-0.06*sa;
+  let sellAdjMult=COEFFS.ESG_DEV_UNIT*1.6*dev-COEFFS.SA_UNIT*0.75*sa;
   sellAdjMult=Math.max(-baseMult*0.1,Math.min(baseMult*0.25,sellAdjMult));
   const sellMult=Math.max(0.5,baseMult+sellAdjMult);
   const sellEV=ebitda*sellMult;
@@ -878,6 +1127,8 @@ function recalc(){
   updateCharts(total,eS,sS,gS,baseMult,buyMult,sellMult,{sa,ev});
   updateImpactBars(ebitda,baseMult,{sa,ev,ac,ci,dev});
   updateSimIndicatorScores(eS,sS,gS);
+  updateRegFrameworks(total);
+  updateAuditGauge(total,eS,sS,gS,sa,ev,ac,ci);
 }
 
 // ═══════════════════════════════════════
@@ -888,11 +1139,11 @@ function updateMBFlow(base,buyAdj,sellAdj,{sa,ev,ac,ci,dev}){
   const buyMult=Math.max(0.5,base+buyAdj);
   const sellMult=Math.max(0.5,base+sellAdj);
 
-  const adjSA=betaCoeffs.sa*sa*0.08;
-  const adjEV=betaCoeffs.ev*ev*0.03;
-  const adjAC=betaCoeffs.ac*ac*0.02;
-  const adjCI=betaCoeffs.ci*ci*0.01;
-  const adjESG=0.005*dev;
+  const adjSA=betaCoeffs.sa*sa*COEFFS.SA_UNIT;
+  const adjEV=betaCoeffs.ev*ev*COEFFS.EV_UNIT;
+  const adjAC=betaCoeffs.ac*ac*COEFFS.AC_UNIT;
+  const adjCI=betaCoeffs.ci*ci*COEFFS.CI_UNIT;
+  const adjESG=COEFFS.ESG_DEV_UNIT*dev;
 
   // ── WATERFALL BARS
   const allMults=[base,buyMult,sellMult];
@@ -1190,9 +1441,9 @@ function buildSensitivity(){
   const {total}=calcESG();
 
   let t1=`<thead><tr><th>중대재해</th><th>BUY 멀티플</th><th>BUY EV</th><th>vs현재</th></tr></thead><tbody>`;
-  const curBuyM=Math.max(0.5,base+betaCoeffs.sa*curSA*0.08+betaCoeffs.ev*evVal*0.03+betaCoeffs.ac*ac*0.02+betaCoeffs.ci*ci*0.01+0.005*(total-70));
+  const curBuyM=Math.max(0.5,base+betaCoeffs.sa*curSA*COEFFS.SA_UNIT+betaCoeffs.ev*evVal*COEFFS.EV_UNIT+betaCoeffs.ac*ac*COEFFS.AC_UNIT+betaCoeffs.ci*ci*COEFFS.CI_UNIT+COEFFS.ESG_DEV_UNIT*(total-COEFFS.ESG_BASELINE));
   for(let s=0;s<=8;s++){
-    const adj=betaCoeffs.sa*s*0.08+betaCoeffs.ev*evVal*0.03+betaCoeffs.ac*ac*0.02+betaCoeffs.ci*ci*0.01+0.005*(total-70);
+    const adj=betaCoeffs.sa*s*COEFFS.SA_UNIT+betaCoeffs.ev*evVal*COEFFS.EV_UNIT+betaCoeffs.ac*ac*COEFFS.AC_UNIT+betaCoeffs.ci*ci*COEFFS.CI_UNIT+COEFFS.ESG_DEV_UNIT*(total-COEFFS.ESG_BASELINE);
     const m=Math.max(0.5,base+adj);
     const v=ebitda*m;
     const diff=(m-curBuyM)*ebitda;
@@ -1203,8 +1454,8 @@ function buildSensitivity(){
 
   let t2=`<thead><tr><th>ESG점수</th><th>SELL 멀티플</th><th>SELL EV</th><th>갭</th></tr></thead><tbody>`;
   for(let sc=40;sc<=90;sc+=5){
-    const sAdj=Math.max(-base*0.1,Math.min(base*0.25,0.008*(sc-70)-0.06*curSA));
-    const bAdj=betaCoeffs.sa*curSA*0.08+betaCoeffs.ev*evVal*0.03+betaCoeffs.ac*ac*0.02+betaCoeffs.ci*ci*0.01+0.005*(sc-70);
+    const sAdj=Math.max(-base*0.1,Math.min(base*0.25,COEFFS.ESG_DEV_UNIT*1.6*(sc-COEFFS.ESG_BASELINE)-COEFFS.SA_UNIT*0.75*curSA));
+    const bAdj=betaCoeffs.sa*curSA*COEFFS.SA_UNIT+betaCoeffs.ev*evVal*COEFFS.EV_UNIT+betaCoeffs.ac*ac*COEFFS.AC_UNIT+betaCoeffs.ci*ci*COEFFS.CI_UNIT+COEFFS.ESG_DEV_UNIT*(sc-COEFFS.ESG_BASELINE);
     const sm=Math.max(0.5,base+sAdj),bm=Math.max(0.5,base+bAdj);
     const sv=ebitda*sm,bv=ebitda*bm,gap=sv-bv;
     const isCur=Math.abs(sc-total)<3;
@@ -1214,13 +1465,13 @@ function buildSensitivity(){
 
   const saVals=[0,1,2,3,4,5],esgVals=[40,50,60,70,80,90];
   const allV=[];
-  saVals.forEach(s=>esgVals.forEach(e=>{const m=Math.max(0.5,base+betaCoeffs.sa*s*0.08+betaCoeffs.ev*evVal*0.03+betaCoeffs.ac*ac*0.02+betaCoeffs.ci*ci*0.01+0.005*(e-70));allV.push(ebitda*m);}));
+  saVals.forEach(s=>esgVals.forEach(e=>{const m=Math.max(0.5,base+betaCoeffs.sa*s*COEFFS.SA_UNIT+betaCoeffs.ev*evVal*COEFFS.EV_UNIT+betaCoeffs.ac*ac*COEFFS.AC_UNIT+betaCoeffs.ci*ci*COEFFS.CI_UNIT+COEFFS.ESG_DEV_UNIT*(e-COEFFS.ESG_BASELINE));allV.push(ebitda*m);}));
   const minV=Math.min(...allV),maxV=Math.max(...allV);
   let hm=`<thead><tr><th>SA↓ ESG→</th>${esgVals.map(v=>`<th>${v}</th>`).join('')}</tr></thead><tbody>`;
   saVals.forEach(s=>{
     hm+=`<tr><td>${s}건</td>`;
     esgVals.forEach(e=>{
-      const m=Math.max(0.5,base+betaCoeffs.sa*s*0.08+betaCoeffs.ev*evVal*0.03+betaCoeffs.ac*ac*0.02+betaCoeffs.ci*ci*0.01+0.005*(e-70));
+      const m=Math.max(0.5,base+betaCoeffs.sa*s*COEFFS.SA_UNIT+betaCoeffs.ev*evVal*COEFFS.EV_UNIT+betaCoeffs.ac*ac*COEFFS.AC_UNIT+betaCoeffs.ci*ci*COEFFS.CI_UNIT+COEFFS.ESG_DEV_UNIT*(e-COEFFS.ESG_BASELINE));
       const v=ebitda*m,t=(v-minV)/(maxV-minV);
       const r=Math.round(244*(1-t)+59*t),g=Math.round(63*(1-t)+130*t),b=Math.round(94*(1-t)+246*t);
       const isCur=s===curSA&&Math.abs(e-total)<5;
@@ -1236,17 +1487,50 @@ function buildSensitivity(){
 // ═══════════════════════════════════════
 async function handleFile(event){
   const file=event.target.files[0];if(!file)return;
+
+  const ext=file.name.split('.').pop().toLowerCase();
+  const supported=['txt','csv'];
+  const unsupported=['pdf','doc','docx'];
+
+  if(unsupported.includes(ext)){
+    document.getElementById('fileStatus').textContent=`⚠️ ${file.name}: PDF·DOCX는 텍스트 추출이 불가합니다. TXT 또는 CSV 파일을 사용하거나, 아래 텍스트 박스에 내용을 직접 붙여넣기 해주세요.`;
+    return;
+  }
+  if(!supported.includes(ext)){
+    document.getElementById('fileStatus').textContent=`⚠️ 지원하지 않는 파일 형식입니다. TXT 또는 CSV 파일만 업로드 가능합니다.`;
+    return;
+  }
+  if(file.size>10*1024*1024){
+    document.getElementById('fileStatus').textContent=`⚠️ 파일이 너무 큽니다 (최대 10MB).`;
+    return;
+  }
+
   document.getElementById('fileStatus').textContent=`📎 ${file.name} (${(file.size/1024).toFixed(1)}KB) 로드됨`;
-  const text=await new Promise(res=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.readAsText(file);});
+  const text=await new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=()=>rej(new Error('파일 읽기 실패'));r.readAsText(file);});
   document.getElementById('manualText').value=text.slice(0,4000);
 }
 function handleDrop(e){
   e.preventDefault();document.getElementById('uploadZone').classList.remove('drag');
   const file=e.dataTransfer.files[0];if(file){const fe={target:{files:[file]}};handleFile(fe);}
 }
+// XSS 방지용 텍스트 이스케이프 헬퍼
+function escapeHtml(str){
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
 async function analyzeText(){
   const text=document.getElementById('manualText').value.trim();
   if(!text){alert('분석할 텍스트를 입력하세요.');return;}
+
+  // 중복 클릭 방지: 버튼 비활성화
+  const btn=document.querySelector('[onclick="analyzeText()"]');
+  if(btn){btn.disabled=true;btn.textContent='분석 중...';}
+
   const res=document.getElementById('aiResult');res.classList.add('show');
   document.getElementById('aiResultTitle').textContent='AI 분석 중...';
   ['aiE','aiS','aiG'].forEach(id=>document.getElementById(id).textContent='...');
@@ -1262,29 +1546,43 @@ ${text.slice(0,3000)}
 {"E_score":0~100,"S_score":0~100,"G_score":0~100,"serious_accidents":0~10,"env_violations":0~15,"anti_corruption":0~10,"cyber_incidents":0~10,"indicators":{"e1":0~100,"e2":0~100,"e3":0~100,"e4":0~100,"e5":0~100,"e6":0~100,"e7":0~100,"e8":0~100,"e9":0~100,"e10":0~100,"s1":0~100,"s2":0~100,"s3":0~100,"s4":0~100,"s5":0~100,"s6":0~100,"s7":0~100,"s8":0~100,"s9":0~100,"g1":0~100,"g2":0~100,"g3":0~100,"g4":0~100,"g5":0~100,"g6":0~100,"g7":0~100,"g8":0~100},"key_findings":["발견1","발견2","발견3"],"risk_flags":["리스크1","리스크2"],"opportunities":["기회1","기회2"]}`;
 
   try{
+    // ⚠️ 보안 주의: 실제 프로덕션 환경에서는 API 키를 클라이언트에 노출하지 마세요.
+    // 반드시 백엔드 프록시 서버를 통해 API를 호출해야 합니다.
+    // 예: fetch('/api/analyze', { method:'POST', body: JSON.stringify({text}) })
     const response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    if(!response.ok){
+      const errMap={401:'API 인증 오류입니다. 서버 설정을 확인하세요.',429:'요청이 너무 많습니다. 잠시 후 다시 시도해주세요.',500:'AI 서버 오류입니다. 잠시 후 다시 시도해주세요.'};
+      throw new Error(errMap[response.status]||`서버 응답 오류 (${response.status})`);
+    }
     const data=await response.json();
     const raw=data.content.map(c=>c.text||'').join('');
     const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
     displayAIResults(parsed);
   }catch(err){
-    document.getElementById('aiFindingsBox').innerHTML=`<p style="color:var(--red);">분석 오류: ${err.message}</p>`;
+    const isNetwork=err instanceof TypeError;
+    const msg=isNetwork?'네트워크 연결을 확인하세요.':err.message||'알 수 없는 오류가 발생했습니다.';
+    document.getElementById('aiFindingsBox').innerHTML=`<p style="color:var(--red);">⚠️ 분석 실패: ${escapeHtml(msg)}</p>`;
+  }finally{
+    // 분석 완료 후 버튼 복원
+    if(btn){btn.disabled=false;btn.textContent='🤖 AI 분석 실행';}
   }
 }
 function displayAIResults(data){
   document.getElementById('aiResultTitle').textContent='AI ESG 분석 완료';
-  document.getElementById('aiE').textContent=data.E_score;
-  document.getElementById('aiS').textContent=data.S_score;
-  document.getElementById('aiG').textContent=data.G_score;
+  document.getElementById('aiE').textContent=Number(data.E_score)||0;
+  document.getElementById('aiS').textContent=Number(data.S_score)||0;
+  document.getElementById('aiG').textContent=Number(data.G_score)||0;
+
+  // XSS 방지: AI 응답 텍스트는 반드시 escapeHtml 처리 후 삽입
   let html='';
-  if(data.key_findings?.length) html+=`<strong>📌 주요 발견사항</strong><ul>${data.key_findings.map(f=>`<li>${f}</li>`).join('')}</ul>`;
-  if(data.risk_flags?.length)   html+=`<strong style="color:var(--red);">⚠️ 리스크</strong><ul>${data.risk_flags.map(f=>`<li>${f}</li>`).join('')}</ul>`;
-  if(data.opportunities?.length)html+=`<strong style="color:#4ade80;">✅ 기회</strong><ul>${data.opportunities.map(f=>`<li>${f}</li>`).join('')}</ul>`;
+  if(data.key_findings?.length) html+=`<strong>📌 주요 발견사항</strong><ul>${data.key_findings.map(f=>`<li>${escapeHtml(f)}</li>`).join('')}</ul>`;
+  if(data.risk_flags?.length)   html+=`<strong style="color:var(--red);">⚠️ 리스크</strong><ul>${data.risk_flags.map(f=>`<li>${escapeHtml(f)}</li>`).join('')}</ul>`;
+  if(data.opportunities?.length)html+=`<strong style="color:#4ade80;">✅ 기회</strong><ul>${data.opportunities.map(f=>`<li>${escapeHtml(f)}</li>`).join('')}</ul>`;
   document.getElementById('aiFindingsBox').innerHTML=html;
   document.getElementById('aiApplyRow').style.display='block';
   aiPendingScores=data;
   analysisHistory.unshift({time:new Date().toLocaleTimeString('ko-KR'),E:data.E_score,S:data.S_score,G:data.G_score});
-  document.getElementById('aiHistory').innerHTML=analysisHistory.slice(0,5).map(h=>`<div style="display:flex;gap:12px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-dim);font-family:var(--mono);">${h.time}</span><span>E:<span style="color:#22d3ee;">${h.E}</span></span><span>S:<span style="color:#fb923c;">${h.S}</span></span><span>G:<span style="color:#c4b5fd;">${h.G}</span></span></div>`).join('');
+  document.getElementById('aiHistory').innerHTML=analysisHistory.slice(0,5).map(h=>`<div style="display:flex;gap:12px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-dim);font-family:var(--mono);">${escapeHtml(h.time)}</span><span>E:<span style="color:#22d3ee;">${Number(h.E)||0}</span></span><span>S:<span style="color:#fb923c;">${Number(h.S)||0}</span></span><span>G:<span style="color:#c4b5fd;">${Number(h.G)||0}</span></span></div>`).join('');
 }
 function applyAIResults(){
   if(!aiPendingScores) return;
@@ -1294,6 +1592,213 @@ function applyAIResults(){
   if(d.indicators) Object.entries(d.indicators).forEach(([id,score])=>{const el=document.getElementById('ind_'+id);if(el){el.value=score;const b=document.getElementById('bar_'+id);if(b)b.style.width=score+'%';const n=document.getElementById('num_'+id);if(n)n.textContent=score;}});
   switchTab('simulator');
   setTimeout(recalc,200);
+}
+
+// ═══════════════════════════════════════
+//  AGENT LIVE FEED
+// ═══════════════════════════════════════
+const AGENT_FEED_ITEMS = [
+  {tag:'GHG',   cls:'fi-ghg',   msg:'Scope 1·2·3 배출량 자동 집계 완료 — 12.8K tCO₂e 처리'},
+  {tag:'RISK',  cls:'fi-risk',  msg:'공급사 CN-4821 산림벌채 리스크 탐지 (신뢰도 0.84)'},
+  {tag:'TRACE', cls:'fi-trace', msg:'블록체인 검증 완료 · TX: 0x4a8f…c21b'},
+  {tag:'DPP',   cls:'fi-dpp',   msg:'EU ESPR 디지털 제품 여권 생성 · SKU-7734'},
+  {tag:'AUDIT', cls:'fi-audit', msg:'감사 증거 패키지 업데이트 — 데이터 갭 0건'},
+  {tag:'REPORT',cls:'fi-report',msg:'CSRD 보고서 초안 작성 완료 · 규제 마감 D-14'},
+  {tag:'GHG',   cls:'fi-ghg',   msg:'Tier-2 공급사 847건 배출 데이터 수신'},
+  {tag:'RISK',  cls:'fi-risk',  msg:'기후 리스크 점수 재산출 — 2,300개 공급사 모니터링 중'},
+  {tag:'TRACE', cls:'fi-trace', msg:'공급망 4단계 추적 완료 · 검증율 99.8%'},
+  {tag:'DPP',   cls:'fi-dpp',   msg:'신규 QR·NFC 여권 48건 발급 완료'},
+];
+
+function initAgentFeed(){
+  const track=document.getElementById('agentFeedTrack');
+  if(!track) return;
+  const items=[...AGENT_FEED_ITEMS,...AGENT_FEED_ITEMS]; // 무한 스크롤용 2배 복제
+  track.innerHTML=items.map(item=>`
+    <div class="agent-feed-item">
+      <span class="fi-tag ${item.cls}">${item.tag}</span>
+      <span>${item.msg}</span>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════
+//  REGULATION FRAMEWORK COMPLIANCE
+// ═══════════════════════════════════════
+const REG_FRAMEWORKS=[
+  {name:'CSRD',     minScore:65, desc:'EU 기업 지속가능성 보고'},
+  {name:'TCFD',     minScore:60, desc:'기후 재무 공시'},
+  {name:'GRI',      minScore:55, desc:'글로벌 보고 이니셔티브'},
+  {name:'ISSB S2',  minScore:62, desc:'IFRS 기후 기준'},
+  {name:'K-ESG',    minScore:50, desc:'한국형 ESG 기준'},
+  {name:'SASB',     minScore:58, desc:'산업별 기준'},
+  {name:'SBTi',     minScore:70, desc:'과학 기반 목표'},
+  {name:'ISO 14064',minScore:60, desc:'온실가스 정량화'},
+  {name:'EU ESPR',  minScore:65, desc:'제품 여권 규정'},
+  {name:'SEC',      minScore:55, desc:'미국 공시 규정'},
+];
+
+function updateRegFrameworks(total){
+  const row=document.getElementById('regFrameworkRow');
+  if(!row) return;
+  row.innerHTML=REG_FRAMEWORKS.map(f=>{
+    let cls,icon;
+    if(total>=f.minScore+10){cls='pass';icon='✓';}
+    else if(total>=f.minScore){cls='warn';icon='△';}
+    else{cls='fail';icon='✕';}
+    return`<div class="reg-tag ${cls}" title="${f.desc}"><span class="reg-tag-dot"></span>${icon} ${f.name}</div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+//  AUDIT READINESS GAUGE
+// ═══════════════════════════════════════
+function updateAuditGauge(total,eS,sS,gS,sa,ev,ac,ci){
+  const riskPenalty=Math.min(40,(sa*5+ev*2+ac*3+ci*2));
+  const disclosureScore=Math.min(100,(gS*0.6+eS*0.2+sS*0.2));
+  const auditScore=Math.max(0,Math.min(100,total*0.45+disclosureScore*0.35-riskPenalty+5));
+  const rounded=Math.round(auditScore);
+
+  const path=document.getElementById('auditGaugePath');
+  const valEl=document.getElementById('auditGaugeVal');
+  if(!path||!valEl) return;
+
+  // 235 = 반원 둘레 길이
+  path.style.strokeDashoffset=235-(235*rounded/100);
+
+  let grade,color;
+  if(rounded>=85){grade='A  감사 준비 완료';color='#4ade80';}
+  else if(rounded>=70){grade='B  대체로 준비됨';color='#22d3ee';}
+  else if(rounded>=55){grade='C  보완 필요';color='#fbbf24';}
+  else{grade='D  미흡';color='#f87171';}
+  path.style.stroke=color;
+  valEl.textContent=rounded;
+
+  const badge=document.getElementById('auditGradeBadge');
+  if(badge){
+    badge.textContent=grade;
+    badge.style.cssText+=`;background:${color}20;color:${color};border:1px solid ${color}50;border-radius:6px;padding:3px 10px;`;
+  }
+
+  const factors=[
+    {name:'ESG 종합점수',   val:Math.round(total),     pass:total>=65,       display:`${Math.round(total)}점`},
+    {name:'지배구조 투명성', val:Math.round(gS),        pass:gS>=60,          display:`${Math.round(gS)}점`},
+    {name:'리스크 사건 합계',val:sa+ev+ac+ci,           pass:(sa+ev+ac+ci)<=3,display:`${sa+ev+ac+ci}건`},
+    {name:'공시 완성도',     val:Math.round(disclosureScore),pass:disclosureScore>=65,display:`${Math.round(disclosureScore)}점`},
+  ];
+  const fEl=document.getElementById('auditFactors');
+  if(fEl) fEl.innerHTML=factors.map(f=>{
+    const cls=f.pass?'af-pass':'af-warn';
+    return`<div class="audit-factor-item">
+      <span class="audit-factor-name">${f.name}</span>
+      <span class="audit-factor-val ${cls}">${f.display}</span>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+//  SUPPLIER RISK SCORING
+// ═══════════════════════════════════════
+const SUPPLIER_LIST=[
+  {name:'Tier-1 · 주공급사A', baseRisk:25},
+  {name:'Tier-1 · 주공급사B', baseRisk:40},
+  {name:'Tier-2 · 원자재C',   baseRisk:55},
+  {name:'Tier-2 · 물류D',     baseRisk:35},
+  {name:'Tier-3 · 해외E',     baseRisk:70},
+  {name:'Tier-3 · 해외F',     baseRisk:60},
+];
+
+function renderSupplierRisk(total,sa,ev){
+  const list=document.getElementById('supplierRiskList');
+  if(!list) return;
+  const esgBonus=Math.max(-20,Math.min(20,(total-70)*0.4));
+  const riskMalus=(sa*4+ev*2);
+  list.innerHTML=SUPPLIER_LIST.map(s=>{
+    const score=Math.max(0,Math.min(100,s.baseRisk+riskMalus-esgBonus));
+    const safeScore=Math.round(100-score);
+    let badgeCls,badgeTxt,barColor;
+    if(score>=60){badgeCls='sr-high';badgeTxt='HIGH';barColor='#f87171';}
+    else if(score>=35){badgeCls='sr-med';badgeTxt='MED';barColor='#fbbf24';}
+    else{badgeCls='sr-low';badgeTxt='LOW';barColor='#4ade80';}
+    return`<div class="supplier-risk-item">
+      <div class="sr-name">${s.name}</div>
+      <div class="sr-bar-wrap"><div class="sr-bar-fill" style="width:${score}%;background:${barColor};opacity:0.8;"></div></div>
+      <div class="sr-score" style="color:${barColor};">${safeScore}점</div>
+      <div class="sr-badge ${badgeCls}">${badgeTxt}</div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+//  DEAL TIMELINE · 딜 실사 단계
+// ═══════════════════════════════════════
+const DEAL_PHASES=[
+  {icon:'🔍',status:'done',  title:'초기 스크리닝',
+   items:[{done:true,text:'기업 개요 및 사업 모델 검토'},{done:true,text:'공개 ESG 공시 자료 수집'},{done:true,text:'재무 하이라이트 분석'}]},
+  {icon:'📋',status:'done',  title:'LOI 체결 · 실사 준비',
+   items:[{done:true,text:'Letter of Intent 서명 완료'},{done:true,text:'실사 체크리스트 확정'},{done:true,text:'NDA 체결 및 VDR 접근 권한 부여'}]},
+  {icon:'🌿',status:'active',title:'ESG 실사 진행 중',
+   items:[{done:true,text:'환경(E) — GHG 배출 데이터 검증'},{done:true,text:'사회(S) — 중대재해·노무 이력 검토'},{done:false,active:true,text:'지배구조(G) — 이사회 독립성 심층 분석'},{done:false,text:'공급망 ESG 리스크 현장 실사'},{done:false,text:'규제 준수 갭 분석 보고서 작성'}]},
+  {icon:'⚖️',status:'active',title:'밸류에이션 · 협상',
+   items:[{done:true,text:'BUY-SIDE EV 산출 (시뮬레이터 연동)'},{done:false,active:true,text:'ESG 리스크 할인율 협상'},{done:false,text:'Earn-out 조건 설계'},{done:false,text:'SELL-SIDE 카운터오퍼 검토'}]},
+  {icon:'✍️',status:'pending',title:'SPA 체결 · 클로징',
+   items:[{done:false,text:'주식매매계약서(SPA) 초안 검토'},{done:false,text:'선행 조건 충족 확인'},{done:false,text:'규제 당국 신고 및 승인'},{done:false,text:'대금 지급 · 소유권 이전'}]},
+  {icon:'🔗',status:'pending',title:'PMI · 통합 관리',
+   items:[{done:false,text:'ESG 목표 통합 로드맵 수립'},{done:false,text:'공급망 ESG 기준 일원화'},{done:false,text:'통합 ESG 보고 체계 구축'}]},
+];
+
+function renderDealTimeline(){
+  const el=document.getElementById('dealTimeline');
+  if(!el) return;
+  el.innerHTML=DEAL_PHASES.map(phase=>{
+    const iconCls=phase.status==='done'?'dp-done':phase.status==='active'?'dp-active':'dp-pending';
+    const chipCls=phase.status==='done'?'dps-done':phase.status==='active'?'dps-active':'dps-pending';
+    const chipTxt=phase.status==='done'?'완료':phase.status==='active'?'진행 중':'대기';
+    const checks=phase.items.map(item=>{
+      const chkCls=item.done?'dc-done':item.active?'dc-active':'dc-pend';
+      const icon=item.done?'✓':item.active?'▶':'·';
+      return`<div class="dc-item">
+        <div class="dc-check ${chkCls}">${icon}</div>
+        <span class="${item.done?'dc-done-text':''}">${item.text}</span>
+      </div>`;
+    }).join('');
+    return`<div class="deal-phase">
+      <div class="deal-phase-icon ${iconCls}">${phase.icon}</div>
+      <div class="deal-phase-body">
+        <div class="deal-phase-title">${phase.title}<span class="dp-status-chip ${chipCls}">${chipTxt}</span></div>
+        <div class="deal-checklist">${checks}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderDealRiskSummary(total,sa,ev,ac,ci){
+  const el=document.getElementById('dealRiskSummary');
+  if(!el) return;
+  const esgBonus=Math.max(-20,Math.min(20,(total-70)*0.4));
+  const highRisk=SUPPLIER_LIST.filter(s=>(s.baseRisk+(sa*4+ev*2)-esgBonus)>=60).length;
+  const frameworkPass=REG_FRAMEWORKS.filter(f=>total>=f.minScore+10).length;
+  const totalEvents=sa+ev+ac+ci;
+  const items=[
+    {label:'고위험 공급사',val:`${highRisk}건`,   color:highRisk>2?'#f87171':'#4ade80'},
+    {label:'규제 충족',    val:`${frameworkPass}/${REG_FRAMEWORKS.length}`,color:frameworkPass>=8?'#4ade80':frameworkPass>=5?'#fbbf24':'#f87171'},
+    {label:'리스크 사건',  val:`${totalEvents}건`, color:totalEvents<=3?'#4ade80':totalEvents<=7?'#fbbf24':'#f87171'},
+  ];
+  el.innerHTML=items.map(item=>`
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+      <div style="font-size:10px;color:var(--text-dim);margin-bottom:5px;font-family:var(--mono);">${item.label}</div>
+      <div style="font-family:var(--head);font-size:22px;font-weight:800;color:${item.color};">${item.val}</div>
+    </div>`).join('');
+}
+
+function renderDealRoom(){
+  const {total,eS,sS,gS}=calcESG();
+  const sa=parseInt(document.getElementById('seriousAccidents').value)||0;
+  const ev=parseInt(document.getElementById('envViolations').value)||0;
+  const ac=parseInt(document.getElementById('antiCorruption').value)||0;
+  const ci=parseInt(document.getElementById('cyberIncidents').value)||0;
+  renderDealTimeline();
+  renderSupplierRisk(total,sa,ev);
+  renderDealRiskSummary(total,sa,ev,ac,ci);
 }
 </script>
 </body>
