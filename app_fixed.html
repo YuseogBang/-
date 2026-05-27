@@ -29,7 +29,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .htag{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--border);color:var(--text-dim);}
 
 /* TABS */
-.tabs{display:flex;gap:0;margin-bottom:22px;border-bottom:1px solid var(--border);}
+.tabs{display:flex;gap:0;margin-bottom:22px;border-bottom:1px solid var(--border);align-items:center;}
 .tab{font-family:var(--head);font-size:11px;font-weight:700;padding:8px 18px;cursor:pointer;color:var(--text-dim);border-bottom:2px solid transparent;transition:all .2s;letter-spacing:0.05em;text-transform:uppercase;}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent);}
 .tab:hover:not(.active){color:var(--text);}
@@ -429,6 +429,11 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(59,130,2
   <div class="tab" onclick="switchTab('ai')">AI 문서 분석</div>
   <div class="tab" onclick="switchTab('sensitivity')">민감도 분석</div>
   <div class="tab" onclick="switchTab('dealroom')">딜룸 · 실사</div>
+  <div style="margin-left:auto;display:flex;align-items:center;padding-bottom:4px;flex-shrink:0;">
+    <button class="btn btn-primary" onclick="generateReport()" style="font-size:10px;padding:5px 14px;gap:5px;white-space:nowrap;">
+      📋 결과 리포트 생성
+    </button>
+  </div>
 </div>
 
 <!-- ══════════════════════════════════════════
@@ -1693,6 +1698,61 @@ function updateAuditGauge(total,eS,sS,gS,sa,ev,ac,ci){
       <span class="audit-factor-val ${cls}">${f.display}</span>
     </div>`;
   }).join('');
+}
+
+// ═══════════════════════════════════════
+//  REPORT DATA EXPORT
+// ═══════════════════════════════════════
+function generateReport(){
+  const ebitda=parseFloat(document.getElementById('ebitda').value)||200;
+  const sa=parseInt(document.getElementById('seriousAccidents').value)||0;
+  const ev_=parseInt(document.getElementById('envViolations').value)||0;
+  const ac=parseInt(document.getElementById('antiCorruption').value)||0;
+  const ci=parseInt(document.getElementById('cyberIncidents').value)||0;
+  const {total,eS,sS,gS}=calcESG();
+  const baseMult=getPeerMultiple();
+  const dev=total-COEFFS.ESG_BASELINE;
+  let buyAdjMult=betaCoeffs.sa*sa*COEFFS.SA_UNIT+betaCoeffs.ev*ev_*COEFFS.EV_UNIT+betaCoeffs.ac*ac*COEFFS.AC_UNIT+betaCoeffs.ci*ci*COEFFS.CI_UNIT+COEFFS.ESG_DEV_UNIT*dev;
+  buyAdjMult=Math.max(-baseMult*0.6,Math.min(baseMult*0.15,buyAdjMult));
+  const buyMult=Math.max(0.5,baseMult+buyAdjMult);
+  const buyEV=ebitda*buyMult;
+  let sellAdjMult=COEFFS.ESG_DEV_UNIT*1.6*dev-COEFFS.SA_UNIT*0.75*sa;
+  sellAdjMult=Math.max(-baseMult*0.1,Math.min(baseMult*0.25,sellAdjMult));
+  const sellMult=Math.max(0.5,baseMult+sellAdjMult);
+  const sellEV=ebitda*sellMult;
+  const gapEV=sellEV-buyEV;
+  const esgBonus=Math.max(-20,Math.min(20,(total-70)*0.4));
+  const riskMalus=(sa*4+ev_*2);
+  const supplierScores=SUPPLIER_LIST.map(s=>{
+    const score=Math.max(0,Math.min(100,s.baseRisk+riskMalus-esgBonus));
+    const safeScore=Math.round(100-score);
+    const badge=score>=60?'HIGH':score>=35?'MED':'LOW';
+    return{name:s.name,safeScore,badge};
+  });
+  const frameworkPass=REG_FRAMEWORKS.filter(f=>total>=f.minScore+10).length;
+  const frameworkWarn=REG_FRAMEWORKS.filter(f=>total>=f.minScore&&total<f.minScore+10).length;
+  const frameworkFail=REG_FRAMEWORKS.filter(f=>total<f.minScore).length;
+  const indicators={E:[],S:[],G:[]};
+  ['E','S','G'].forEach(cat=>{
+    ESG_INDICATORS[cat].forEach(ind=>{
+      const el=document.getElementById('ind_'+ind.id);
+      indicators[cat].push({name:ind.name,score:el?parseFloat(el.value):ind.score,weight:ind.weight});
+    });
+  });
+  // audit
+  const esgCoverage=Math.min(100,total*0.8+15);
+  const disclosureScore=Math.min(100,esgCoverage*0.6+(total/100)*40);
+  const auditScore=Math.round(esgCoverage*0.35+disclosureScore*0.25+Math.max(0,100-(sa*15+ev_*10+ac*12+ci*8))*0.25+gS*0.15);
+  const data={
+    ts:new Date().toISOString(),ebitda,sa,ev:ev_,ac,ci,
+    esg:{total:Math.round(total*10)/10,eS:Math.round(eS*10)/10,sS:Math.round(sS*10)/10,gS:Math.round(gS*10)/10},
+    valuation:{baseMult:Math.round(baseMult*100)/100,buyMult:Math.round(buyMult*100)/100,sellMult:Math.round(sellMult*100)/100,buyEV:Math.round(buyEV),sellEV:Math.round(sellEV),gapEV:Math.round(gapEV)},
+    catWeights,indicators,supplierScores,
+    frameworks:{pass:frameworkPass,warn:frameworkWarn,fail:frameworkFail,total:REG_FRAMEWORKS.length,list:REG_FRAMEWORKS.map(f=>({name:f.name,pass:total>=f.minScore+10,warn:total>=f.minScore&&total<f.minScore+10}))},
+    audit:{score:auditScore},preset:currentPreset
+  };
+  try{localStorage.setItem('esg_report',JSON.stringify(data));}catch(e){}
+  window.open('report.html','_blank');
 }
 
 // ═══════════════════════════════════════
