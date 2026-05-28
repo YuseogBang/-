@@ -132,11 +132,11 @@ textarea:focus{border-color:var(--accent);}
 .ind-sec-s{background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.25);color:#fb923c;}
 .ind-sec-g{background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.25);color:#c4b5fd;}
 .ind-sec-score{font-family:monospace;font-size:11px;}
-.ind-row{display:grid;grid-template-columns:1fr 60px 42px;gap:6px;align-items:center;padding:6px 11px;border:1px solid var(--border);border-top:none;background:var(--surface2);}
+.ind-row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(110px,150px) 54px;gap:8px;align-items:center;padding:6px 11px;border:1px solid var(--border);border-top:none;background:var(--surface2);}
 .ind-row:last-child{border-radius:0 0 8px 8px;}
 .ind-row:hover{background:rgba(59,130,246,0.04);}
 .ind-name{font-size:11px;color:var(--text);line-height:1.4;}
-.ind-num-inp{width:42px;padding:3px 4px;border-radius:4px;border:1px solid var(--border);background:var(--surface);color:var(--text-bright);font-family:monospace;font-size:11px;text-align:center;outline:none;}
+.ind-num-inp{width:54px;min-width:54px;box-sizing:border-box;padding:3px 4px;border-radius:4px;border:1px solid var(--border);background:var(--surface);color:var(--text-bright);font-family:monospace;font-size:11px;text-align:center;outline:none;}
 .ind-num-inp:focus{border-color:var(--accent);}
 .esg-preview{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
 .esg-preview-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;}
@@ -316,8 +316,6 @@ textarea:focus{border-color:var(--accent);}
 .wi-e{background:linear-gradient(135deg,#22d3ee,#3b82f6);-webkit-background-clip:text;color:transparent;}
 .wi-s{background:linear-gradient(135deg,#fb923c,#f43f5e);-webkit-background-clip:text;color:transparent;}
 .wi-g{background:linear-gradient(135deg,#c4b5fd,#818cf8);-webkit-background-clip:text;color:transparent;}
-.ind-weight-input{width:100%;padding:4px 6px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);color:var(--text-bright);font-family:monospace;font-size:11px;outline:none;}
-.ind-weight-input:focus{border-color:var(--accent);}
 
 /* SENSITIVITY */
 .sens-table{width:100%;border-collapse:collapse;font-size:11px;}
@@ -508,10 +506,10 @@ textarea:focus{border-color:var(--accent);}
     <div class="weight-grid" id="catWeightDisplay"></div>
     <div class="sec-label">카테고리 비중 조정</div>
     <div class="field"><label>환경(E) % <span class="val" id="wE">40</span></label>
-      <input type="range" id="wEnv" min="10" max="70" value="40" oninput="updateCatWeights();updatePreview();recalcResult()"/></div>
+      <input type="range" id="wEnv" min="10" max="70" value="40" oninput="updateCatWeights('E');updatePreview();recalcResult()"/></div>
     <div class="field"><label>사회(S) % <span class="val" id="wS">35</span></label>
-      <input type="range" id="wSoc" min="10" max="60" value="35" oninput="updateCatWeights();updatePreview();recalcResult()"/></div>
-    <p style="font-size:10px;color:var(--text-dim);margin-top:3px;">※ 지배구조(G)는 100-E-S로 자동 계산됩니다.</p>
+      <input type="range" id="wSoc" min="10" max="60" value="35" oninput="updateCatWeights('S');updatePreview();recalcResult()"/></div>
+    <p style="font-size:10px;color:var(--text-dim);margin-top:3px;">※ 지배구조(G)는 100-E-S로 자동 계산되며, E+S가 100%를 넘지 않도록 자동 보정됩니다.</p>
     <div class="sec-label" style="margin-top:16px;">인수자 리스크 β 계수</div>
     <div class="grid-2">
       <div class="field"><label>중대재해 β <span class="val" id="lB1">-8</span></label>
@@ -537,8 +535,8 @@ textarea:focus{border-color:var(--accent);}
          ondrop="handleDrop(event)">
       <div class="upload-icon">📄</div>
       <div class="upload-text">파일 드래그 또는 클릭</div>
-      <div class="upload-sub">TXT · CSV / 최대 10MB<br><span style="color:rgba(99,120,180,.5);font-size:9px;">PDF·DOCX는 텍스트 직접 붙여넣기를 이용하세요</span></div>
-      <input type="file" id="fileInput" accept=".txt,.csv" onchange="handleFile(event)"/>
+      <div class="upload-sub">TXT · CSV · PDF · Word · PPTX · XLSX / 최대 10MB</div>
+      <input type="file" id="fileInput" accept=".txt,.csv,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx" onchange="handleFile(event)"/>
     </div>
     <div id="fileStatus" style="margin-top:7px;font-family:monospace;font-size:10px;color:var(--text-dim);"></div>
   </div>
@@ -568,15 +566,6 @@ textarea:focus{border-color:var(--accent);}
     </div>
     <div class="sec-label">분석 히스토리</div>
     <div id="aiHistory" style="font-size:11px;color:var(--text-dim);">분석 내역 없음</div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="card-title-dot"></span>세부 지표 내부 가중치</div>
-    <p style="font-size:11px;color:var(--text-dim);margin-bottom:12px;">각 카테고리 내 지표별 기여 비중 설정</p>
-    <div id="indicatorWeightEditor"></div>
-    <div class="btn-row">
-      <button class="btn btn-secondary" onclick="equalizeWeights()">균등 배분</button>
-    </div>
   </div>
 </div>
 
@@ -732,8 +721,7 @@ textarea:focus{border-color:var(--accent);}
       </div>
     </div>
     <div>
-      <div class="card"><div class="card-title"><span class="card-title-dot"></span>환경(E) 세부 지표</div><div id="indResultE"></div></div>
-      <div class="card" style="margin-top:14px;"><div class="card-title"><span class="card-title-dot"></span>사회(S) / 지배구조(G)</div><div id="indResultSG"></div></div>
+      <div class="card"><div class="card-title"><span class="card-title-dot"></span>사회(S) / 지배구조(G)</div><div id="indResultSG"></div></div>
     </div>
   </div>
 </div>
@@ -818,7 +806,6 @@ let peerOpen=false;
 // ══ BOOT ══
 document.addEventListener('DOMContentLoaded',()=>{
   renderIndInputArea();
-  renderIndicatorWeightEditor();
   updateCatWeights();
   updatePreview();
   renderPeerTable('custom');
@@ -931,7 +918,6 @@ function computeAndRender(){
   updateRegFrameworks(total);
   updateAuditGauge(total,eS,sS,gS,inp.sa,inp.ev,inp.ac,inp.ci);
   initCharts(total,eS,sS,gS,v.base,v.buyMult,v.sellMult,inp);
-  renderIndicatorWeightEditor();
   updateCatWeights();
 }
 
@@ -1000,7 +986,6 @@ function updateAuditGauge(total,eS,sS,gS,sa,ev,ac,ci){
 
 // ══ INDICATOR RESULTS ══
 function renderIndResults(eS,sS,gS){
-  document.getElementById('indResultE').innerHTML=makeIG('E','환경(E)','ig-e',eS,'fe');
   document.getElementById('indResultSG').innerHTML=makeIG('S','사회(S)','ig-s',sS,'fs')+makeIG('G','지배구조(G)','ig-g',gS,'fg');
 }
 function makeIG(cat,label,hdrCls,score,fCls){
@@ -1012,8 +997,16 @@ function renderIndInputArea(){
   const cfg={E:{label:'환경(E)',cls:'ind-sec-e'},S:{label:'사회(S)',cls:'ind-sec-s'},G:{label:'지배구조(G)',cls:'ind-sec-g'}};
   document.getElementById('indInputArea').innerHTML=['E','S','G'].map(cat=>{
     const c=cfg[cat];
-    return`<div class="ind-section"><div class="ind-sec-header ${c.cls}"><span>${c.label}</span><span class="ind-sec-score" id="inp_score_${cat}">—</span></div>`+ESG_INDICATORS[cat].map(ind=>`<div class="ind-row"><div class="ind-name">${ind.name}</div><input type="range" id="ind_${ind.id}" min="0" max="100" value="${ind.score}" style="width:100%;" oninput="document.getElementById('num_${ind.id}').value=this.value;updatePreview()"/><input class="ind-num-inp" type="number" id="num_${ind.id}" value="${ind.score}" min="0" max="100" oninput="document.getElementById('ind_${ind.id}').value=this.value;updatePreview()"/></div>`).join('')+'</div>';
+    return`<div class="ind-section"><div class="ind-sec-header ${c.cls}"><span>${c.label}</span><span class="ind-sec-score" id="inp_score_${cat}">—</span></div>`+ESG_INDICATORS[cat].map(ind=>`<div class="ind-row"><div class="ind-name">${ind.name}</div><input type="range" id="ind_${ind.id}" min="0" max="100" value="${ind.score}" style="width:100%;" oninput="syncIndicatorScore('${ind.id}',this.value)"/><input class="ind-num-inp" type="number" id="num_${ind.id}" value="${ind.score}" min="0" max="100" oninput="syncIndicatorScore('${ind.id}',this.value)"/></div>`).join('')+'</div>';
   }).join('');
+}
+
+function syncIndicatorScore(id,value){
+  const v=Math.max(0,Math.min(100,parseInt(value)||0));
+  const slider=document.getElementById('ind_'+id),num=document.getElementById('num_'+id);
+  if(slider)slider.value=v;
+  if(num)num.value=v;
+  updatePreview();
 }
 
 function updatePreview(){
@@ -1026,18 +1019,16 @@ function updatePreview(){
 
 function equalScores(v){['E','S','G'].forEach(cat=>ESG_INDICATORS[cat].forEach(ind=>{const sl=document.getElementById('ind_'+ind.id),nm=document.getElementById('num_'+ind.id);if(sl)sl.value=v;if(nm)nm.value=v;}));updatePreview();}
 
-// ══ WEIGHT EDITOR ══
-function renderIndicatorWeightEditor(){
-  const cnames={E:'환경(E)',S:'사회(S)',G:'지배구조(G)'};
-  document.getElementById('indicatorWeightEditor').innerHTML=['E','S','G'].map(cat=>`<div style="font-family:monospace;font-size:10px;color:var(--accent2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;margin-top:14px;">${cnames[cat]}</div>`+ESG_INDICATORS[cat].map(ind=>`<div style="display:grid;grid-template-columns:1fr 50px;gap:8px;align-items:center;margin-bottom:7px;"><label style="font-size:11px;color:var(--text-dim);">${ind.name}</label><input class="ind-weight-input" type="number" id="wt_${ind.id}" value="${ind.weight}" min="0" max="100" oninput="ESG_INDICATORS['${cat}'].find(i=>i.id==='${ind.id}').weight=parseInt(this.value)||0;recalcResult()"/></div>`).join('')).join('');
-}
-
-function equalizeWeights(){['E','S','G'].forEach(cat=>{const n=ESG_INDICATORS[cat].length,w=Math.round(100/n);ESG_INDICATORS[cat].forEach(ind=>{ind.weight=w;const el=document.getElementById('wt_'+ind.id);if(el)el.value=w;});});recalcResult();}
-
-function updateCatWeights(){
+function updateCatWeights(changed){
   const eS=document.getElementById('wEnv'),sS=document.getElementById('wSoc');
   if(!eS||!sS)return;
-  const eW=parseInt(eS.value),sW=parseInt(sS.value),gW=Math.max(5,100-eW-sW);
+  let eW=parseInt(eS.value)||0,sW=parseInt(sS.value)||0;
+  if(eW+sW>100){
+    if(changed==='E')sW=Math.max(parseInt(sS.min)||0,100-eW);
+    else eW=Math.max(parseInt(eS.min)||0,100-sW);
+    eS.value=eW;sS.value=sW;
+  }
+  const gW=Math.max(0,100-eW-sW);
   catWeights={E:eW,S:sW,G:gW};
   document.getElementById('wE').textContent=eW;document.getElementById('wS').textContent=sW;
   document.getElementById('catWeightDisplay').innerHTML=['E','S','G'].map((k,i)=>`<div class="weight-item"><div class="wi-label">${{E:'환경(E)',S:'사회(S)',G:'지배구조(G)'}[k]}</div><div class="wi-val ${['wi-e','wi-s','wi-g'][i]}">${catWeights[k]}%</div></div>`).join('');
@@ -1159,11 +1150,36 @@ function escapeHtml(str){return String(str).replace(/&/g,'&amp;').replace(/</g,'
 async function handleFile(event){
   const file=event.target.files[0];if(!file)return;
   const ext=file.name.split('.').pop().toLowerCase();
-  if(['pdf','doc','docx'].includes(ext)){document.getElementById('fileStatus').textContent='⚠️ PDF·DOCX 미지원. TXT/CSV 또는 아래 텍스트 입력란을 이용하세요.';return;}
+  const textLike=['txt','csv','md','json','html','htm'];
+  const supported=[...textLike,'pdf','doc','docx','ppt','pptx','xls','xlsx'];
+  if(!supported.includes(ext)){document.getElementById('fileStatus').textContent='⚠️ 지원하지 않는 파일 형식입니다.';return;}
   if(file.size>10*1024*1024){document.getElementById('fileStatus').textContent='⚠️ 파일이 너무 큽니다 (최대 10MB).';return;}
-  document.getElementById('fileStatus').textContent=`📎 ${file.name} (${(file.size/1024).toFixed(1)}KB) 로드됨`;
-  const text=await new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=()=>rej(new Error('읽기 실패'));r.readAsText(file);});
-  document.getElementById('manualText').value=text.slice(0,4000);
+  document.getElementById('fileStatus').textContent=`📎 ${file.name} (${(file.size/1024).toFixed(1)}KB) 로드 중...`;
+  try{
+    let text='';
+    if(textLike.includes(ext)){
+      text=await readFileAsText(file);
+    }else{
+      const buffer=await readFileAsArrayBuffer(file);
+      text=extractReadableText(buffer);
+    }
+    const clean=text.replace(/\s+/g,' ').trim();
+    document.getElementById('manualText').value=(clean||`${file.name} ${ext.toUpperCase()} 내부 ESG 자료 업로드됨`).slice(0,4000);
+    document.getElementById('fileStatus').textContent=`📎 ${file.name} (${(file.size/1024).toFixed(1)}KB) 로드됨`;
+  }catch(err){
+    document.getElementById('fileStatus').textContent='⚠️ 파일을 읽는 중 오류가 발생했습니다.';
+  }
+}
+function readFileAsText(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result||'');r.onerror=()=>rej(new Error('읽기 실패'));r.readAsText(file);});}
+function readFileAsArrayBuffer(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=()=>rej(new Error('읽기 실패'));r.readAsArrayBuffer(file);});}
+function extractReadableText(buffer){
+  const raw=new TextDecoder('utf-8',{fatal:false}).decode(new Uint8Array(buffer));
+  return raw
+    .replace(/<[^>]+>/g,' ')
+    .replace(/[^\uAC00-\uD7A3a-zA-Z0-9%.,:;()\/+\-\s]/g,' ')
+    .split(/\s+/)
+    .filter(w=>w.length>1)
+    .join(' ');
 }
 function handleDrop(e){e.preventDefault();document.getElementById('uploadZone').classList.remove('drag');const file=e.dataTransfer.files[0];if(file){handleFile({target:{files:[file]}});}}
 
@@ -1311,7 +1327,7 @@ function generateReport(){
   };
   const payload=JSON.stringify(data);
   try{localStorage.setItem('esg_report',payload);}catch(e){}
-  const reportUrl=new URL('report.html',window.location.href).href+'#data='+encodeURIComponent(payload);
+  const reportUrl=new URL('report%20(4).html',window.location.href).href+'#data='+encodeURIComponent(payload);
   const opened=window.open(reportUrl,'_blank');
   if(!opened)window.location.href=reportUrl;
 }
