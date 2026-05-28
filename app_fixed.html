@@ -1360,7 +1360,7 @@ function generateReport(){
   };
   const payload=JSON.stringify(data);
   try{localStorage.setItem('esg_report',payload);}catch(e){}
-  const reportUrl=new URL('report.html',window.location.href).href+'#data='+encodeURIComponent(payload);
+  const reportUrl= window.location.origin + '/report.html';
   const opened=window.open(reportUrl,'_blank');
   if(!opened)window.location.href=reportUrl;
 }
