@@ -1311,7 +1311,7 @@ function generateReport(){
   };
   const payload=JSON.stringify(data);
   try{localStorage.setItem('esg_report',payload);}catch(e){}
-  const reportUrl=new URL('report(4).html',window.location.href).href+'#data='+encodeURIComponent(payload);
+  const reportUrl=new URL('report.html',window.location.href).href+'#data='+encodeURIComponent(payload);
   const opened=window.open(reportUrl,'_blank');
   if(!opened)window.location.href=reportUrl;
 }
