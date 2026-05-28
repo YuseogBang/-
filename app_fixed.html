@@ -1,6 +1,4 @@
-bash
 
-cat > /tmp/build_app.py << 'PYEOF'
 html = r"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -790,14 +788,6 @@ textarea:focus{border-color:var(--accent);}
 </div><!-- /screen-result -->
 </div><!-- /app -->
 """
-
-with open('/mnt/user-data/outputs/app_v3.html','w') as f:
-    f.write(html)
-print(f"HTML written: {len(html):,} chars")
-PYEOF
-python3 /tmp/build_app.py
-
-  bash
 
 cat >> /mnt/user-data/outputs/app_v3.html << 'JSEOF'
 <script>
