@@ -1309,8 +1309,11 @@ function generateReport(){
     audit:{score:auditScore,disclosureScore:Math.round(disclosureScore)},
     documentInsights,dealDiligence,preset:currentPreset
   };
-  try{localStorage.setItem('esg_report',JSON.stringify(data));}catch(e){}
-  window.open('report (4).html','_blank');
+  const payload=JSON.stringify(data);
+  try{localStorage.setItem('esg_report',payload);}catch(e){}
+  const reportUrl=new URL('report%20(4).html',window.location.href).href+'#data='+encodeURIComponent(payload);
+  const opened=window.open(reportUrl,'_blank');
+  if(!opened)window.location.href=reportUrl;
 }
 
 // ══ UTILITIES ══
