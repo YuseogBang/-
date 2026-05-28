@@ -237,9 +237,9 @@ textarea:focus{border-color:var(--accent);}
 
 /* RESULT TABS */
 .result-tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid var(--border);align-items:center;}
-.rtab{font-size:11px;font-weight:700;padding:9px 16px;cursor:pointer;color:var(--text-dim);border-bottom:2px solid transparent;transition:all .2s;letter-spacing:.05em;text-transform:uppercase;}
-.rtab.active{color:var(--accent);border-bottom-color:var(--accent);}
-.rtab:hover:not(.active){color:var(--text);}
+.rtab{font-size:13px;font-weight:800;padding:12px 22px;cursor:pointer;color:var(--text-dim);border:1px solid transparent;border-bottom:2px solid transparent;border-radius:10px 10px 0 0;transition:all .2s;letter-spacing:.04em;text-transform:uppercase;background:rgba(15,23,42,.35);min-width:118px;text-align:center;}
+.rtab.active{color:var(--text-bright);border-color:rgba(59,130,246,.35);border-bottom-color:var(--accent);background:linear-gradient(135deg,rgba(59,130,246,.22),rgba(34,211,238,.08));box-shadow:0 8px 22px rgba(59,130,246,.12);}
+.rtab:hover:not(.active){color:var(--text);background:rgba(59,130,246,.08);border-color:rgba(99,120,180,.22);}
 .rtab-panel{display:none;}
 .rtab-panel.active{display:block;animation:fadeUp .3s ease both;}
 
@@ -276,11 +276,11 @@ textarea:focus{border-color:var(--accent);}
 .chart-label{font-family:monospace;font-size:10px;color:var(--text-dim);margin-bottom:10px;letter-spacing:.08em;text-transform:uppercase;}
 
 /* IMPACT BARS */
-.impact-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
-.impact-label{width:155px;font-size:11px;color:var(--text-dim);flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.impact-bar-wrap{flex:1;height:8px;border-radius:99px;background:var(--surface2);position:relative;}
+.impact-row{display:grid;grid-template-columns:minmax(95px,155px) minmax(90px,1fr) 68px;align-items:center;gap:10px;margin-bottom:7px;}
+.impact-label{font-size:11px;color:var(--text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.impact-bar-wrap{height:8px;border-radius:99px;background:var(--surface2);position:relative;overflow:hidden;}
 .impact-fill{height:100%;border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1);position:relative;}
-.impact-fill::after{content:attr(data-v);position:absolute;right:-36px;top:50%;transform:translateY(-50%);font-family:monospace;font-size:9px;color:var(--text-dim);white-space:nowrap;}
+.impact-value{font-family:monospace;font-size:9px;color:var(--text-dim);text-align:right;white-space:nowrap;}
 .ip-neg{background:linear-gradient(90deg,#f43f5e,rgba(244,63,94,.4));}
 .ip-pos{background:linear-gradient(90deg,rgba(34,197,94,.4),#22c55e);}
 
@@ -362,7 +362,8 @@ textarea:focus{border-color:var(--accent);}
 .dps-pending{background:rgba(99,120,180,.1);border:1px solid var(--border);color:var(--text-dim);}
 .deal-checklist{display:flex;flex-direction:column;gap:4px;}
 .dc-item{display:flex;align-items:flex-start;gap:7px;font-size:11px;}
-.dc-check{width:16px;height:16px;border-radius:4px;display:grid;place-items:center;font-size:9px;flex-shrink:0;margin-top:1px;}
+.dc-check{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;font-size:10px;flex-shrink:0;margin-top:0;cursor:pointer;transition:all .15s;}
+.dc-check:hover{transform:translateY(-1px);border-color:var(--accent);}
 .dc-done{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:#4ade80;}
 .dc-active{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);color:var(--accent);}
 .dc-pend{background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);}
@@ -380,6 +381,10 @@ textarea:focus{border-color:var(--accent);}
 /* LAYOUTS */
 .l2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;}
 .l2w{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.overview-pair{align-items:stretch;}
+.overview-pair>.card{height:100%;min-height:152px;width:100%;display:flex;flex-direction:column;margin-top:0;}
+.overview-pair>.card+.card{margin-top:0;}
+.overview-pair #impactBars,.overview-pair .reg-framework-row{flex:1;}
 ::-webkit-scrollbar{width:5px;height:5px;}
 ::-webkit-scrollbar-track{background:var(--surface);}
 ::-webkit-scrollbar-thumb{background:var(--border-bright);border-radius:3px;}
@@ -693,36 +698,31 @@ textarea:focus{border-color:var(--accent);}
     <div class="chart-wrap"><div class="chart-label">ESG 리스크 레이더</div><canvas id="radarChart" height="190"></canvas></div>
     <div class="chart-wrap"><div class="chart-label">멀티플 분해 (BUY vs SELL)</div><canvas id="multChart" height="190"></canvas></div>
   </div>
-  <div class="l2">
-    <div>
-      <div class="card"><div class="card-title"><span class="card-title-dot"></span>세부 지표별 EV 영향 (억원)</div><div id="impactBars"></div></div>
-      <div class="card" style="margin-top:14px;"><div class="card-title"><span class="card-title-dot"></span>규제 프레임워크 준수 현황</div>
-        <div class="reg-framework-row" id="regFrameworkRow"></div>
-        <div class="reg-framework-legend">
-          <span><span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;"></span>충족</span>
-          <span><span style="width:6px;height:6px;border-radius:50%;background:#fbbf24;display:inline-block;"></span>일부</span>
-          <span><span style="width:6px;height:6px;border-radius:50%;background:#f87171;display:inline-block;"></span>미충족</span>
-        </div>
-      </div>
-      <div class="audit-gauge-wrap" style="margin-top:14px;">
-        <div class="audit-gauge-header">
-          <div class="audit-gauge-title">감사 준비도 (Audit Readiness)</div>
-          <div class="audit-grade-badge" id="auditGradeBadge">—</div>
-        </div>
-        <div class="audit-gauge-svg-wrap">
-          <svg class="audit-gauge-svg" viewBox="0 0 180 100">
-            <path d="M15,90 A75,75 0 0,1 165,90" fill="none" stroke="rgba(99,120,180,0.15)" stroke-width="14" stroke-linecap="round"/>
-            <path d="M15,90 A75,75 0 0,1 165,90" fill="none" id="auditGaugePath" stroke="#22c55e" stroke-width="14" stroke-linecap="round" stroke-dasharray="235" stroke-dashoffset="235" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1),stroke .5s;"/>
-            <text x="90" y="82" text-anchor="middle" font-size="26" font-weight="800" font-family="Pretendard,sans-serif" fill="#f8fafc" id="auditGaugeVal">0</text>
-            <text x="90" y="96" text-anchor="middle" font-size="9" font-family="Pretendard,monospace" fill="#64748b">/ 100점</text>
-          </svg>
-        </div>
-        <div class="audit-factors" id="auditFactors"></div>
+  <div class="l2 overview-pair">
+    <div class="card"><div class="card-title"><span class="card-title-dot"></span>세부 지표별 EV 영향 (억원)</div><div id="impactBars"></div></div>
+    <div class="card"><div class="card-title"><span class="card-title-dot"></span>규제 프레임워크 준수 현황</div>
+      <div class="reg-framework-row" id="regFrameworkRow"></div>
+      <div class="reg-framework-legend">
+        <span><span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;"></span>충족</span>
+        <span><span style="width:6px;height:6px;border-radius:50%;background:#fbbf24;display:inline-block;"></span>일부</span>
+        <span><span style="width:6px;height:6px;border-radius:50%;background:#f87171;display:inline-block;"></span>미충족</span>
       </div>
     </div>
-    <div>
-      <div class="card"><div class="card-title"><span class="card-title-dot"></span>사회(S) / 지배구조(G)</div><div id="indResultSG"></div></div>
+  </div>
+  <div class="audit-gauge-wrap" style="margin-top:14px;">
+    <div class="audit-gauge-header">
+      <div class="audit-gauge-title">감사 준비도 (Audit Readiness)</div>
+      <div class="audit-grade-badge" id="auditGradeBadge">—</div>
     </div>
+    <div class="audit-gauge-svg-wrap">
+      <svg class="audit-gauge-svg" viewBox="0 0 180 100">
+        <path d="M15,90 A75,75 0 0,1 165,90" fill="none" stroke="rgba(99,120,180,0.15)" stroke-width="14" stroke-linecap="round"/>
+        <path d="M15,90 A75,75 0 0,1 165,90" fill="none" id="auditGaugePath" stroke="#22c55e" stroke-width="14" stroke-linecap="round" stroke-dasharray="235" stroke-dashoffset="235" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1),stroke .5s;"/>
+        <text x="90" y="82" text-anchor="middle" font-size="26" font-weight="800" font-family="Pretendard,sans-serif" fill="#f8fafc" id="auditGaugeVal">0</text>
+        <text x="90" y="96" text-anchor="middle" font-size="9" font-family="Pretendard,monospace" fill="#64748b">/ 100점</text>
+      </svg>
+    </div>
+    <div class="audit-factors" id="auditFactors"></div>
   </div>
 </div>
 
@@ -753,7 +753,7 @@ textarea:focus{border-color:var(--accent);}
     </div>
     <div class="card" style="margin-top:14px;">
       <div class="card-title"><span class="card-title-dot"></span>딜 리스크 종합 현황</div>
-      <div id="dealRiskSummary" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;"></div>
+      <div id="dealRiskSummary" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;"></div>
     </div>
   </div>
 </div>
@@ -802,6 +802,7 @@ let aiPendingScores=null,analysisHistory=[];
 let documentInsights=null;
 let radarChart=null,multChartInst=null;
 let peerOpen=false;
+let dealCheckState={};
 
 // ══ BOOT ══
 document.addEventListener('DOMContentLoaded',()=>{
@@ -913,11 +914,11 @@ function computeAndRender(){
   [{k:'E',v:eS},{k:'S',v:sS},{k:'G',v:gS}].forEach(({k,v:sc})=>{document.getElementById('r'+k).textContent=sc.toFixed(1);document.getElementById('r'+k+'Bar').style.width=sc+'%';});
 
   // sub renders
-  renderIndResults(eS,sS,gS);
   updateImpactBars(inp.ebitda,v.base,{sa:inp.sa,ev:inp.ev,ac:inp.ac,ci:inp.ci,dev:v.dev});
   updateRegFrameworks(total);
   updateAuditGauge(total,eS,sS,gS,inp.sa,inp.ev,inp.ac,inp.ci);
   initCharts(total,eS,sS,gS,v.base,v.buyMult,v.sellMult,inp);
+  if(document.getElementById('rtab-dealroom').classList.contains('active'))renderDealRoom();
   updateCatWeights();
 }
 
@@ -958,7 +959,7 @@ function initCharts(total,eS,sS,gS,base,buyMult,sellMult,inp){
 function updateImpactBars(ebitda,base,{sa,ev,ac,ci,dev}){
   const items=[{label:'중대재해 영향',v:betaCoeffs.sa*sa*COEFFS.SA_UNIT*ebitda,cls:'ip-neg'},{label:'환경위반 영향',v:betaCoeffs.ev*ev*COEFFS.EV_UNIT*ebitda,cls:'ip-neg'},{label:'반부패 영향',v:betaCoeffs.ac*ac*COEFFS.AC_UNIT*ebitda,cls:'ip-neg'},{label:'정보보안 영향',v:betaCoeffs.ci*ci*COEFFS.CI_UNIT*ebitda,cls:'ip-neg'},{label:'ESG 점수 영향',v:COEFFS.ESG_DEV_UNIT*dev*ebitda,cls:''}].filter(i=>Math.abs(i.v)>0.5).map(i=>({...i,cls:i.cls||(i.v>=0?'ip-pos':'ip-neg')}));
   const maxA=Math.max(1,...items.map(i=>Math.abs(i.v)));
-  document.getElementById('impactBars').innerHTML=items.length?items.map(i=>`<div class="impact-row"><div class="impact-label">${i.label}</div><div class="impact-bar-wrap"><div class="impact-fill ${i.cls}" style="width:${(Math.abs(i.v)/maxA*100).toFixed(0)}%" data-v="${(i.v>=0?'+':'')+Math.round(i.v).toLocaleString('ko-KR')}억"></div></div></div>`).join(''):`<div style="font-size:11px;color:var(--text-dim);padding:6px 0;">리스크 조정 없음</div>`;
+  document.getElementById('impactBars').innerHTML=items.length?items.map(i=>{const val=(i.v>=0?'+':'')+Math.round(i.v).toLocaleString('ko-KR')+'억';return`<div class="impact-row"><div class="impact-label">${i.label}</div><div class="impact-bar-wrap"><div class="impact-fill ${i.cls}" style="width:${(Math.abs(i.v)/maxA*100).toFixed(0)}%"></div></div><div class="impact-value">${val}</div></div>`;}).join(''):`<div style="font-size:11px;color:var(--text-dim);padding:6px 0;">리스크 조정 없음</div>`;
 }
 
 // ══ REG FRAMEWORKS ══
@@ -985,13 +986,6 @@ function updateAuditGauge(total,eS,sS,gS,sa,ev,ac,ci){
 }
 
 // ══ INDICATOR RESULTS ══
-function renderIndResults(eS,sS,gS){
-  document.getElementById('indResultSG').innerHTML=makeIG('S','사회(S)','ig-s',sS,'fs')+makeIG('G','지배구조(G)','ig-g',gS,'fg');
-}
-function makeIG(cat,label,hdrCls,score,fCls){
-  return`<div class="indicator-group"><div class="ig-header ${hdrCls}"><span>${label}</span><span class="ig-score">${score.toFixed(1)}점</span></div>`+ESG_INDICATORS[cat].map(ind=>{const v=parseFloat(document.getElementById('ind_'+ind.id)?.value||ind.score);return`<div class="ind-res-row"><div style="font-size:11px;color:var(--text);">${ind.name}</div><div class="ind-bar"><div class="ind-bar-fill ${fCls}" style="width:${v}%"></div></div><div class="ind-r-num">${v}</div></div>`;}).join('')+'</div>';
-}
-
 // ══ INPUT AREA ══
 function renderIndInputArea(){
   const cfg={E:{label:'환경(E)',cls:'ind-sec-e'},S:{label:'사회(S)',cls:'ind-sec-s'},G:{label:'지배구조(G)',cls:'ind-sec-g'}};
@@ -1122,27 +1116,66 @@ function buildSensitivity(){
 function renderDealRoom(){
   const{total,eS,sS,gS}=calcESG();
   const inp=getInputs();
-  renderDealTimeline();renderSupplierRisk(total,inp.sa,inp.ev);renderDealRiskSummary(total,inp.sa,inp.ev,inp.ac,inp.ci);
+  renderDealTimeline(total,eS,sS,gS,inp);renderSupplierRisk(total,eS,sS,gS,inp);renderDealRiskSummary(total,eS,sS,gS,inp);
 }
-function renderDealTimeline(){
-  document.getElementById('dealTimeline').innerHTML=DEAL_PHASES.map(phase=>{
-    const ic=phase.status==='done'?'dp-done':phase.status==='active'?'dp-active':'dp-pending';
-    const cc=phase.status==='done'?'dps-done':phase.status==='active'?'dps-active':'dps-pending';
-    const ct=phase.status==='done'?'완료':phase.status==='active'?'진행 중':'대기';
-    return`<div class="deal-phase"><div class="deal-phase-icon ${ic}">${phase.icon}</div><div class="deal-phase-body"><div class="deal-phase-title">${phase.title}<span class="dp-status-chip ${cc}">${ct}</span></div><div class="deal-checklist">${phase.items.map(item=>{const dc=item.done?'dc-done':item.active?'dc-active':'dc-pend';return`<div class="dc-item"><div class="dc-check ${dc}">${item.done?'✓':item.active?'▶':'·'}</div><span class="${item.done?'dc-done-text':''}">${item.text}</span></div>`;}).join('')}</div></div></div>`;
+function buildDealPhases(total,eS,sS,gS,inp){
+  const riskTotal=inp.sa+inp.ev+inp.ac+inp.ci,company=escapeHtml(inp.name),sector=escapeHtml(inp.sector);
+  const lowRisk=riskTotal<=3&&total>=65,deepDive=riskTotal>=6||total<55,regReady=total>=68&&gS>=60&&inp.ac<=1;
+  return[
+    {icon:'🔍',title:'초기 스크리닝',items:[{text:`${company} 기업 개요 및 ${sector} 사업 모델 검토`,done:true},{text:`EBITDA ${Math.round(inp.ebitda).toLocaleString('ko-KR')}억 기준 재무 하이라이트 확인`,done:true},{text:`ESG 종합 ${total.toFixed(1)}점 기반 예비 리스크 분류`,done:total>=50}]},
+    {icon:'📋',title:'LOI 체결 · 실사 준비',items:[{text:'NDA 체결 및 VDR 접근 권한 부여',done:true},{text:`${sector} 업종 실사 체크리스트 확정`,done:true},{text:riskTotal>0?`리스크 사건 ${riskTotal}건 원자료 요청`:'중대 리스크 사건 미식별',done:riskTotal<=3,active:riskTotal>3}]},
+    {icon:'🌿',title:deepDive?'ESG 심층 실사 진행':'ESG 표준 실사 진행',items:[{text:`환경 위반 ${inp.ev}건 · 환경 점수 ${eS.toFixed(1)}점 검토`,done:inp.ev===0&&eS>=60,active:inp.ev>0||eS<60},{text:`중대재해 ${inp.sa}건 · 사회 점수 ${sS.toFixed(1)}점 검토`,done:inp.sa===0&&sS>=60,active:inp.sa>0||sS<60},{text:`반부패 ${inp.ac}건 · 정보보안 ${inp.ci}건 검토`,done:inp.ac+inp.ci===0&&gS>=60,active:inp.ac+inp.ci>0||gS<60},{text:'공급망 ESG 리스크 현장 실사',done:lowRisk,active:!lowRisk}]},
+    {icon:'⚖️',title:'밸류에이션 · 협상',items:[{text:'BUY-SIDE EV 산출 결과 반영',done:true},{text:total>=70?'ESG 프리미엄 논리 정리':'ESG 리스크 할인율 협상안 준비',done:total>=70,active:total<70},{text:deepDive?'Earn-out 및 손해보전 조항 설계':'표준 가격 조정 조항 검토',done:!deepDive,active:deepDive}]},
+    {icon:'✍️',title:'SPA 체결 · 클로징',items:[{text:'SPA ESG 진술·보장 조항 검토',done:regReady,active:!regReady},{text:regReady?'규제 프레임워크 충족 확인':'규제 갭 보완 계획 확정',done:regReady,active:!regReady},{text:'대금 지급 · 소유권 이전 준비',done:false}]},
+    {icon:'🔗',title:'PMI · 통합 관리',items:[{text:`${company} ESG 개선 로드맵 수립`,done:false},{text:'공급망 ESG 기준 일원화',done:false},{text:deepDive?'100일 리스크 개선 과제 추적':'통합 ESG 보고 체계 구축',done:false}]}
+  ];
+}
+function renderDealTimeline(total,eS,sS,gS,inp){
+  const phases=buildDealPhases(total,eS,sS,gS,inp);
+  document.getElementById('dealTimeline').innerHTML=phases.map((phase,pi)=>{
+    const items=phase.items.map((item,ii)=>({...item,done:dealCheckState[`${pi}_${ii}`]??item.done}));
+    const doneCount=items.filter(i=>i.done).length,hasActive=items.some(i=>i.active&&!i.done);
+    const status=doneCount===items.length?'done':hasActive||doneCount>0?'active':'pending';
+    const ic=status==='done'?'dp-done':status==='active'?'dp-active':'dp-pending';
+    const cc=status==='done'?'dps-done':status==='active'?'dps-active':'dps-pending';
+    const ct=status==='done'?'완료':status==='active'?'진행 중':'대기';
+    return`<div class="deal-phase"><div class="deal-phase-icon ${ic}">${phase.icon}</div><div class="deal-phase-body"><div class="deal-phase-title">${phase.title}<span class="dp-status-chip ${cc}">${ct}</span></div><div class="deal-checklist">${items.map((item,ii)=>{const dc=item.done?'dc-done':item.active?'dc-active':'dc-pend';return`<div class="dc-item"><button type="button" class="dc-check ${dc}" onclick="toggleDealItem(${pi},${ii},${item.done?1:0})" title="완료 체크">${item.done?'✓':item.active?'▶':'·'}</button><span class="${item.done?'dc-done-text':''}">${item.text}</span></div>`;}).join('')}</div></div></div>`;
   }).join('');
 }
-function renderSupplierRisk(total,sa,ev){
-  const esgBonus=Math.max(-20,Math.min(20,(total-70)*0.4)),rm=sa*4+ev*2;
-  document.getElementById('supplierRiskList').innerHTML=SUPPLIER_LIST.map(s=>{
-    const score=Math.max(0,Math.min(100,s.baseRisk+rm-esgBonus)),safe=Math.round(100-score);
+function toggleDealItem(phaseIdx,itemIdx,currentDone){
+  const key=`${phaseIdx}_${itemIdx}`;
+  dealCheckState[key]=!Boolean(currentDone);
+  renderDealRoom();
+}
+function getSectorRiskBias(sector){
+  if(/건설|중공업|제조|철강|화학|소재/.test(sector))return 8;
+  if(/환경|폐기|에너지/.test(sector))return 5;
+  if(/플랫폼|IT|반도체|전자|소프트웨어/.test(sector))return -3;
+  return 0;
+}
+function getSupplierListForSector(sector){
+  if(/건설/.test(sector))return ['Tier-1 · 골조/시공','Tier-1 · 안전장비','Tier-2 · 레미콘','Tier-2 · 폐기물 처리','Tier-3 · 현장 하도급','Tier-3 · 해외 자재'];
+  if(/제조|철강|화학|소재/.test(sector))return ['Tier-1 · 원재료','Tier-1 · 설비정비','Tier-2 · 물류','Tier-2 · 포장재','Tier-3 · 해외 원료','Tier-3 · 폐수/폐기물'];
+  if(/IT|플랫폼|반도체|전자|소프트웨어/.test(sector))return ['Tier-1 · 클라우드','Tier-1 · 보안 운영','Tier-2 · 데이터 처리','Tier-2 · 전자부품','Tier-3 · 해외 개발','Tier-3 · 고객지원'];
+  return SUPPLIER_LIST.map(s=>s.name);
+}
+function renderSupplierRisk(total,eS,sS,gS,inp){
+  const esgBonus=Math.max(-20,Math.min(20,(total-70)*0.4)),sectorBias=getSectorRiskBias(inp.sector);
+  const riskMalus=inp.sa*5+inp.ev*3+inp.ac*4+inp.ci*3+(65-eS)*0.08+(65-sS)*0.08+(65-gS)*0.08;
+  const suppliers=getSupplierListForSector(inp.sector);
+  document.getElementById('supplierRiskList').innerHTML=suppliers.map((name,i)=>{
+    const base=SUPPLIER_LIST[i]?.baseRisk||35;
+    const score=Math.max(0,Math.min(100,base+sectorBias+riskMalus-esgBonus)),safe=Math.round(100-score);
     let bc,bt,bc2;if(score>=60){bc='sr-high';bt='HIGH';bc2='#f87171';}else if(score>=35){bc='sr-med';bt='MED';bc2='#fbbf24';}else{bc='sr-low';bt='LOW';bc2='#4ade80';}
-    return`<div class="supplier-risk-item"><div>${s.name}</div><div class="sr-bar-wrap"><div class="sr-bar-fill" style="width:${score}%;background:${bc2};opacity:.8;"></div></div><div class="sr-score" style="color:${bc2};">${safe}점</div><div class="sr-badge ${bc}">${bt}</div></div>`;
+    return`<div class="supplier-risk-item"><div>${escapeHtml(name)}</div><div class="sr-bar-wrap"><div class="sr-bar-fill" style="width:${score}%;background:${bc2};opacity:.8;"></div></div><div class="sr-score" style="color:${bc2};">${safe}점</div><div class="sr-badge ${bc}">${bt}</div></div>`;
   }).join('');
 }
-function renderDealRiskSummary(total,sa,ev,ac,ci){
-  const esgBonus=Math.max(-20,Math.min(20,(total-70)*0.4)),highRisk=SUPPLIER_LIST.filter(s=>(s.baseRisk+(sa*4+ev*2)-esgBonus)>=60).length,fPass=REG_FRAMEWORKS.filter(f=>total>=f.minScore+10).length,te=sa+ev+ac+ci;
-  document.getElementById('dealRiskSummary').innerHTML=[{label:'고위험 공급사',val:`${highRisk}건`,color:highRisk>2?'#f87171':'#4ade80'},{label:'규제 충족',val:`${fPass}/${REG_FRAMEWORKS.length}`,color:fPass>=8?'#4ade80':fPass>=5?'#fbbf24':'#f87171'},{label:'리스크 사건',val:`${te}건`,color:te<=3?'#4ade80':te<=7?'#fbbf24':'#f87171'}].map(i=>`<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;"><div style="font-size:10px;color:var(--text-dim);margin-bottom:5px;font-family:monospace;">${i.label}</div><div style="font-size:22px;font-weight:800;color:${i.color};">${i.val}</div></div>`).join('');
+function renderDealRiskSummary(total,eS,sS,gS,inp){
+  const esgBonus=Math.max(-20,Math.min(20,(total-70)*0.4)),sectorBias=getSectorRiskBias(inp.sector);
+  const riskMalus=inp.sa*5+inp.ev*3+inp.ac*4+inp.ci*3+(65-eS)*0.08+(65-sS)*0.08+(65-gS)*0.08;
+  const highRisk=SUPPLIER_LIST.filter(s=>(s.baseRisk+sectorBias+riskMalus-esgBonus)>=60).length,fPass=REG_FRAMEWORKS.filter(f=>total>=f.minScore+10).length,te=inp.sa+inp.ev+inp.ac+inp.ci;
+  const phase=te<=3&&total>=65?'표준 실사':te>=7||total<55?'심화 실사':'조건부 실사';
+  document.getElementById('dealRiskSummary').innerHTML=[{label:'실사 단계',val:phase,color:phase==='표준 실사'?'#4ade80':phase==='조건부 실사'?'#fbbf24':'#f87171'},{label:'고위험 공급사',val:`${highRisk}건`,color:highRisk>2?'#f87171':highRisk>0?'#fbbf24':'#4ade80'},{label:'규제 충족',val:`${fPass}/${REG_FRAMEWORKS.length}`,color:fPass>=8?'#4ade80':fPass>=5?'#fbbf24':'#f87171'},{label:'리스크 사건',val:`${te}건`,color:te<=3?'#4ade80':te<=7?'#fbbf24':'#f87171'}].map(i=>`<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;"><div style="font-size:10px;color:var(--text-dim);margin-bottom:5px;font-family:monospace;">${i.label}</div><div style="font-size:20px;font-weight:800;color:${i.color};">${i.val}</div></div>`).join('');
 }
 
 // ══ AI ANALYSIS ══
