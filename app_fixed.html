@@ -502,6 +502,56 @@ textarea:focus{border-color:var(--accent);}
         <input type="range" id="cyberIncidents" min="0" max="10" value="0" oninput="document.getElementById('lCI').textContent=this.value;updatePreview()"/></div>
     </div>
   </div>
+
+  <!-- ESG 카테고리 가중치 (1단계) -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-dot"></span>E/S/G 카테고리 가중치</div>
+    <div class="weight-grid" id="catWeightDisplay1"></div>
+    <div class="sec-label">카테고리 비중 조정</div>
+    <div class="field"><label>환경(E) % <span class="val" id="wE1">40</span></label>
+      <input type="range" id="wEnv1" min="10" max="70" value="40" oninput="syncWeights1();updatePreview()"/></div>
+    <div class="field"><label>사회(S) % <span class="val" id="wS1">35</span></label>
+      <input type="range" id="wSoc1" min="10" max="60" value="35" oninput="syncWeights1();updatePreview()"/></div>
+    <p style="font-size:10px;color:var(--text-dim);margin-top:3px;">※ 지배구조(G)는 100-E-S로 자동 계산됩니다.</p>
+    <div class="sec-label" style="margin-top:14px;">인수자 리스크 β 계수</div>
+    <div class="grid-2">
+      <div class="field"><label>중대재해 β <span class="val" id="lB1">-8</span></label>
+        <input type="range" id="beta1" min="-20" max="0" value="-8" oninput="syncB('beta1','lB1');recalcResult()"/></div>
+      <div class="field"><label>환경위반 β <span class="val" id="lB2">-3</span></label>
+        <input type="range" id="beta2" min="-10" max="0" value="-3" oninput="syncB('beta2','lB2');recalcResult()"/></div>
+      <div class="field"><label>반부패 β <span class="val" id="lB3">-2</span></label>
+        <input type="range" id="beta3" min="-10" max="0" value="-2" oninput="syncB('beta3','lB3');recalcResult()"/></div>
+      <div class="field"><label>정보보안 β <span class="val" id="lB4">-1</span></label>
+        <input type="range" id="beta4" min="-10" max="0" value="-1" oninput="syncB('beta4','lB4');recalcResult()"/></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="resetCatWeights()">기본값 초기화</button>
+    </div>
+  </div>
+
+  <!-- 내부 자료 AI 분석 (1단계) -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-dot"></span>내부 자료 AI 분석 <span style="font-family:monospace;font-size:9px;padding:2px 7px;border-radius:3px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:var(--accent);margin-left:4px;">선택사항</span></div>
+    <p style="font-size:11px;color:var(--text-dim);margin-bottom:10px;line-height:1.7;">ESG 보고서·지속가능경영 보고서 등을 업로드하면 AI가 E/S/G 지표, 감사 준비도, 규제 준수 현황을 자동 추출합니다. 분석 실행 시 이 자료가 결과에 반영됩니다.</p>
+    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()"
+         ondragover="event.preventDefault();this.classList.add('drag')"
+         ondragleave="this.classList.remove('drag')"
+         ondrop="handleDrop(event)">
+      <div class="upload-icon">📄</div>
+      <div class="upload-text">파일 드래그 또는 클릭</div>
+      <div class="upload-sub">TXT · CSV / 최대 10MB<br><span style="color:rgba(99,120,180,.5);font-size:9px;">PDF·DOCX는 아래 텍스트 직접 붙여넣기를 이용하세요</span></div>
+      <input type="file" id="fileInput" accept=".txt,.csv" onchange="handleFile(event)"/>
+    </div>
+    <div id="fileStatus" style="margin-top:7px;font-family:monospace;font-size:10px;color:var(--text-dim);"></div>
+    <div class="sec-label" style="margin-top:12px;">텍스트 직접 입력</div>
+    <textarea id="manualText" rows="5" placeholder="ESG 보고서 내용을 붙여넣으세요. 예: 온실가스 감축률 12%, 중대재해 2건, 이사회 독립이사 비율 60%..."></textarea>
+    <div class="btn-row" style="margin-top:10px;">
+      <button class="btn btn-primary" onclick="preAnalyzeDoc()" id="preAnalyzeBtn">🤖 AI 분석 실행</button>
+    </div>
+    <div id="step1AiStatus" style="margin-top:8px;font-size:11px;color:var(--text-dim);min-height:18px;"></div>
+    <div class="ai-result" id="step1AiPreview" style="margin-top:10px;"></div>
+  </div>
+
 </div>
 
 <div>
