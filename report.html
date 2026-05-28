@@ -266,7 +266,8 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 // ─────────────────────────────────────────────
 let D = null;
 try {
-  const raw = localStorage.getItem('esg_report');
+  const hashData = location.hash.startsWith('#data=') ? decodeURIComponent(location.hash.slice(6)) : '';
+  const raw = hashData || localStorage.getItem('esg_report');
   if (raw) D = JSON.parse(raw);
 } catch(e){}
 
