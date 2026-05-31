@@ -44,7 +44,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 /* PHASE BAR */
 .phase-bar{display:flex;align-items:stretch;background:var(--surface);border-bottom:1px solid var(--border);margin-bottom:28px;}
-.phase-item{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 10px;cursor:pointer;transition:all .2s;position:relative;}
+.phase-item{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 10px;cursor:pointer;transition:all .2s;position:relative;text-align:left;}
 .phase-item:not(:last-child)::after{content:'›';position:absolute;right:-4px;top:50%;transform:translateY(-50%);color:var(--text-dim);font-size:18px;z-index:2;}
 .phase-item.active{background:rgba(59,130,246,0.1);border-bottom:2px solid var(--accent);}
 .phase-item.done{background:rgba(34,197,94,0.05);border-bottom:2px solid rgba(34,197,94,0.45);}
@@ -84,7 +84,7 @@ textarea:focus{border-color:var(--accent);}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 
 /* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-family:'Pretendard',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.05em;transition:all .2s;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-family:'Pretendard',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.05em;transition:all .2s;line-height:1.3;white-space:nowrap;text-align:center;}
 .btn-primary{background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;box-shadow:0 4px 14px rgba(59,130,246,0.3);}
 .btn-primary:hover{box-shadow:0 6px 20px rgba(59,130,246,0.45);transform:translateY(-1px);}
 .btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border-bright);}
@@ -92,12 +92,44 @@ textarea:focus{border-color:var(--accent);}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 .btn-row{display:flex;gap:8px;margin-top:12px;justify-content:flex-end;}
 .preset-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
-.preset-btn{font-family:monospace;font-size:10px;padding:3px 9px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);color:var(--text-dim);cursor:pointer;transition:all .15s;}
+.preset-btn{font-family:monospace;font-size:10px;padding:3px 9px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);color:var(--text-dim);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;line-height:1.4;white-space:nowrap;}
 .preset-btn:hover{border-color:var(--accent2);color:var(--accent2);}
 .preset-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(59,130,246,0.1);}
 
 /* SCREEN 1 LAYOUT */
-.input-layout{display:grid;grid-template-columns:420px 1fr;gap:18px;align-items:start;}
+.input-layout{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start;}
+@media(max-width:900px){.input-layout{grid-template-columns:1fr;}}
+
+/* 밸류에이션 방법론 탭 선택 */
+.vm-selector-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.vm-tab-selector{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);}
+.vm-sel-tab{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 10px;cursor:pointer;transition:all .2s;position:relative;border:none;background:none;overflow:hidden;}
+.vm-sel-tab:not(:last-child){border-right:1px solid var(--border);}
+.vm-sel-tab.active{background:rgba(59,130,246,.1);border-bottom:2px solid var(--accent);margin-bottom:-1px;}
+.vm-sel-tab:hover:not(.active){background:rgba(59,130,246,.04);}
+.vm-sel-tab-icon{font-size:14px;flex-shrink:0;}
+.vm-sel-tab-name{font-size:11px;font-weight:700;color:var(--text-dim);white-space:nowrap;}
+.vm-sel-tab.active .vm-sel-tab-name{color:var(--text-bright);}
+.vm-sel-tab-tag{font-family:monospace;font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;letter-spacing:.06em;opacity:.7;flex-shrink:0;white-space:nowrap;}
+.vm-sel-panel{display:none;padding:0;}.vm-sel-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:0;}
+.vm-sel-info{padding:16px;border-right:1px solid var(--border);overflow:auto;}
+.vm-sel-params{padding:16px;overflow:auto;}
+.vm-sel-title{font-size:13px;font-weight:800;color:var(--text-bright);display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.vm-sel-desc{font-size:11px;color:var(--text-dim);line-height:1.6;margin-bottom:8px;}
+.vm-sel-role{font-size:10px;color:var(--text-dim);font-style:italic;padding:8px 10px;background:var(--surface2);border-radius:6px;border-left:2px solid var(--accent);line-height:1.5;}
+.vm-sel-params-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;font-family:monospace;}
+/* 밸류에이션 3분할 (레거시 유지) */
+.vm-3col-layout{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:start;}
+.vm-3col-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.vm-3col-header{padding:12px 14px 10px;border-bottom:1px solid var(--border);}
+.vm-3col-tag{font-family:monospace;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.08em;}
+.vm-3col-body{padding:12px 14px;}
+
+/* ESG 지표 3분할 */
+.esg-3col-layout{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:start;}
+.esg-col-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.esg-col-header{padding:8px 12px;display:flex;align-items:center;justify-content:space-between;}
+.esg-col-body{padding:0 2px 8px;}
 
 /* PEER PANEL */
 .peer-panel{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px;}
@@ -105,7 +137,7 @@ textarea:focus{border-color:var(--accent);}
 .peer-header-left{display:flex;align-items:center;gap:8px;}
 .peer-title{font-size:11px;font-weight:700;color:var(--text);}
 .peer-multiple-badge{font-size:18px;font-weight:800;color:var(--gold);}
-.peer-toggle{font-size:10px;color:var(--text-dim);padding:2px 8px;border-radius:4px;border:1px solid var(--border);background:var(--surface);cursor:pointer;}
+.peer-toggle{font-size:10px;color:var(--text-dim);padding:2px 8px;border-radius:4px;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;line-height:1.5;flex-shrink:0;}
 .peer-toggle:hover{border-color:var(--accent2);color:var(--accent2);}
 .peer-body{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.4,0,.2,1);}
 .peer-body.open{max-height:600px;margin-top:10px;}
@@ -132,9 +164,10 @@ textarea:focus{border-color:var(--accent);}
 .ind-sec-s{background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.25);color:#fb923c;}
 .ind-sec-g{background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.25);color:#c4b5fd;}
 .ind-sec-score{font-family:monospace;font-size:11px;}
-.ind-row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(110px,150px) 54px;gap:8px;align-items:center;padding:6px 11px;border:1px solid var(--border);border-top:none;background:var(--surface2);}
-.ind-row:last-child{border-radius:0 0 8px 8px;}
-.ind-row:hover{background:rgba(59,130,246,0.04);}
+.ind-row{display:grid;grid-template-columns:minmax(100px,1fr) minmax(90px,130px) 46px;gap:6px;align-items:center;padding:6px 11px;border:1px solid var(--border);border-top:none;background:var(--surface2);}
+.esg-col-card .ind-row:first-child{border-top:none;}
+.esg-col-card .ind-row:last-child{border-radius:0 0 10px 10px;}
+.esg-col-card .ind-row:hover{background:rgba(59,130,246,0.04);}
 .ind-name{font-size:11px;color:var(--text);line-height:1.4;}
 .ind-num-inp{width:54px;min-width:54px;box-sizing:border-box;padding:3px 4px;border-radius:4px;border:1px solid var(--border);background:var(--surface);color:var(--text-bright);font-family:monospace;font-size:11px;text-align:center;outline:none;}
 .ind-num-inp:focus{border-color:var(--accent);}
@@ -173,7 +206,7 @@ textarea:focus{border-color:var(--accent);}
 .verdict-sub{font-family:monospace;font-size:10px;color:var(--text-dim);margin-top:6px;}
 
 /* EV HERO CARDS */
-.ev-hero-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;}
+.ev-hero-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;}
 .ev-hero-card{border-radius:14px;padding:18px 16px 14px;border:1px solid;position:relative;overflow:hidden;transition:transform .2s;}
 .ev-hero-card:hover{transform:translateY(-2px);}
 .ev-hero-card::before{content:'';position:absolute;top:0;right:0;width:80px;height:80px;border-radius:50%;opacity:.08;background:radial-gradient(circle,currentColor,transparent);}
@@ -237,7 +270,7 @@ textarea:focus{border-color:var(--accent);}
 
 /* RESULT TABS */
 .result-tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid var(--border);align-items:center;}
-.rtab{font-size:13px;font-weight:800;padding:12px 22px;cursor:pointer;color:var(--text-dim);border:1px solid transparent;border-bottom:2px solid transparent;border-radius:10px 10px 0 0;transition:all .2s;letter-spacing:.04em;text-transform:uppercase;background:rgba(15,23,42,.35);min-width:118px;text-align:center;}
+.rtab{font-size:11px;font-weight:700;padding:11px 14px;cursor:pointer;color:var(--text-dim);border:1px solid transparent;border-bottom:2px solid transparent;border-radius:10px 10px 0 0;transition:all .2s;letter-spacing:.03em;text-transform:uppercase;background:rgba(15,23,42,.35);flex:1;text-align:center;display:flex;align-items:center;justify-content:center;white-space:nowrap;line-height:1.3;}
 .rtab.active{color:var(--text-bright);border-color:rgba(59,130,246,.35);border-bottom-color:var(--accent);background:linear-gradient(135deg,rgba(59,130,246,.22),rgba(34,211,238,.08));box-shadow:0 8px 22px rgba(59,130,246,.12);}
 .rtab:hover:not(.active){color:var(--text);background:rgba(59,130,246,.08);border-color:rgba(99,120,180,.22);}
 .rtab-panel{display:none;}
@@ -345,7 +378,7 @@ textarea:focus{border-color:var(--accent);}
 .spinner{display:inline-block;width:12px;height:12px;border:2px solid rgba(6,182,212,.3);border-top-color:var(--accent2);border-radius:50%;animation:spin .7s linear infinite;}
 
 /* DEAL ROOM */
-.deal-layout{display:grid;grid-template-columns:420px 1fr;gap:18px;align-items:start;}
+.deal-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;}
 .deal-timeline{display:flex;flex-direction:column;}
 .deal-phase{display:flex;gap:14px;padding:12px 0;position:relative;}
 .deal-phase:not(:last-child)::before{content:'';position:absolute;left:15px;top:38px;bottom:-12px;width:1px;background:var(--border);}
@@ -388,6 +421,50 @@ textarea:focus{border-color:var(--accent);}
 ::-webkit-scrollbar{width:5px;height:5px;}
 ::-webkit-scrollbar-track{background:var(--surface);}
 ::-webkit-scrollbar-thumb{background:var(--border-bright);border-radius:3px;}
+
+/* ══ VALUATION METHOD SELECTOR ══ */
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.vm-card{border:1px solid var(--border);border-radius:9px;padding:11px 12px;cursor:pointer;transition:all .2s;background:var(--surface2);position:relative;}
+.vm-card:hover{border-color:var(--accent2);background:rgba(6,182,212,0.05);}
+.vm-card.vm-selected{border-color:var(--accent);background:rgba(59,130,246,0.08);box-shadow:0 0 0 1px rgba(59,130,246,0.25);}
+.vm-card.vm-recommended{border-color:var(--gold);background:rgba(245,158,11,0.07);}
+.vm-card.vm-recommended.vm-selected{border-color:var(--accent);background:rgba(59,130,246,0.08);}
+.vm-rec-badge{position:absolute;top:-8px;right:10px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.4);color:#fbbf24;letter-spacing:.06em;font-family:monospace;}
+.vm-name{font-size:11px;font-weight:700;color:var(--text-bright);margin-bottom:3px;display:flex;align-items:center;gap:6px;}
+.vm-icon{font-size:14px;}
+.vm-desc{font-size:10px;color:var(--text-dim);line-height:1.5;}
+.vm-badge{font-size:9px;font-family:monospace;padding:1px 6px;border-radius:3px;border:1px solid;margin-left:auto;}
+.vm-badge-good{color:#4ade80;border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.08);}
+.vm-badge-mid{color:#fbbf24;border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.08);}
+.vm-badge-low{color:#f87171;border-color:rgba(244,63,94,.3);background:rgba(244,63,94,.08);}
+.vm-params{margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+.vm-rec-panel{background:linear-gradient(135deg,rgba(245,158,11,.07),rgba(59,130,246,.07));border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.vm-rec-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.vm-rec-title{font-size:11px;font-weight:700;color:#fbbf24;letter-spacing:.06em;}
+.vm-rec-list{display:flex;flex-direction:column;gap:5px;}
+.vm-rec-item{display:flex;align-items:flex-start;gap:7px;font-size:10px;color:var(--text);}
+.vm-rec-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px;}
+
+/* ══ MULTI-VALUATION RESULT ══ */
+.mv-tab-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.mv-tab{font-size:10px;font-weight:700;padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text-dim);cursor:pointer;transition:all .2s;font-family:monospace;letter-spacing:.04em;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;line-height:1.4;}
+.mv-tab.active{border-color:var(--accent);color:var(--accent);background:rgba(59,130,246,.1);}
+.mv-tab.mv-primary{border-color:var(--gold);color:#fbbf24;}
+.mv-panel{display:none;}.mv-panel.active{display:block;}
+.mv-range-bar{height:8px;background:var(--surface2);border-radius:99px;margin:6px 0;position:relative;overflow:visible;}
+.mv-range-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2));position:absolute;top:0;}
+.mv-range-point{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);border:2px solid;}
+.mv-matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
+.mv-matrix-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;}
+.mv-method-lbl{font-size:9px;color:var(--text-dim);font-family:monospace;letter-spacing:.06em;margin-bottom:4px;}
+.mv-method-val{font-size:16px;font-weight:800;}
+.mv-method-sub{font-size:9px;color:var(--text-dim);margin-top:2px;}
+.mv-consensus{background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(6,182,212,.1));border:1px solid rgba(59,130,246,.3);border-radius:10px;padding:14px 16px;margin-top:10px;}
+.mv-consensus-label{font-size:10px;color:var(--text-dim);font-family:monospace;letter-spacing:.08em;margin-bottom:6px;}
+.mv-consensus-range{font-size:22px;font-weight:800;color:var(--text-bright);}
+.mv-consensus-sub{font-size:10px;color:var(--text-dim);margin-top:4px;}
+.mv-weight-row{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:10px;color:var(--text-dim);}
+.mv-weight-pill{padding:2px 8px;border-radius:4px;font-family:monospace;font-size:9px;border:1px solid;}
 </style>
 </head>
 <body>
@@ -424,9 +501,9 @@ textarea:focus{border-color:var(--accent);}
     <div><div class="phase-label">기업 정보 입력</div><span class="phase-sub">재무 · 리스크 · ESG</span></div>
   </div>
   <div class="phase-item" id="phaseBtn2">
-  <div class="phase-num">2</div>
-  <div><div class="phase-label">AI 분석 실행</div><span class="phase-sub">밸류에이션 · ESG 인사이트</span></div>
-</div>
+    <div class="phase-num">2</div>
+    <div><div class="phase-label">AI 분석 실행</div><span class="phase-sub">밸류에이션 · ESG 인사이트</span></div>
+  </div>
   <div class="phase-item" id="phaseBtn3">
     <div class="phase-num">3</div>
     <div><div class="phase-label">결과 대시보드</div><span class="phase-sub">EV · ESG · 딜룸</span></div>
@@ -435,176 +512,183 @@ textarea:focus{border-color:var(--accent);}
 
 <!-- ═══ SCREEN 1: INPUT ═══ -->
 <div id="screen-input" class="screen active">
+
+<!-- ROW 1: 기업 기본 정보 (풀 width) -->
+<div class="card" style="margin-bottom:18px;">
+  <div class="card-title"><span class="card-title-dot"></span>기업 기본 정보</div>
+  <div class="preset-row">
+    <span style="font-size:10px;color:var(--text-dim);align-self:center;margin-right:2px;">프리셋:</span>
+    <div class="preset-btn active" onclick="loadPreset('custom',this)">직접 입력</div>
+    <div class="preset-btn" onclick="loadPreset('construction',this)">건설</div>
+    <div class="preset-btn" onclick="loadPreset('mfg',this)">제조</div>
+    <div class="preset-btn" onclick="loadPreset('tech',this)">IT/테크</div>
+    <div class="preset-btn" onclick="loadPreset('env',this)">환경/폐기물</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end;">
+    <div class="field" style="margin-bottom:0;"><label>기업명</label><input type="text" id="companyName" value="대상기업" style="font-family:'Pretendard',sans-serif;"/></div>
+    <div class="field" style="margin-bottom:0;"><label>업종</label><input type="text" id="companySector" value="건설/종합" style="font-family:'Pretendard',sans-serif;"/></div>
+  </div>
+</div>
+
+<!-- ROW 2: 밸류에이션 방법론 탭 선택 -->
+<div style="margin-bottom:18px;">
+  <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+    <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;"></span>밸류에이션 방법론 선택
+    <div class="vm-rec-panel" id="vmRecPanel" style="flex:1;margin-bottom:0;padding:7px 12px;">
+      <div class="vm-rec-header" style="margin-bottom:0;">
+        <span style="font-size:12px;">🤖</span>
+        <span class="vm-rec-title" style="font-size:10px;">AI 추천</span>
+        <div class="vm-rec-list" id="vmRecList" style="flex-direction:row;flex-wrap:wrap;gap:4px;margin-left:8px;">
+          <div class="vm-rec-item" style="font-size:10px;"><div class="vm-rec-dot"></div>기업 정보를 입력하면 최적 방법론을 추천합니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 탭 선택 래퍼 -->
+  <div class="vm-selector-wrap">
+    <div class="vm-tab-selector" id="vmTabSelector"></div>
+    <div id="vmMethodGrid"></div>
+  </div>
+  <div id="vmExtraParams"></div>
+</div>
+
+<!-- ROW 3: ESG 세부 지표 3분할 -->
+<div style="margin-bottom:18px;">
+  <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+    <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;"></span>ESG 세부 지표 입력
+    <div style="display:flex;gap:6px;margin-left:auto;">
+      <div class="esg-preview-item" style="padding:4px 10px;"><div class="ep-label" style="font-size:9px;">환경(E)</div><div class="ep-val ep-e" id="prevE" style="font-size:14px;">—</div></div>
+      <div class="esg-preview-item" style="padding:4px 10px;"><div class="ep-label" style="font-size:9px;">사회(S)</div><div class="ep-val ep-s" id="prevS" style="font-size:14px;">—</div></div>
+      <div class="esg-preview-item" style="padding:4px 10px;"><div class="ep-label" style="font-size:9px;">지배구조(G)</div><div class="ep-val ep-g" id="prevG" style="font-size:14px;">—</div></div>
+    </div>
+    <div style="display:flex;gap:5px;">
+      <button class="btn btn-secondary" onclick="equalScores(60)" style="font-size:10px;padding:4px 9px;">낮음(60)</button>
+      <button class="btn btn-secondary" onclick="equalScores(70)" style="font-size:10px;padding:4px 9px;">보통(70)</button>
+      <button class="btn btn-secondary" onclick="equalScores(80)" style="font-size:10px;padding:4px 9px;">높음(80)</button>
+    </div>
+  </div>
+  <div class="esg-3col-layout" id="indInputArea"></div>
+</div>
+
+<!-- ROW 4: 리스크+가중치 | AI업로드+분석 | 분석결과+실행 (3분할) -->
+<div style="margin-bottom:8px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:8px;">
+  <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;"></span>리스크 · AI 분석 · 실행
+</div>
 <div class="input-layout">
 
-<div>
-  <div class="card">
-    <div class="card-title"><span class="card-title-dot"></span>기업 기본 정보</div>
-    <div class="preset-row">
-      <span style="font-size:10px;color:var(--text-dim);align-self:center;margin-right:2px;">프리셋:</span>
-      <div class="preset-btn active" onclick="loadPreset('custom',this)">직접 입력</div>
-      <div class="preset-btn" onclick="loadPreset('construction',this)">건설</div>
-      <div class="preset-btn" onclick="loadPreset('mfg',this)">제조</div>
-      <div class="preset-btn" onclick="loadPreset('tech',this)">IT/테크</div>
-      <div class="preset-btn" onclick="loadPreset('env',this)">환경/폐기물</div>
-    </div>
-    <div class="grid-2">
-      <div class="field"><label>기업명</label><input type="text" id="companyName" value="대상기업" style="font-family:'Pretendard',sans-serif;"/></div>
-      <div class="field"><label>업종</label><input type="text" id="companySector" value="건설/종합" style="font-family:'Pretendard',sans-serif;"/></div>
-    </div>
-    <div class="field">
-      <label>EBITDA (억원) <span class="val" id="lEBITDA">200</span></label>
-      <input type="number" id="ebitda" value="200" min="1" step="10" oninput="syncV('ebitda','lEBITDA',true);updatePreview()"/>
-    </div>
-    <div class="peer-panel">
-      <div class="peer-header" onclick="togglePeer()">
-        <div class="peer-header-left">
-          <span class="peer-title">피어 EV/EBITDA</span>
-          <span class="peer-multiple-badge" id="peerMultipleDisplay">—</span>
-          <span style="font-family:monospace;font-size:9px;color:var(--text-dim);">(중앙값)</span>
-          <span class="peer-live-badge"><span class="peer-live-dot"></span>LIVE</span>
-        </div>
-        <span class="peer-toggle" id="peerToggleBtn">▾ 피어 보기</span>
+  <!-- Col 1: 리스크 지표 + ESG 가중치 -->
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot"></span>리스크 지표 <span style="font-family:monospace;font-size:9px;color:var(--text-dim);font-weight:400;">(최근 3년)</span></div>
+      <div class="grid-2">
+        <div class="field"><label>중대재해 <span class="val" id="lSA">1</span></label>
+          <input type="range" id="seriousAccidents" min="0" max="10" value="1" oninput="document.getElementById('lSA').textContent=this.value;updatePreview()"/></div>
+        <div class="field"><label>환경위반 <span class="val" id="lEV">2</span></label>
+          <input type="range" id="envViolations" min="0" max="15" value="2" oninput="document.getElementById('lEV').textContent=this.value;updatePreview()"/></div>
+        <div class="field"><label>반부패 <span class="val" id="lAC">0</span></label>
+          <input type="range" id="antiCorruption" min="0" max="10" value="0" oninput="document.getElementById('lAC').textContent=this.value;updatePreview()"/></div>
+        <div class="field"><label>정보보안 <span class="val" id="lCI">0</span></label>
+          <input type="range" id="cyberIncidents" min="0" max="10" value="0" oninput="document.getElementById('lCI').textContent=this.value;updatePreview()"/></div>
       </div>
-      <div class="peer-body" id="peerBody">
-        <div style="font-family:monospace;font-size:9px;color:var(--text-dim);margin-bottom:8px;display:flex;gap:8px;">
-          <span>피어 그룹 · 실시간 연동 시뮬레이션</span>
-          <span id="lastUpdated" style="color:rgba(99,120,180,.5);">—</span>
+    </div>
+    <div class="card" style="margin-top:14px;">
+      <div class="card-title"><span class="card-title-dot"></span>E/S/G 카테고리 가중치</div>
+      <div class="weight-grid" id="catWeightDisplay"></div>
+      <div class="sec-label">카테고리 비중 조정</div>
+      <div class="field"><label>환경(E) % <span class="val" id="wE">40</span></label>
+        <input type="range" id="wEnv" min="10" max="70" value="40" oninput="updateCatWeights('E');updatePreview();recalcResult()"/></div>
+      <div class="field"><label>사회(S) % <span class="val" id="wS">35</span></label>
+        <input type="range" id="wSoc" min="10" max="60" value="35" oninput="updateCatWeights('S');updatePreview();recalcResult()"/></div>
+      <p style="font-size:10px;color:var(--text-dim);margin-top:3px;">※ 지배구조(G)는 100-E-S로 자동 계산</p>
+
+      <!-- 베타 계수 — 접기/펼치기 -->
+      <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;" onclick="toggleBeta()">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);font-family:monospace;">β 계수 고급 설정</div>
+          <span id="betaToggleBtn" style="font-size:10px;color:var(--text-dim);padding:2px 8px;border-radius:4px;border:1px solid var(--border);background:var(--surface);">▾ 펼치기</span>
         </div>
-        <table class="peer-table">
-          <thead><tr><th>기업명</th><th>업종</th><th>EV/EBITDA</th><th>ESG등급</th><th>시가총액</th><th>EV</th></tr></thead>
-          <tbody id="peerTableBody"></tbody>
-        </table>
-        <div style="margin-top:10px;">
-          <div class="field">
-            <label>멀티플 방식 <span class="val" id="lMultipleMode">중앙값</span></label>
-            <select id="multipleMode" onchange="syncSelect();updatePreview()">
-              <option value="median">피어 중앙값</option>
-              <option value="mean">피어 평균값</option>
-              <option value="q1">1사분위 (보수적)</option>
-              <option value="q3">3사분위 (낙관적)</option>
-              <option value="custom">직접 입력</option>
-            </select>
-          </div>
-          <div class="field" id="customMultipleField" style="display:none;">
-            <label>직접 입력 EV/EBITDA</label>
-            <input type="number" id="customMultiple" value="8" min="1" step="0.1" oninput="updatePreview()"/>
+        <div id="betaBody" style="max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(.4,0,.2,1);">
+          <div style="padding-top:12px;">
+            <div class="sec-label" style="margin-top:0;">매수자 β <span style="font-size:9px;color:var(--text-dim);font-family:monospace;">(BUY EV)</span></div>
+            <div class="grid-2">
+              <div class="field"><label>중대재해 <span class="val" id="lB1">-8</span></label><input type="range" id="beta1" min="-20" max="0" value="-8" oninput="syncB('beta1','lB1');recalcResult()"/></div>
+              <div class="field"><label>환경위반 <span class="val" id="lB2">-3</span></label><input type="range" id="beta2" min="-10" max="0" value="-3" oninput="syncB('beta2','lB2');recalcResult()"/></div>
+              <div class="field"><label>반부패 <span class="val" id="lB3">-2</span></label><input type="range" id="beta3" min="-10" max="0" value="-2" oninput="syncB('beta3','lB3');recalcResult()"/></div>
+              <div class="field"><label>정보보안 <span class="val" id="lB4">-1</span></label><input type="range" id="beta4" min="-10" max="0" value="-1" oninput="syncB('beta4','lB4');recalcResult()"/></div>
+            </div>
+            <div class="sec-label" style="margin-top:10px;">매도자 β <span style="font-size:9px;color:var(--text-dim);font-family:monospace;">(SELL EV)</span></div>
+            <div class="grid-2">
+              <div class="field"><label>중대재해 <span class="val" id="lSB1">-3</span></label><input type="range" id="sbeta1" min="-20" max="0" value="-3" oninput="syncSellB('sbeta1','lSB1');recalcResult()"/></div>
+              <div class="field"><label>환경위반 <span class="val" id="lSB2">-1</span></label><input type="range" id="sbeta2" min="-10" max="0" value="-1" oninput="syncSellB('sbeta2','lSB2');recalcResult()"/></div>
+              <div class="field"><label>반부패 <span class="val" id="lSB3">-1</span></label><input type="range" id="sbeta3" min="-10" max="0" value="-1" oninput="syncSellB('sbeta3','lSB3');recalcResult()"/></div>
+              <div class="field"><label>정보보안 <span class="val" id="lSB4">-1</span></label><input type="range" id="sbeta4" min="-10" max="0" value="-1" oninput="syncSellB('sbeta4','lSB4');recalcResult()"/></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="sec-label">리스크 지표 (최근 3년)</div>
-    <div class="grid-2">
-      <div class="field"><label>중대재해 <span class="val" id="lSA">1</span></label>
-        <input type="range" id="seriousAccidents" min="0" max="10" value="1" oninput="document.getElementById('lSA').textContent=this.value;updatePreview()"/></div>
-      <div class="field"><label>환경위반 <span class="val" id="lEV">2</span></label>
-        <input type="range" id="envViolations" min="0" max="15" value="2" oninput="document.getElementById('lEV').textContent=this.value;updatePreview()"/></div>
-      <div class="field"><label>반부패 <span class="val" id="lAC">0</span></label>
-        <input type="range" id="antiCorruption" min="0" max="10" value="0" oninput="document.getElementById('lAC').textContent=this.value;updatePreview()"/></div>
-      <div class="field"><label>정보보안 <span class="val" id="lCI">0</span></label>
-        <input type="range" id="cyberIncidents" min="0" max="10" value="0" oninput="document.getElementById('lCI').textContent=this.value;updatePreview()"/></div>
+      <div class="btn-row"><button class="btn btn-secondary" onclick="resetCatWeights()">기본값</button></div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-title"><span class="card-title-dot"></span>E/S/G 카테고리 가중치</div>
-    <div class="weight-grid" id="catWeightDisplay"></div>
-    <div class="sec-label">카테고리 비중 조정</div>
-    <div class="field"><label>환경(E) % <span class="val" id="wE">40</span></label>
-      <input type="range" id="wEnv" min="10" max="70" value="40" oninput="updateCatWeights('E');updatePreview();recalcResult()"/></div>
-    <div class="field"><label>사회(S) % <span class="val" id="wS">35</span></label>
-      <input type="range" id="wSoc" min="10" max="60" value="35" oninput="updateCatWeights('S');updatePreview();recalcResult()"/></div>
-    <p style="font-size:10px;color:var(--text-dim);margin-top:3px;">※ 지배구조(G)는 100-E-S로 자동 계산되며, E+S가 100%를 넘지 않도록 자동 보정됩니다.</p>
-    <div class="sec-label" style="margin-top:16px;">매수자 리스크 β 계수 <span style="font-size:9px;color:var(--text-dim);font-family:monospace;">(BUY EV에 반영)</span></div>
-    <div class="grid-2">
-      <div class="field"><label>중대재해 β <span class="val" id="lB1">-8</span></label>
-        <input type="range" id="beta1" min="-20" max="0" value="-8" oninput="syncB('beta1','lB1');recalcResult()"/></div>
-      <div class="field"><label>환경위반 β <span class="val" id="lB2">-3</span></label>
-        <input type="range" id="beta2" min="-10" max="0" value="-3" oninput="syncB('beta2','lB2');recalcResult()"/></div>
-      <div class="field"><label>반부패 β <span class="val" id="lB3">-2</span></label>
-        <input type="range" id="beta3" min="-10" max="0" value="-2" oninput="syncB('beta3','lB3');recalcResult()"/></div>
-      <div class="field"><label>정보보안 β <span class="val" id="lB4">-1</span></label>
-        <input type="range" id="beta4" min="-10" max="0" value="-1" oninput="syncB('beta4','lB4');recalcResult()"/></div>
-    </div>
-    <div class="sec-label" style="margin-top:12px;">매도자 리스크 β 계수 <span style="font-size:9px;color:var(--text-dim);font-family:monospace;">(SELL EV에 반영)</span></div>
-    <div class="grid-2">
-      <div class="field"><label>중대재해 β <span class="val" id="lSB1">-3</span></label>
-        <input type="range" id="sbeta1" min="-20" max="0" value="-3" oninput="syncSellB('sbeta1','lSB1');recalcResult()"/></div>
-      <div class="field"><label>환경위반 β <span class="val" id="lSB2">-1</span></label>
-        <input type="range" id="sbeta2" min="-10" max="0" value="-1" oninput="syncSellB('sbeta2','lSB2');recalcResult()"/></div>
-      <div class="field"><label>반부패 β <span class="val" id="lSB3">-1</span></label>
-        <input type="range" id="sbeta3" min="-10" max="0" value="-1" oninput="syncSellB('sbeta3','lSB3');recalcResult()"/></div>
-      <div class="field"><label>정보보안 β <span class="val" id="lSB4">-1</span></label>
-        <input type="range" id="sbeta4" min="-10" max="0" value="-1" oninput="syncSellB('sbeta4','lSB4');recalcResult()"/></div>
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-secondary" onclick="resetCatWeights()">기본값</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="card-title-dot"></span>내부 자료 업로드</div>
-    <p style="font-size:11px;color:var(--text-dim);margin-bottom:12px;line-height:1.7;">ESG 보고서·감사 대응 자료·규제 체크리스트를 올리거나 아래에 붙여넣으면 2단계 분석에서 감사 준비도와 규제 준수 현황까지 함께 평가합니다.</p>
-    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()"
-         ondragover="event.preventDefault();this.classList.add('drag')"
-         ondragleave="this.classList.remove('drag')"
-         ondrop="handleDrop(event)">
-      <div class="upload-icon">📄</div>
-      <div class="upload-text">파일 드래그 또는 클릭</div>
-      <div class="upload-sub">TXT · CSV · PDF · Word · PPTX · XLSX / 최대 10MB</div>
-      <input type="file" id="fileInput" accept=".txt,.csv,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx" onchange="handleFile(event)"/>
-    </div>
-    <div id="fileStatus" style="margin-top:7px;font-family:monospace;font-size:10px;color:var(--text-dim);"></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="card-title-dot"></span>텍스트 직접 입력</div>
-    <textarea id="manualText" rows="8" placeholder="ESG 보고서, 감사 체크리스트, 내부통제 현황, 규제 대응 메모를 붙여넣으세요. 예: 온실가스 감축률 12%, 중대재해 2건, 이사회 독립이사 비율 60%, 내부감사 지적 3건..."></textarea>
-    <div class="btn-row">
-      <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeText()">🤖 AI 문서 분석</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="card-title-dot"></span>문서 분석 결과</div>
-    <div class="ai-result show" id="aiResult">
-      <div class="ai-badge">DOCUMENT INSIGHT</div>
-      <div style="font-family:'Pretendard',sans-serif;font-size:13px;font-weight:700;color:var(--text-bright);margin-bottom:10px;" id="aiResultTitle">분석 대기</div>
-      <div class="ai-score-grid">
-        <div class="ai-score-item"><div style="font-size:10px;color:var(--text-dim);margin-bottom:3px;">환경(E)</div><div class="ai-score-val ai-e" id="aiE">—</div></div>
-        <div class="ai-score-item"><div style="font-size:10px;color:var(--text-dim);margin-bottom:3px;">사회(S)</div><div class="ai-score-val ai-s" id="aiS">—</div></div>
-        <div class="ai-score-item"><div style="font-size:10px;color:var(--text-dim);margin-bottom:3px;">지배구조(G)</div><div class="ai-score-val ai-g" id="aiG">—</div></div>
+  <!-- Col 2: 내부 자료 업로드 + 텍스트 입력 -->
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot"></span>내부 자료 업로드</div>
+      <p style="font-size:11px;color:var(--text-dim);margin-bottom:10px;line-height:1.7;">ESG 보고서·감사 자료·규제 체크리스트를 업로드하면 2단계 분석에서 감사 준비도와 규제 준수 현황을 평가합니다.</p>
+      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()"
+           ondragover="event.preventDefault();this.classList.add('drag')"
+           ondragleave="this.classList.remove('drag')"
+           ondrop="handleDrop(event)">
+        <div class="upload-icon">📄</div>
+        <div class="upload-text">파일 드래그 또는 클릭</div>
+        <div class="upload-sub">TXT · CSV · PDF · Word · PPTX · XLSX / 최대 10MB</div>
+        <input type="file" id="fileInput" accept=".txt,.csv,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx" onchange="handleFile(event)"/>
       </div>
-      <div class="ai-findings-box" id="aiFindingsBox">내부 자료를 업로드하거나 텍스트를 입력하면 ESG 핵심 발견사항, 감사 준비도, 규제 준수 리스크를 추출합니다.</div>
-      <div id="aiApplyRow" style="display:none;margin-top:12px;">
-        <button class="btn btn-primary" style="width:100%;" onclick="applyAIResults()">시뮬레이터에 적용</button>
+      <div id="fileStatus" style="margin-top:7px;font-family:monospace;font-size:10px;color:var(--text-dim);"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot"></span>텍스트 직접 입력</div>
+      <textarea id="manualText" rows="7" placeholder="ESG 보고서, 감사 체크리스트, 내부통제 현황, 규제 대응 메모를 붙여넣으세요.&#10;예: 온실가스 감축률 12%, 중대재해 2건, 이사회 독립이사 비율 60%..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeText()">🤖 AI 문서 분석</button>
       </div>
     </div>
-    <div class="sec-label">분석 히스토리</div>
-    <div id="aiHistory" style="font-size:11px;color:var(--text-dim);">분석 내역 없음</div>
   </div>
-</div>
 
-<div>
-  <div class="card">
-    <div class="card-title"><span class="card-title-dot"></span>ESG 세부 지표 입력</div>
-    <div class="esg-preview">
-      <div class="esg-preview-item"><div class="ep-label">환경(E)</div><div class="ep-val ep-e" id="prevE">—</div></div>
-      <div class="esg-preview-item"><div class="ep-label">사회(S)</div><div class="ep-val ep-s" id="prevS">—</div></div>
-      <div class="esg-preview-item"><div class="ep-label">지배구조(G)</div><div class="ep-val ep-g" id="prevG">—</div></div>
+  <!-- Col 3: 문서 분석 결과 + 분석 실행 -->
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot"></span>문서 분석 결과</div>
+      <div class="ai-result show" id="aiResult">
+        <div class="ai-badge">DOCUMENT INSIGHT</div>
+        <div style="font-family:'Pretendard',sans-serif;font-size:13px;font-weight:700;color:var(--text-bright);margin-bottom:10px;" id="aiResultTitle">분석 대기</div>
+        <div class="ai-score-grid">
+          <div class="ai-score-item"><div style="font-size:10px;color:var(--text-dim);margin-bottom:3px;">환경(E)</div><div class="ai-score-val ai-e" id="aiE">—</div></div>
+          <div class="ai-score-item"><div style="font-size:10px;color:var(--text-dim);margin-bottom:3px;">사회(S)</div><div class="ai-score-val ai-s" id="aiS">—</div></div>
+          <div class="ai-score-item"><div style="font-size:10px;color:var(--text-dim);margin-bottom:3px;">지배구조(G)</div><div class="ai-score-val ai-g" id="aiG">—</div></div>
+        </div>
+        <div class="ai-findings-box" id="aiFindingsBox">내부 자료를 업로드하거나 텍스트를 입력하면 ESG 핵심 발견사항, 감사 준비도, 규제 준수 리스크를 추출합니다.</div>
+        <div id="aiApplyRow" style="display:none;margin-top:12px;">
+          <button class="btn btn-primary" style="width:100%;" onclick="applyAIResults()">시뮬레이터에 적용</button>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border);margin-top:12px;padding-top:10px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);font-family:monospace;margin-bottom:6px;">분석 히스토리</div>
+        <div id="aiHistory" style="font-size:11px;color:var(--text-dim);">분석 내역 없음</div>
+      </div>
     </div>
-    <div id="indInputArea"></div>
-    <div style="display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;align-items:center;">
-      <button class="btn btn-secondary" onclick="equalScores(60)" style="font-size:10px;padding:5px 11px;">낮음(60)</button>
-      <button class="btn btn-secondary" onclick="equalScores(70)" style="font-size:10px;padding:5px 11px;">보통(70)</button>
-      <button class="btn btn-secondary" onclick="equalScores(80)" style="font-size:10px;padding:5px 11px;">높음(80)</button>
-      <button class="btn btn-secondary" onclick="resetAll()" style="font-size:10px;padding:5px 11px;margin-left:auto;">초기화</button>
-      <button class="btn btn-primary" onclick="runAnalysis()" style="padding:10px 22px;font-size:13px;border-radius:9px;">⚙ 분석 실행</button>
+    <div class="card" style="margin-top:14px;background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(6,182,212,0.06));border-color:rgba(59,130,246,0.35);">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:12px;color:var(--text-dim);line-height:1.6;">ESG 지표·밸류에이션 파라미터 입력 완료 후 분석을 실행하세요.</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn btn-secondary" onclick="resetAll()" style="font-size:11px;padding:6px 12px;">↺ 초기화</button>
+          <button class="btn btn-primary" onclick="runAnalysis()" style="flex:1;padding:12px 0;font-size:14px;border-radius:9px;letter-spacing:.04em;">⚙ 분석 실행</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-</div>
+</div><!-- /input-layout row4 -->
 </div><!-- /screen-input -->
 
 <!-- ═══ SCREEN 2: LOADING ═══ -->
@@ -694,6 +778,7 @@ textarea:focus{border-color:var(--accent);}
 <!-- RESULT TABS -->
 <div class="result-tabs">
   <div class="rtab active" onclick="switchRTab('overview',this)">ESG 개요</div>
+  <div class="rtab" onclick="switchRTab('multival',this)">📊 멀티 밸류에이션</div>
   <div class="rtab" onclick="switchRTab('sensitivity',this)">민감도 분석</div>
   <div class="rtab" onclick="switchRTab('dealroom',this)">딜룸 · 실사</div>
 </div>
@@ -734,6 +819,23 @@ textarea:focus{border-color:var(--accent);}
       </svg>
     </div>
     <div class="audit-factors" id="auditFactors"></div>
+  </div>
+</div>
+
+<!-- TAB: 민감도 -->
+<div id="rtab-multival" class="rtab-panel">
+  <div class="card">
+    <div class="card-title"><span class="card-title-dot"></span>방법론별 밸류에이션 결과</div>
+    <div id="mvMethodTabs" class="mv-tab-row"></div>
+    <div id="mvPanelContainer"></div>
+  </div>
+  <div class="card" style="margin-top:14px;">
+    <div class="card-title"><span class="card-title-dot"></span>방법론 통합 EV 범위 — 컨센서스</div>
+    <div id="mvConsensusArea"></div>
+  </div>
+  <div class="card" style="margin-top:14px;">
+    <div class="card-title"><span class="card-title-dot"></span>방법론 비교 매트릭스</div>
+    <div class="mv-matrix" id="mvMatrix"></div>
   </div>
 </div>
 
@@ -816,6 +918,574 @@ let radarChart=null,multChartInst=null;
 let peerOpen=false;
 let dealCheckState={};
 
+// ══════════════ VALUATION METHODS ENGINE ══════════════
+// 3대 방법론: EV/EBITDA (기준선) · DCF (핵심) · 유사거래사례 (교차검증)
+
+const VM_METHODS = [
+  // ① EV/EBITDA — 피어 기반 기준선
+  {
+    id: 'ev_ebitda',
+    name: 'EV/EBITDA',
+    icon: '📊',
+    tag: '기준선',
+    tagColor: 'rgba(99,102,241,.8)',
+    desc: '피어 상장사 멀티플 적용. 비상장 할인(DLOM) 자동 반영.',
+    role: '빠른 벤치마크. 다른 두 방법론의 기준점으로 활용.',
+    params: [
+      { id:'dlom', label:'비상장 할인율 DLOM (%)', val:20, min:0, max:40, step:1,
+        hint:'비상장기업은 유동성 부족으로 통상 15~30% 할인 적용' },
+    ],
+    compute(inp, esg, v, params){
+      const dlom = 1 - (params.dlom??20)/100;
+      const esgAdj = 1 + (esg.total - 70) * 0.004;
+      const adjBase = v.base * dlom * Math.max(0.85, Math.min(1.1, esgAdj));
+      const buyMult = Math.max(0.5, adjBase + (v.buyMult - v.base));
+      const sellMult = Math.max(0.5, adjBase + (v.sellMult - v.base));
+      const mid = inp.ebitda * adjBase;
+      return {
+        low:  inp.ebitda * buyMult,
+        mid,
+        high: inp.ebitda * sellMult,
+        mult: adjBase,
+        multLabel: 'EV/EBITDA (DLOM 적용)',
+        breakdown: [
+          { label:'피어 중앙값', val: v.base.toFixed(2)+'x' },
+          { label:'DLOM 할인', val: '-'+(params.dlom??20)+'%' },
+          { label:'ESG 조정', val: ((esgAdj-1)*100>=0?'+':'')+((esgAdj-1)*100).toFixed(1)+'%' },
+          { label:'적용 멀티플', val: adjBase.toFixed(2)+'x' },
+          { label:'BUY EV', val: Math.round(inp.ebitda*buyMult).toLocaleString('ko-KR')+'억' },
+          { label:'SELL EV', val: Math.round(inp.ebitda*sellMult).toLocaleString('ko-KR')+'억' },
+        ]
+      };
+    }
+  },
+
+  // ② DCF — 핵심 방법론 (상세 입력)
+  {
+    id: 'dcf',
+    name: 'DCF',
+    icon: '💹',
+    tag: '핵심',
+    tagColor: 'rgba(59,130,246,.9)',
+    desc: '미래 잉여현금흐름(FCF) 추정 후 WACC으로 할인. 비상장기업 M&A 협상의 핵심 근거.',
+    role: '성장 시나리오·리스크 프리미엄을 가장 정교하게 반영. 협상 논거로 가장 강력.',
+    params: [
+      { id:'revenue',    label:'현재 연 매출 (억원)',    val:1600, min:1,   max:999999, step:10,  hint:'EBITDA 마진 역산 또는 직접 입력' },
+      { id:'fcf_margin', label:'FCF 마진 (%)',          val:8,    min:0.5, max:40,     step:0.5, hint:'EBITDA 마진 × (1-세율) - Capex/매출. 제조업 5~10%, IT 10~25% 수준' },
+      { id:'growth1',    label:'1~3년 성장률 (%)',      val:6,    min:-10, max:40,     step:0.5, hint:'단기 성장 시나리오. 업종 평균 대비 보수적으로 설정 권장' },
+      { id:'growth2',    label:'4~예측기간 성장률 (%)', val:3,    min:-5,  max:20,     step:0.5, hint:'중기 안정 성장률. 통상 단기 성장률의 50~70%' },
+      { id:'wacc',       label:'WACC (%)',              val:10,   min:4,   max:25,     step:0.1, hint:'비상장 중견기업 통상 9~13%. ESG 리스크 반영하여 조정' },
+      { id:'term_g',     label:'영구성장률 (%)',        val:2,    min:0,   max:5,      step:0.1, hint:'Terminal Value용. GDP 성장률(1~3%) 이하로 보수적 적용 권장' },
+      { id:'years',      label:'예측 기간 (년)',        val:5,    min:3,   max:10,     step:1,   hint:'데이터 신뢰도에 따라 5~7년이 일반적' },
+      { id:'net_debt',   label:'순부채 (억원)',         val:200,  min:0,   max:999999, step:10,  hint:'EV → Equity Value 환산용. 총부채 - 현금성자산' },
+    ],
+    compute(inp, esg, v, params){
+      const rev     = params.revenue    ?? 1600;
+      const margin  = (params.fcf_margin ?? 8) / 100;
+      const g1      = (params.growth1   ?? 6)  / 100;
+      const g2      = (params.growth2   ?? 3)  / 100;
+      const wacc    = (params.wacc      ?? 10) / 100;
+      const tg      = (params.term_g    ?? 2)  / 100;
+      const n       = Math.round(params.years ?? 5);
+      const netDebt = params.net_debt   ?? 200;
+      const split   = Math.min(3, n);
+
+      // ESG 리스크 프리미엄 → WACC 가산
+      const esgPrem = Math.max(0, (70 - esg.total) * 0.004);
+      const adjWacc = wacc + esgPrem;
+
+      // FCF 추정 (연도별)
+      let pv = 0;
+      const fcfRows = [];
+      for(let i = 1; i <= n; i++){
+        const gr = i <= split ? g1 : g2;
+        const revY = rev * Math.pow(1 + (i<=split ? g1 : g2), i);
+        const fcf  = revY * margin;
+        const df   = Math.pow(1 + adjWacc, i);
+        const pvFcf = fcf / df;
+        pv += pvFcf;
+        fcfRows.push({ yr:i, fcf: Math.round(fcf), pv: Math.round(pvFcf) });
+      }
+
+      // Terminal Value
+      const lastRev = rev * (split < n
+        ? Math.pow(1+g1, split) * Math.pow(1+g2, n-split)
+        : Math.pow(1+g1, n));
+      const termFcf = lastRev * margin * (1 + tg);
+      const termVal = termFcf / (adjWacc - tg);
+      const termPV  = termVal / Math.pow(1 + adjWacc, n);
+      const tvRatio = Math.round(termPV / (pv + termPV) * 100);
+
+      const ev   = pv + termPV;
+      const equityVal = Math.max(0, ev - netDebt);
+      const mult = ev / inp.ebitda;
+
+      // 시나리오 범위: ±WACC 1%, ±성장률 1%
+      const evBull = ev * 1.15, evBear = ev * 0.82;
+
+      return {
+        low:  evBear,
+        mid:  ev,
+        high: evBull,
+        mult,
+        multLabel: 'DCF 내재 EV/EBITDA',
+        equityVal: Math.round(equityVal),
+        termRatio: tvRatio,
+        adjWacc: (adjWacc*100).toFixed(2),
+        fcfRows,
+        breakdown: [
+          { label:'예측 FCF PV 합계', val: Math.round(pv).toLocaleString('ko-KR')+'억' },
+          { label:'Terminal Value PV', val: Math.round(termPV).toLocaleString('ko-KR')+'억' },
+          { label:'TV 비중', val: tvRatio+'%' },
+          { label:'ESG 리스크 프리미엄', val: '+'+(esgPrem*100).toFixed(2)+'%' },
+          { label:'조정 WACC', val: (adjWacc*100).toFixed(2)+'%' },
+          { label:'Enterprise Value', val: Math.round(ev).toLocaleString('ko-KR')+'억' },
+          { label:'순부채 차감 후 (Equity)', val: Math.round(equityVal).toLocaleString('ko-KR')+'억' },
+        ]
+      };
+    }
+  },
+
+  // ③ 유사거래사례 비교법
+  {
+    id: 'transaction',
+    name: '유사거래사례',
+    icon: '🔄',
+    tag: '교차검증',
+    tagColor: 'rgba(34,197,94,.8)',
+    desc: '동일 업종 최근 M&A 거래 멀티플 직접 적용. 시장 현실을 가장 빠르게 반영.',
+    role: 'EV/EBITDA·DCF 결과의 시장 검증용. 협상 상대방 설득 근거로 활용.',
+    params: [
+      { id:'txn_ref1_name', label:'거래 사례 1 — 기업명',  val:'',  min:0, max:0, step:0, hint:'', type:'text', placeholder:'예: A건설 (2023)' },
+      { id:'txn_ref1_mult', label:'거래 사례 1 — 멀티플 (x)', val:7.5, min:1, max:50, step:0.1, hint:'' },
+      { id:'txn_ref2_name', label:'거래 사례 2 — 기업명',  val:'',  min:0, max:0, step:0, hint:'', type:'text', placeholder:'예: B제조 (2022)' },
+      { id:'txn_ref2_mult', label:'거래 사례 2 — 멀티플 (x)', val:9.0, min:1, max:50, step:0.1, hint:'' },
+      { id:'txn_ref3_name', label:'거래 사례 3 — 기업명',  val:'',  min:0, max:0, step:0, hint:'', type:'text', placeholder:'예: C환경 (2024) — 선택' },
+      { id:'txn_ref3_mult', label:'거래 사례 3 — 멀티플 (x)', val:8.2, min:1, max:50, step:0.1, hint:'' },
+      { id:'txn_ctrl_prem', label:'경영권 프리미엄 (%)', val:15, min:0, max:40, step:1,
+        hint:'비상장 M&A는 통상 10~25% 경영권 프리미엄 가산' },
+    ],
+    compute(inp, esg, v, params){
+      const mults = [
+        params.txn_ref1_mult ?? 7.5,
+        params.txn_ref2_mult ?? 9.0,
+        params.txn_ref3_mult ?? 8.2,
+      ].map(Number).filter(x => x > 0).sort((a,b)=>a-b);
+
+      const median = mults.length % 2 === 1
+        ? mults[Math.floor(mults.length/2)]
+        : (mults[mults.length/2-1] + mults[mults.length/2]) / 2;
+
+      const ctrlPrem = 1 + (params.txn_ctrl_prem ?? 15) / 100;
+      const esgAdj   = 1 + (esg.total - 70) * 0.005;
+      const adjMult  = median * ctrlPrem * Math.max(0.9, Math.min(1.1, esgAdj));
+      const ev       = inp.ebitda * adjMult;
+
+      return {
+        low:  inp.ebitda * mults[0] * ctrlPrem,
+        mid:  ev,
+        high: inp.ebitda * mults[mults.length-1] * ctrlPrem,
+        mult: adjMult,
+        multLabel: '거래사례 조정 멀티플',
+        breakdown: [
+          { label:'사례 멀티플 (최저)', val: mults[0].toFixed(1)+'x' },
+          { label:'사례 멀티플 (중앙)', val: median.toFixed(1)+'x' },
+          { label:'사례 멀티플 (최고)', val: mults[mults.length-1].toFixed(1)+'x' },
+          { label:'경영권 프리미엄', val: '+'+(params.txn_ctrl_prem??15)+'%' },
+          { label:'ESG 조정', val: ((esgAdj-1)*100>=0?'+':'')+((esgAdj-1)*100).toFixed(1)+'%' },
+          { label:'최종 적용 멀티플', val: adjMult.toFixed(2)+'x' },
+          { label:'EV (중앙)', val: Math.round(ev).toLocaleString('ko-KR')+'억' },
+        ]
+      };
+    }
+  },
+];
+
+// 항상 3개 모두 활성화 (선택 개념 제거 — 심플하게)
+let vmParams = {};
+let vmResults = {};
+
+// ── 추천 로직 (방법론 고정, 파라미터 가이드만 제공) ──
+function getVmRecommendations(sector, ebitda, esg){
+  const s = sector||'';
+  const recs = [];
+  if(/IT|플랫폼|소프트웨어|바이오|헬스케어/.test(s)){
+    recs.push('DCF에서 성장률을 높게(8~15%), WACC은 11~13%로 설정하세요.');
+    recs.push('EV/EBITDA 멀티플이 높을 수 있어 DLOM을 15% 수준으로 낮춰도 무방합니다.');
+  } else if(/건설|제조|철강|소재/.test(s)){
+    recs.push('DCF 성장률은 보수적(3~5%)으로, WACC 9~11%가 일반적입니다.');
+    recs.push('유사거래사례에 동일 업종 2~3건을 직접 입력하면 협상 신뢰도가 올라갑니다.');
+  } else if(/환경|폐기/.test(s)){
+    recs.push('규제 수혜·탄소크레딧 가치를 DCF FCF 마진에 반영하세요.');
+    recs.push('친환경 M&A 프리미엄으로 경영권 프리미엄을 20% 이상 적용할 수 있습니다.');
+  } else {
+    recs.push('3개 방법론 결과의 교집합 구간이 협상 타깃 범위입니다.');
+    recs.push('DCF의 Terminal Value 비중이 60% 초과 시 성장률 가정을 재검토하세요.');
+  }
+  if(esg?.total < 60){
+    recs.push('ESG 리스크가 높아 DCF WACC에 자동으로 리스크 프리미엄이 가산됩니다.');
+  }
+  return recs;
+}
+
+// ── 1단계: 방법론 탭 선택 (탭 전환 방식) ──
+let vmActiveTab = 0;
+
+let vmGridRendered = false;
+
+function renderVmGrid(){
+  // 추천 팁만 업데이트 (매 호출 시)
+  const inp = getInputs();
+  const esg = calcESG();
+  const tips = getVmRecommendations(inp.sector, inp.ebitda, esg);
+  const recList = document.getElementById('vmRecList');
+  if(recList){
+    recList.innerHTML = tips.length
+      ? tips.map(t=>`<div class="vm-rec-item" style="font-size:10px;"><div class="vm-rec-dot"></div>${t}</div>`).join('')
+      : '<div class="vm-rec-item" style="font-size:10px;"><div class="vm-rec-dot"></div>업종을 입력하면 파라미터 가이드를 제공합니다.</div>';
+  }
+
+  // 탭 UI는 최초 1회만 렌더링
+  if(vmGridRendered) return;
+  vmGridRendered = true;
+
+  const colors = [
+    {border:'rgba(99,102,241,.6)',bg:'rgba(99,102,241,.08)',text:'#a5b4fc',tagBg:'rgba(99,102,241,.15)'},
+    {border:'rgba(59,130,246,.7)',bg:'rgba(59,130,246,.08)',text:'#60a5fa',tagBg:'rgba(59,130,246,.18)'},
+    {border:'rgba(34,197,94,.5)',bg:'rgba(34,197,94,.06)',text:'#4ade80',tagBg:'rgba(34,197,94,.12)'},
+  ];
+
+  // 탭 헤더
+  const tabSel = document.getElementById('vmTabSelector');
+  if(tabSel){
+    tabSel.innerHTML = VM_METHODS.map((m,i)=>`
+      <div class="vm-sel-tab ${i===vmActiveTab?'active':''}" onclick="switchVmTab(${i})">
+        <span class="vm-sel-tab-icon">${m.icon}</span>
+        <span class="vm-sel-tab-name">${m.name}</span>
+        <span class="vm-sel-tab-tag" style="background:${colors[i].tagBg};color:${colors[i].text};border:1px solid ${colors[i].border};">${m.tag}</span>
+      </div>`).join('');
+  }
+
+  // 탭 패널 (전체 렌더링, CSS로 show/hide)
+  const grid = document.getElementById('vmMethodGrid');
+  if(!grid) return;
+
+  grid.innerHTML = VM_METHODS.map((m,i)=>{
+    const c = colors[i];
+    const paramsHtml = m.params.map(p=>{
+      const key = `${m.id}_${p.id}`;
+      const val = vmParams[key] ?? p.val;
+      const isText = p.type === 'text';
+      return `<div class="field" style="margin-bottom:10px;">
+        <label style="flex-direction:column;align-items:flex-start;gap:1px;">
+          <span style="display:flex;justify-content:space-between;width:100%;font-size:10px;">${p.label}${!isText?` <span class="val" id="vmp_lbl_${key}" style="color:${c.text};">${val}</span>`:''}</span>
+          ${p.hint?`<span style="font-size:9px;color:var(--text-dim);font-weight:400;margin-top:2px;">${p.hint}</span>`:''}
+        </label>
+        ${isText
+          ? `<input type="text" id="vmp_${key}" value="${val}" placeholder="${p.placeholder||''}"
+              oninput="vmParams['${key}']=this.value;recalcResult()" style="font-family:'Pretendard',sans-serif;font-size:11px;"/>`
+          : `<input type="number" id="vmp_${key}" value="${val}" min="${p.min}" max="${p.max}" step="${p.step}"
+              oninput="vmParams['${key}']=parseFloat(this.value);document.getElementById('vmp_lbl_${key}').textContent=this.value;recalcResult()" style="font-size:11px;"/>`
+        }
+      </div>`;
+    }).join('');
+
+    // 파라미터를 2컬럼 그리드로 배치 (DCF는 항목이 많아 2컬럼)
+    const paramCols = m.params.length > 3
+      ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">${paramsHtml}</div>`
+      : paramsHtml;
+
+    return `<div class="vm-sel-panel ${i===vmActiveTab?'active':''}" id="vmsp_${m.id}">
+      <div class="vm-sel-info" style="border-right:1px solid ${c.border};background:${c.bg};">
+        <div class="vm-sel-title">
+          <span style="font-size:18px;">${m.icon}</span>
+          <span style="color:${c.text};">${m.name}</span>
+          <span style="font-family:monospace;font-size:9px;padding:2px 7px;border-radius:3px;background:${c.tagBg};color:${c.text};border:1px solid ${c.border};margin-left:auto;">${m.tag}</span>
+        </div>
+        <div class="vm-sel-desc">${m.desc}</div>
+        <div class="vm-sel-role">${m.role}</div>
+        ${m.id==='ev_ebitda' ? `
+        <div style="margin-top:14px;border-top:1px solid ${c.border};padding-top:14px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);font-family:monospace;margin-bottom:10px;">기준 EBITDA · 피어 멀티플</div>
+          <div class="field" style="margin-bottom:12px;">
+            <label style="font-size:11px;">EBITDA (억원) <span class="val" id="lEBITDA" style="color:${c.text};">200</span></label>
+            <input type="number" id="ebitda" value="200" min="1" step="10"
+              oninput="syncV('ebitda','lEBITDA',true);updatePreview()"
+              style="font-size:12px;font-family:monospace;"/>
+          </div>
+          <div class="peer-panel" style="margin-bottom:0;background:var(--surface);border-color:${c.border};">
+            <div class="peer-header" onclick="togglePeer()">
+              <div class="peer-header-left">
+                <span class="peer-title" style="font-size:11px;">피어 EV/EBITDA</span>
+                <span class="peer-multiple-badge" id="peerMultipleDisplay" style="font-size:16px;">—</span>
+                <span style="font-family:monospace;font-size:9px;color:var(--text-dim);">(중앙값)</span>
+                <span class="peer-live-badge"><span class="peer-live-dot"></span>LIVE</span>
+              </div>
+              <span class="peer-toggle" id="peerToggleBtn">▾ 피어 보기</span>
+            </div>
+            <div class="peer-body" id="peerBody">
+              <div style="font-family:monospace;font-size:9px;color:var(--text-dim);margin-bottom:8px;display:flex;gap:8px;">
+                <span>피어 그룹 · 실시간 연동 시뮬레이션</span>
+                <span id="lastUpdated" style="color:rgba(99,120,180,.5);">—</span>
+              </div>
+              <table class="peer-table">
+                <thead><tr><th>기업명</th><th>업종</th><th>EV/EBITDA</th><th>ESG등급</th><th>시가총액</th><th>EV</th></tr></thead>
+                <tbody id="peerTableBody"></tbody>
+              </table>
+              <div style="margin-top:10px;">
+                <div class="field">
+                  <label style="font-size:11px;">멀티플 방식 <span class="val" id="lMultipleMode">중앙값</span></label>
+                  <select id="multipleMode" onchange="syncSelect();updatePreview()">
+                    <option value="median">피어 중앙값</option>
+                    <option value="mean">피어 평균값</option>
+                    <option value="q1">1사분위 (보수적)</option>
+                    <option value="q3">3사분위 (낙관적)</option>
+                    <option value="custom">직접 입력</option>
+                  </select>
+                </div>
+                <div class="field" id="customMultipleField" style="display:none;">
+                  <label style="font-size:11px;">직접 입력 EV/EBITDA</label>
+                  <input type="number" id="customMultiple" value="8" min="1" step="0.1" oninput="updatePreview()"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>` : ''}
+        <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
+          ${VM_METHODS.map((mm,ii)=>ii!==i?`<button onclick="switchVmTab(${ii})" style="font-size:10px;padding:4px 10px;border-radius:5px;border:1px solid var(--border);background:var(--surface);color:var(--text-dim);cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='${colors[ii].border}';this.style.color='${colors[ii].text}'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'">${mm.icon} ${mm.name} →</button>`:'').join('')}
+        </div>
+      </div>
+      <div class="vm-sel-params">
+        <div class="vm-sel-params-title">파라미터 입력</div>
+        ${m.id!=='ev_ebitda'?`<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:rgba(99,102,241,.07);border:1px solid rgba(99,102,241,.2);border-radius:7px;margin-bottom:12px;cursor:pointer;" onclick="switchVmTab(0)" title="EV/EBITDA 탭에서 수정">
+          <span style="font-size:10px;color:var(--text-dim);">기준 EBITDA</span>
+          <span style="font-family:monospace;font-size:12px;font-weight:700;color:#a5b4fc;" id="ebitdaRef_${m.id}">—억원</span>
+          <span style="font-size:9px;color:var(--text-dim);font-family:monospace;">← EV/EBITDA 탭에서 수정</span>
+        </div>`:''}
+        ${paramCols}
+      </div>
+    </div>`;
+  }).join('');
+
+  const extra = document.getElementById('vmExtraParams');
+  if(extra) extra.innerHTML = '';
+}
+
+function switchVmTab(idx){
+  vmActiveTab = idx;
+  // 탭 헤더 active 갱신
+  document.querySelectorAll('.vm-sel-tab').forEach((t,i)=>t.classList.toggle('active', i===idx));
+  // 패널 active 갱신
+  document.querySelectorAll('.vm-sel-panel').forEach((p,i)=>p.classList.toggle('active', i===idx));
+}
+
+function renderVmParams(){
+  const container = document.getElementById('vmExtraParams');
+  if(!container) return;
+  container.innerHTML = `<div class="vm-params">
+    ${VM_METHODS.map(m=>{
+      if(!m.params.length) return '';
+      const isCoreMethod = m.id === 'dcf';
+      return `<div style="margin-bottom:14px;">
+        <div style="font-size:11px;font-weight:700;color:var(--text-bright);margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+          ${m.icon} ${m.name} 입력값
+          ${isCoreMethod?'<span style="font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.35);color:#60a5fa;font-family:monospace;">CORE</span>':''}
+        </div>
+        <div class="${m.id==='dcf'?'':'grid-2'}">
+        ${m.params.map(p=>{
+          const key = `${m.id}_${p.id}`;
+          const val = vmParams[key] ?? p.val;
+          const isText = p.type === 'text';
+          return `<div class="field">
+            <label style="flex-direction:column;align-items:flex-start;gap:2px;">
+              <span style="display:flex;justify-content:space-between;width:100%;">${p.label}${!isText?` <span class="val" id="vmp_lbl_${key}">${val}</span>`:''}</span>
+              ${p.hint?`<span style="font-size:9px;color:var(--text-dim);font-weight:400;">${p.hint}</span>`:''}
+            </label>
+            ${isText
+              ? `<input type="text" id="vmp_${key}" value="${val}" placeholder="${p.placeholder||''}"
+                  oninput="vmParams['${key}']=this.value;recalcResult()" style="font-family:'Pretendard',sans-serif;"/>`
+              : `<input type="number" id="vmp_${key}" value="${val}" min="${p.min}" max="${p.max}" step="${p.step}"
+                  oninput="vmParams['${key}']=parseFloat(this.value);document.getElementById('vmp_lbl_${key}').textContent=this.value;recalcResult()"/>`
+            }
+          </div>`;
+        }).join('')}
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+// ── 계산 ──
+function computeMultiVal(){
+  const inp = getInputs();
+  const esg = calcESG();
+  const v   = computeValuation(inp.ebitda, inp.sa, inp.ev, inp.ac, inp.ci, esg.total);
+  const results = {};
+  VM_METHODS.forEach(m=>{
+    const params = {};
+    m.params.forEach(p=>{ params[p.id] = vmParams[`${m.id}_${p.id}`] ?? p.val; });
+    try { results[m.id] = m.compute(inp, esg, v, params); }
+    catch(e){ results[m.id]={low:0,mid:0,high:0,mult:0,multLabel:'—',breakdown:[],detail:'계산 오류'}; }
+  });
+  vmResults = results;
+  return {results, inp, esg, v};
+}
+
+// ── 3단계 결과 탭 렌더링 ──
+function renderMultiVal(){
+  const {results, inp, esg} = computeMultiVal();
+  const tips = getVmRecommendations(inp.sector, inp.ebitda, esg);
+  const ids  = VM_METHODS.map(m=>m.id);
+  const allMids  = ids.map(id=>results[id]?.mid||0);
+  const allLows  = ids.map(id=>results[id]?.low||0);
+  const allHighs = ids.map(id=>results[id]?.high||0);
+  const maxEV    = Math.max(...allHighs, 1);
+
+  // 탭
+  document.getElementById('mvMethodTabs').innerHTML = VM_METHODS.map((m,i)=>
+    `<div class="mv-tab ${i===0?'active':''}" onclick="switchMvTab('${m.id}',this)">${m.icon} ${m.name}</div>`
+  ).join('');
+
+  // 각 방법론 상세 패널
+  document.getElementById('mvPanelContainer').innerHTML = VM_METHODS.map((m,i)=>{
+    const r = results[m.id];
+    if(!r) return '';
+    const lowPct = (r.low/maxEV*100).toFixed(1);
+    const highPct= (r.high/maxEV*100).toFixed(1);
+    const midPct = (r.mid/maxEV*100).toFixed(1);
+
+    // DCF 전용: FCF 테이블
+    let dcfTable = '';
+    if(m.id==='dcf' && r.fcfRows?.length){
+      dcfTable = `<div style="margin-top:12px;">
+        <div style="font-size:10px;color:var(--text-dim);font-family:monospace;margin-bottom:6px;">연도별 FCF 추정 (억원)</div>
+        <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:10px;">
+          <thead><tr>
+            ${['연도','FCF 추정','현재가치(PV)'].map(h=>`<th style="font-family:monospace;font-size:9px;color:var(--text-dim);padding:4px 8px;border-bottom:1px solid var(--border);text-align:right;">${h}</th>`).join('')}
+          </tr></thead>
+          <tbody>
+          ${r.fcfRows.map(row=>`<tr>
+            <td style="padding:3px 8px;text-align:right;color:var(--text-dim);font-family:monospace;">${row.yr}년차</td>
+            <td style="padding:3px 8px;text-align:right;font-family:monospace;">${row.fcf.toLocaleString('ko-KR')}억</td>
+            <td style="padding:3px 8px;text-align:right;font-family:monospace;color:var(--accent2);">${row.pv.toLocaleString('ko-KR')}억</td>
+          </tr>`).join('')}
+          </tbody>
+        </table></div>
+        ${r.termRatio>60?`<div style="margin-top:6px;padding:6px 9px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:6px;font-size:10px;color:#fbbf24;">⚠ Terminal Value 비중 ${r.termRatio}% — 성장률 가정을 재검토하세요.</div>`:''}
+      </div>`;
+    }
+
+    return `<div class="mv-panel ${i===0?'active':''}" id="mvp_${m.id}">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
+        <div class="mv-matrix-item"><div class="mv-method-lbl">보수적</div>
+          <div class="mv-method-val" style="color:#f87171;">${Math.round(r.low).toLocaleString('ko-KR')}</div>
+          <div class="mv-method-sub">억원</div></div>
+        <div class="mv-matrix-item" style="border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.07);">
+          <div class="mv-method-lbl">기준값</div>
+          <div class="mv-method-val" style="color:#60a5fa;">${Math.round(r.mid).toLocaleString('ko-KR')}</div>
+          <div class="mv-method-sub">억원</div></div>
+        <div class="mv-matrix-item"><div class="mv-method-lbl">낙관적</div>
+          <div class="mv-method-val" style="color:#4ade80;">${Math.round(r.high).toLocaleString('ko-KR')}</div>
+          <div class="mv-method-sub">억원</div></div>
+      </div>
+
+      <div style="position:relative;height:12px;background:var(--surface2);border-radius:99px;margin-bottom:18px;">
+        <div style="position:absolute;left:${lowPct}%;width:${Math.max(0,parseFloat(highPct)-parseFloat(lowPct))}%;height:100%;border-radius:99px;background:linear-gradient(90deg,rgba(244,63,94,.45),rgba(59,130,246,.6),rgba(34,197,94,.45));top:0;"></div>
+        <div style="position:absolute;left:${midPct}%;top:50%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:50%;background:var(--accent);border:2px solid rgba(255,255,255,.3);box-shadow:0 0 8px rgba(59,130,246,.5);"></div>
+      </div>
+
+      <div style="font-size:11px;font-weight:700;color:var(--text-bright);margin-bottom:10px;">${r.multLabel}: ${r.mult.toFixed(2)}x</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:12px;">
+        ${(r.breakdown||[]).map(b=>`
+          <div style="display:flex;justify-content:space-between;padding:5px 8px;background:var(--surface2);border-radius:5px;border:1px solid var(--border);">
+            <span style="font-size:10px;color:var(--text-dim);">${b.label}</span>
+            <span style="font-size:10px;font-family:monospace;color:var(--text-bright);font-weight:600;">${b.val}</span>
+          </div>`).join('')}
+      </div>
+
+      ${r.equityVal!=null?`<div style="padding:9px 12px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:8px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:10px;color:#4ade80;font-family:monospace;">Equity Value (순부채 차감)</span>
+        <span style="font-size:16px;font-weight:800;color:#4ade80;">${r.equityVal.toLocaleString('ko-KR')}억</span>
+      </div>`:''}
+
+      ${dcfTable}
+    </div>`;
+  }).join('');
+
+  // 컨센서스
+  renderMvConsensus(results, inp, tips);
+  renderMvMatrix(results, inp);
+}
+
+function switchMvTab(id, el){
+  document.querySelectorAll('.mv-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.mv-panel').forEach(p=>p.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const p = document.getElementById('mvp_'+id);
+  if(p) p.classList.add('active');
+}
+
+function renderMvConsensus(results, inp, tips){
+  const el = document.getElementById('mvConsensusArea');
+  if(!el) return;
+  const ids   = VM_METHODS.map(m=>m.id);
+  const mids  = ids.map(id=>results[id]?.mid||0);
+  const lows  = ids.map(id=>results[id]?.low||0);
+  const highs = ids.map(id=>results[id]?.high||0);
+  const lo    = Math.min(...lows);
+  const hi    = Math.max(...highs);
+  // DCF를 핵심으로 가중평균: DCF 50%, EV/EBITDA 30%, 거래사례 20%
+  const weights = [0.30, 0.50, 0.20];
+  const weightedMid = mids.reduce((acc, v, i) => acc + v * weights[i], 0);
+
+  const pctBar = mids.map((v,i)=>({ name:VM_METHODS[i].name, icon:VM_METHODS[i].icon, val:Math.round(v), pct:Math.round(v/Math.max(...mids)*100) }));
+
+  el.innerHTML = `<div class="mv-consensus">
+    <div class="mv-consensus-label">3개 방법론 통합 협상 범위</div>
+    <div class="mv-consensus-range">${Math.round(lo).toLocaleString('ko-KR')} <span style="font-size:14px;color:var(--text-dim);font-weight:400;">~</span> ${Math.round(hi).toLocaleString('ko-KR')} <span style="font-size:14px;font-weight:400;color:var(--text-dim);">억원</span></div>
+    <div class="mv-consensus-sub" style="margin-bottom:12px;">가중 기준값 (DCF 50% · EV/EBITDA 30% · 거래사례 20%) <strong style="color:var(--accent);"> ${Math.round(weightedMid).toLocaleString('ko-KR')}억 · ${(weightedMid/inp.ebitda).toFixed(2)}x</strong></div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+      ${pctBar.map((b,i)=>`<div style="display:flex;align-items:center;gap:8px;font-size:10px;">
+        <span style="width:80px;color:var(--text-dim);flex-shrink:0;">${b.icon} ${b.name}</span>
+        <div style="flex:1;height:6px;background:var(--surface2);border-radius:99px;overflow:hidden;">
+          <div style="width:${b.pct}%;height:100%;border-radius:99px;background:${['rgba(99,102,241,.7)','rgba(59,130,246,.9)','rgba(34,197,94,.7)'][i]};"></div>
+        </div>
+        <span style="font-family:monospace;color:var(--text-bright);font-weight:600;width:70px;text-align:right;">${b.val.toLocaleString('ko-KR')}억</span>
+      </div>`).join('')}
+    </div>
+    ${tips?.length?`<div style="border-top:1px solid var(--border);padding-top:10px;">
+      ${tips.map(t=>`<div class="vm-rec-item"><div class="vm-rec-dot" style="background:var(--gold)"></div><span style="font-size:10px;color:var(--text-dim);">${t}</span></div>`).join('')}
+    </div>`:''}
+  </div>`;
+}
+
+function renderMvMatrix(results, inp){
+  const el = document.getElementById('mvMatrix');
+  if(!el) return;
+  el.style.gridTemplateColumns = 'repeat(3,1fr)';
+  const all = VM_METHODS.map(m=>results[m.id]?.mid||0);
+  const maxV = Math.max(...all, 1);
+  el.innerHTML = VM_METHODS.map((m,i)=>{
+    const r = results[m.id];
+    const pct = Math.round((r?.mid||0)/maxV*100);
+    const cols = ['rgba(99,102,241,.8)','rgba(59,130,246,.9)','rgba(34,197,94,.8)'];
+    const isCoreMethod = m.id === 'dcf';
+    return `<div class="mv-matrix-item" style="${isCoreMethod?'border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.06);':''}" >
+      ${isCoreMethod?'<div style="font-size:9px;color:#60a5fa;font-family:monospace;margin-bottom:3px;">★ CORE</div>':''}
+      <div class="mv-method-lbl">${m.icon} ${m.name}</div>
+      <div class="mv-method-val" style="color:${cols[i]};">${Math.round(r?.mid||0).toLocaleString('ko-KR')}</div>
+      <div class="mv-method-sub">억 · ${(r?.mult||0).toFixed(2)}x</div>
+      <div style="margin-top:6px;height:3px;background:var(--surface);border-radius:99px;">
+        <div style="width:${pct}%;height:100%;border-radius:99px;background:${cols[i]};"></div>
+      </div>
+      <div style="margin-top:4px;font-size:9px;color:var(--text-dim);">${m.tag}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Boot vm grid on DOMContentLoaded (added to existing boot) ──
 // ══ BOOT ══
 document.addEventListener('DOMContentLoaded',()=>{
   renderIndInputArea();
@@ -824,6 +1494,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   renderPeerTable('custom');
   simulateLivePeer();
   initAgentFeed();
+  renderVmGrid();
 });
 
 // ══ AGENT FEED ══
@@ -866,7 +1537,11 @@ function calcCatScore(cat){const inds=ESG_INDICATORS[cat],tw=inds.reduce((s,i)=>
 function calcESG(){const eS=calcCatScore('E'),sS=calcCatScore('S'),gS=calcCatScore('G');return{total:eS*(catWeights.E/100)+sS*(catWeights.S/100)+gS*(catWeights.G/100),eS,sS,gS};}
 
 // ══ COMPUTE ══
-function getInputs(){return{ebitda:parseFloat(document.getElementById('ebitda').value)||200,sa:parseInt(document.getElementById('seriousAccidents').value)||0,ev:parseInt(document.getElementById('envViolations').value)||0,ac:parseInt(document.getElementById('antiCorruption').value)||0,ci:parseInt(document.getElementById('cyberIncidents').value)||0,name:document.getElementById('companyName').value||'대상기업',sector:document.getElementById('companySector').value||'—'};}
+function getInputs(){
+  const ebitdaEl=document.getElementById('ebitda');
+  const ebitda=ebitdaEl?parseFloat(ebitdaEl.value)||200:200;
+  return{ebitda,sa:parseInt(document.getElementById('seriousAccidents').value)||0,ev:parseInt(document.getElementById('envViolations').value)||0,ac:parseInt(document.getElementById('antiCorruption').value)||0,ci:parseInt(document.getElementById('cyberIncidents').value)||0,name:document.getElementById('companyName').value||'대상기업',sector:document.getElementById('companySector').value||'—'};
+}
 
 function computeValuation(ebitda,sa,ev,ac,ci,total){
   const base=getPeerMultiple(),dev=total-COEFFS.ESG_BASELINE;
@@ -931,6 +1606,7 @@ function computeAndRender(){
   updateAuditGauge(total,eS,sS,gS,inp.sa,inp.ev,inp.ac,inp.ci);
   initCharts(total,eS,sS,gS,v.base,v.buyMult,v.sellMult,inp);
   if(document.getElementById('rtab-dealroom').classList.contains('active'))renderDealRoom();
+  if(document.getElementById('rtab-multival').classList.contains('active'))renderMultiVal();
   updateCatWeights();
 }
 
@@ -998,12 +1674,29 @@ function updateAuditGauge(total,eS,sS,gS,sa,ev,ac,ci){
 }
 
 // ══ INDICATOR RESULTS ══
-// ══ INPUT AREA ══
+// ══ INPUT AREA — ESG 지표 3컬럼 ══
 function renderIndInputArea(){
-  const cfg={E:{label:'환경(E)',cls:'ind-sec-e'},S:{label:'사회(S)',cls:'ind-sec-s'},G:{label:'지배구조(G)',cls:'ind-sec-g'}};
-  document.getElementById('indInputArea').innerHTML=['E','S','G'].map(cat=>{
-    const c=cfg[cat];
-    return`<div class="ind-section"><div class="ind-sec-header ${c.cls}"><span>${c.label}</span><span class="ind-sec-score" id="inp_score_${cat}">—</span></div>`+ESG_INDICATORS[cat].map(ind=>`<div class="ind-row"><div class="ind-name">${ind.name}</div><input type="range" id="ind_${ind.id}" min="0" max="100" value="${ind.score}" style="width:100%;" oninput="syncIndicatorScore('${ind.id}',this.value)"/><input class="ind-num-inp" type="number" id="num_${ind.id}" value="${ind.score}" min="0" max="100" oninput="syncIndicatorScore('${ind.id}',this.value)"/></div>`).join('')+'</div>';
+  const cfg={
+    E:{label:'환경(E)',cls:'ind-sec-e',hdrBg:'rgba(34,211,238,0.1)',hdrBorder:'rgba(34,211,238,0.25)',hdrColor:'#67e8f9'},
+    S:{label:'사회(S)',cls:'ind-sec-s',hdrBg:'rgba(251,146,60,0.1)',hdrBorder:'rgba(251,146,60,0.25)',hdrColor:'#fb923c'},
+    G:{label:'지배구조(G)',cls:'ind-sec-g',hdrBg:'rgba(167,139,250,0.1)',hdrBorder:'rgba(167,139,250,0.25)',hdrColor:'#c4b5fd'},
+  };
+  const container = document.getElementById('indInputArea');
+  container.innerHTML = ['E','S','G'].map(cat=>{
+    const c = cfg[cat];
+    const rows = ESG_INDICATORS[cat].map(ind=>`
+      <div class="ind-row" style="grid-template-columns:1fr 60px 46px;">
+        <div class="ind-name">${ind.name}</div>
+        <input type="range" id="ind_${ind.id}" min="0" max="100" value="${ind.score}" style="width:100%;" oninput="syncIndicatorScore('${ind.id}',this.value)"/>
+        <input class="ind-num-inp" type="number" id="num_${ind.id}" value="${ind.score}" min="0" max="100" oninput="syncIndicatorScore('${ind.id}',this.value)"/>
+      </div>`).join('');
+    return `<div class="esg-col-card">
+      <div class="esg-col-header" style="background:${c.hdrBg};border-bottom:1px solid ${c.hdrBorder};">
+        <span style="font-size:12px;font-weight:800;color:${c.hdrColor};letter-spacing:0.06em;">${c.label}</span>
+        <span class="ind-sec-score" id="inp_score_${cat}" style="font-family:monospace;font-size:11px;color:${c.hdrColor};">—</span>
+      </div>
+      <div class="esg-col-body">${rows}</div>
+    </div>`;
   }).join('');
 }
 
@@ -1021,6 +1714,11 @@ function updatePreview(){
   document.getElementById('prevS').textContent=sS.toFixed(1);
   document.getElementById('prevG').textContent=gS.toFixed(1);
   [{cat:'E',sc:eS},{cat:'S',sc:sS},{cat:'G',sc:gS}].forEach(({cat,sc})=>{const el=document.getElementById('inp_score_'+cat);if(el)el.textContent=sc.toFixed(1)+'점';});
+  // DCF·유사거래 탭 EBITDA 참조값 업데이트
+  const ebitdaVal = parseFloat(document.getElementById('ebitda')?.value)||200;
+  ['dcf','transaction'].forEach(id=>{const el=document.getElementById('ebitdaRef_'+id);if(el)el.textContent=Math.round(ebitdaVal).toLocaleString('ko-KR')+'억원';});
+  // AI 추천 팁만 업데이트 (탭 UI 재렌더 없이)
+  renderVmGrid();
 }
 
 function equalScores(v){['E','S','G'].forEach(cat=>ESG_INDICATORS[cat].forEach(ind=>{const sl=document.getElementById('ind_'+ind.id),nm=document.getElementById('num_'+ind.id);if(sl)sl.value=v;if(nm)nm.value=v;}));updatePreview();}
@@ -1109,6 +1807,7 @@ function switchRTab(name,el){
   document.getElementById('rtab-'+name).classList.add('active');
   if(name==='sensitivity')buildSensitivity();
   if(name==='dealroom')renderDealRoom();
+  if(name==='multival')renderMultiVal();
 }
 
 // ══ SENSITIVITY ══
@@ -1472,6 +2171,15 @@ function generateReport(){
 function syncV(iid,lid,comma=false){const v=document.getElementById(iid).value;document.getElementById(lid).textContent=comma?Number(v).toLocaleString('ko-KR'):v;}
 function syncB(iid,lid){const v=document.getElementById(iid).value;document.getElementById(lid).textContent=v;betaCoeffs[{beta1:'sa',beta2:'ev',beta3:'ac',beta4:'ci'}[iid]]=parseFloat(v);}
 function syncSellB(iid,lid){const v=document.getElementById(iid).value;document.getElementById(lid).textContent=v;sellBetaCoeffs[{sbeta1:'sa',sbeta2:'ev',sbeta3:'ac',sbeta4:'ci'}[iid]]=parseFloat(v);}
+
+let betaOpen = false;
+function toggleBeta(){
+  betaOpen = !betaOpen;
+  const body = document.getElementById('betaBody');
+  const btn = document.getElementById('betaToggleBtn');
+  if(body){ body.style.maxHeight = betaOpen ? '400px' : '0'; }
+  if(btn){ btn.textContent = betaOpen ? '▴ 접기' : '▾ 펼치기'; }
+}
 </script>
 </body>
 </html>
