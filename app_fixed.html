@@ -515,7 +515,7 @@ textarea:focus{border-color:var(--accent);}
     <div class="field"><label>사회(S) % <span class="val" id="wS">35</span></label>
       <input type="range" id="wSoc" min="10" max="60" value="35" oninput="updateCatWeights('S');updatePreview();recalcResult()"/></div>
     <p style="font-size:10px;color:var(--text-dim);margin-top:3px;">※ 지배구조(G)는 100-E-S로 자동 계산되며, E+S가 100%를 넘지 않도록 자동 보정됩니다.</p>
-    <div class="sec-label" style="margin-top:16px;">인수자 리스크 β 계수</div>
+    <div class="sec-label" style="margin-top:16px;">매수자 리스크 β 계수 <span style="font-size:9px;color:var(--text-dim);font-family:monospace;">(BUY EV에 반영)</span></div>
     <div class="grid-2">
       <div class="field"><label>중대재해 β <span class="val" id="lB1">-8</span></label>
         <input type="range" id="beta1" min="-20" max="0" value="-8" oninput="syncB('beta1','lB1');recalcResult()"/></div>
@@ -525,6 +525,17 @@ textarea:focus{border-color:var(--accent);}
         <input type="range" id="beta3" min="-10" max="0" value="-2" oninput="syncB('beta3','lB3');recalcResult()"/></div>
       <div class="field"><label>정보보안 β <span class="val" id="lB4">-1</span></label>
         <input type="range" id="beta4" min="-10" max="0" value="-1" oninput="syncB('beta4','lB4');recalcResult()"/></div>
+    </div>
+    <div class="sec-label" style="margin-top:12px;">매도자 리스크 β 계수 <span style="font-size:9px;color:var(--text-dim);font-family:monospace;">(SELL EV에 반영)</span></div>
+    <div class="grid-2">
+      <div class="field"><label>중대재해 β <span class="val" id="lSB1">-3</span></label>
+        <input type="range" id="sbeta1" min="-20" max="0" value="-3" oninput="syncSellB('sbeta1','lSB1');recalcResult()"/></div>
+      <div class="field"><label>환경위반 β <span class="val" id="lSB2">-1</span></label>
+        <input type="range" id="sbeta2" min="-10" max="0" value="-1" oninput="syncSellB('sbeta2','lSB2');recalcResult()"/></div>
+      <div class="field"><label>반부패 β <span class="val" id="lSB3">-1</span></label>
+        <input type="range" id="sbeta3" min="-10" max="0" value="-1" oninput="syncSellB('sbeta3','lSB3');recalcResult()"/></div>
+      <div class="field"><label>정보보안 β <span class="val" id="lSB4">-1</span></label>
+        <input type="range" id="sbeta4" min="-10" max="0" value="-1" oninput="syncSellB('sbeta4','lSB4');recalcResult()"/></div>
     </div>
     <div class="btn-row">
       <button class="btn btn-secondary" onclick="resetCatWeights()">기본값</button>
@@ -797,6 +808,7 @@ const AGENT_FEED_ITEMS=[{tag:'GHG',cls:'fi-ghg',msg:'Scope 1·2·3 배출량 자
 
 let catWeights={E:40,S:35,G:25};
 let betaCoeffs={sa:-8,ev:-3,ac:-2,ci:-1};
+let sellBetaCoeffs={sa:-3,ev:-1,ac:-1,ci:-0.5};
 let currentPreset='custom';
 let aiPendingScores=null,analysisHistory=[];
 let documentInsights=null;
@@ -861,7 +873,7 @@ function computeValuation(ebitda,sa,ev,ac,ci,total){
   let buyAdj=betaCoeffs.sa*sa*COEFFS.SA_UNIT+betaCoeffs.ev*ev*COEFFS.EV_UNIT+betaCoeffs.ac*ac*COEFFS.AC_UNIT+betaCoeffs.ci*ci*COEFFS.CI_UNIT+COEFFS.ESG_DEV_UNIT*dev;
   buyAdj=Math.max(-base*0.6,Math.min(base*0.15,buyAdj));
   const buyMult=Math.max(0.5,base+buyAdj),buyEV=ebitda*buyMult;
-  let sellAdj=COEFFS.ESG_DEV_UNIT*1.6*dev-COEFFS.SA_UNIT*0.75*sa;
+  let sellAdj=sellBetaCoeffs.sa*sa*COEFFS.SA_UNIT+sellBetaCoeffs.ev*ev*COEFFS.EV_UNIT+sellBetaCoeffs.ac*ac*COEFFS.AC_UNIT+sellBetaCoeffs.ci*ci*COEFFS.CI_UNIT+COEFFS.ESG_DEV_UNIT*1.6*dev;
   sellAdj=Math.max(-base*0.1,Math.min(base*0.25,sellAdj));
   const sellMult=Math.max(0.5,base+sellAdj),sellEV=ebitda*sellMult;
   return{base,dev,buyAdj,buyMult,buyEV,sellAdj,sellMult,sellEV,gapEV:sellEV-buyEV,gapMult:sellMult-buyMult};
@@ -1028,7 +1040,12 @@ function updateCatWeights(changed){
   document.getElementById('catWeightDisplay').innerHTML=['E','S','G'].map((k,i)=>`<div class="weight-item"><div class="wi-label">${{E:'환경(E)',S:'사회(S)',G:'지배구조(G)'}[k]}</div><div class="wi-val ${['wi-e','wi-s','wi-g'][i]}">${catWeights[k]}%</div></div>`).join('');
 }
 
-function resetCatWeights(){document.getElementById('wEnv').value=40;document.getElementById('wSoc').value=35;updateCatWeights();recalcResult();}
+function resetCatWeights(){
+  document.getElementById('wEnv').value=40;document.getElementById('wSoc').value=35;updateCatWeights();
+  [{id:'beta1',lid:'lB1',v:-8},{id:'beta2',lid:'lB2',v:-3},{id:'beta3',lid:'lB3',v:-2},{id:'beta4',lid:'lB4',v:-1}].forEach(({id,lid,v})=>{document.getElementById(id).value=v;document.getElementById(lid).textContent=v;betaCoeffs[{beta1:'sa',beta2:'ev',beta3:'ac',beta4:'ci'}[id]]=v;});
+  [{id:'sbeta1',lid:'lSB1',v:-3},{id:'sbeta2',lid:'lSB2',v:-1},{id:'sbeta3',lid:'lSB3',v:-1},{id:'sbeta4',lid:'lSB4',v:-1}].forEach(({id,lid,v})=>{document.getElementById(id).value=v;document.getElementById(lid).textContent=v;sellBetaCoeffs[{sbeta1:'sa',sbeta2:'ev',sbeta3:'ac',sbeta4:'ci'}[id]]=v;});
+  recalcResult();
+}
 
 // ══ PEER ══
 function togglePeer(){peerOpen=!peerOpen;document.getElementById('peerBody').classList.toggle('open',peerOpen);document.getElementById('peerToggleBtn').textContent=peerOpen?'▴ 접기':'▾ 피어 보기';}
@@ -1275,7 +1292,7 @@ function buildDocumentInsights(text){
   return{E_score,S_score,G_score,serious_accidents:seriousAccidents,env_violations:envViolations,anti_corruption:antiCorruption,cyber_incidents:cyberIncidents,indicators,key_findings:findings,risk_flags,opportunities,audit_readiness:auditReadiness,compliance_score:complianceScore,disclosure_score:disclosureScore,source_chars:text.length};
 }
 
-// ══ AI ANALYZE (no user API key needed) ══
+// ══ CLAUDE AI ANALYZE (no user API key needed) ══
 async function analyzeText(options={}){
   const text=document.getElementById('manualText').value.trim();
   if(!text){
@@ -1289,9 +1306,9 @@ async function analyzeText(options={}){
   res.classList.add('show');
   document.getElementById('aiApplyRow').style.display='none';
   if(btn){btn.disabled=true;btn.textContent='AI 분석 중...';}
-  document.getElementById('aiResultTitle').textContent='AI 분석 중...';
+  document.getElementById('aiResultTitle').textContent='Claude AI 분석 중...';
   ['aiE','aiS','aiG'].forEach(id=>document.getElementById(id).textContent='...');
-  document.getElementById('aiFindingsBox').innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--accent2);font-family:monospace;font-size:11px;"><span class="spinner"></span>AI가 ESG·감사·규제 항목을 심층 분석하고 있습니다...</div>';
+  document.getElementById('aiFindingsBox').innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--accent2);font-family:monospace;font-size:11px;"><span class="spinner"></span>Claude가 ESG·감사·규제 항목을 심층 분석하고 있습니다...</div>';
 
   const prompt=`당신은 ESG M&A 실사 전문 분석 AI입니다. 아래 기업 내부 자료를 분석하여 반드시 JSON 형식으로만 응답하세요. 마크다운 코드블록(\`\`\`)이나 다른 텍스트는 절대 포함하지 마세요. 순수 JSON만 출력하세요.
 
@@ -1364,7 +1381,7 @@ ${text.slice(0,10000)}
       summaryDiv.innerHTML='<strong style="font-size:10px;letter-spacing:.08em;color:var(--accent2);">✦ AI 종합 평가</strong><br/>'+escapeHtml(parsed.ai_summary);
       box.appendChild(summaryDiv);
     }
-    document.getElementById('aiResultTitle').textContent='AI ESG 분석 완료';
+    document.getElementById('aiResultTitle').textContent='Claude AI ESG 분석 완료';
 
   }catch(err){
     // 오류 시 로컬 분석 폴백
@@ -1454,6 +1471,7 @@ function generateReport(){
 // ══ UTILITIES ══
 function syncV(iid,lid,comma=false){const v=document.getElementById(iid).value;document.getElementById(lid).textContent=comma?Number(v).toLocaleString('ko-KR'):v;}
 function syncB(iid,lid){const v=document.getElementById(iid).value;document.getElementById(lid).textContent=v;betaCoeffs[{beta1:'sa',beta2:'ev',beta3:'ac',beta4:'ci'}[iid]]=parseFloat(v);}
+function syncSellB(iid,lid){const v=document.getElementById(iid).value;document.getElementById(lid).textContent=v;sellBetaCoeffs[{sbeta1:'sa',sbeta2:'ev',sbeta3:'ac',sbeta4:'ci'}[iid]]=parseFloat(v);}
 </script>
 </body>
 </html>
