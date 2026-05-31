@@ -1,0 +1,9 @@
+{
+  "name": "esg-valuation-engine",
+  "version": "1.0.0",
+  "description": "ESG M&A Valuation Engine — 체험판",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  }
+}
