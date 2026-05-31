@@ -550,7 +550,7 @@ textarea:focus{border-color:var(--accent);}
     <div class="card-title"><span class="card-title-dot"></span>텍스트 직접 입력</div>
     <textarea id="manualText" rows="8" placeholder="ESG 보고서, 감사 체크리스트, 내부통제 현황, 규제 대응 메모를 붙여넣으세요. 예: 온실가스 감축률 12%, 중대재해 2건, 이사회 독립이사 비율 60%, 내부감사 지적 3건..."></textarea>
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="analyzeText()">AI 문서 분석</button>
+      <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeText()">🤖 AI 문서 분석</button>
     </div>
   </div>
 
@@ -1198,7 +1198,8 @@ async function handleFile(event){
     }
     const clean=text.replace(/\s+/g,' ').trim();
     document.getElementById('manualText').value=(clean||`${file.name} ${ext.toUpperCase()} 내부 ESG 자료 업로드됨`).slice(0,4000);
-    document.getElementById('fileStatus').textContent=`📎 ${file.name} (${(file.size/1024).toFixed(1)}KB) 로드됨`;
+    document.getElementById('fileStatus').textContent=`📎 ${file.name} (${(file.size/1024).toFixed(1)}KB) 로드됨 — AI 자동 분석 시작...`;
+    setTimeout(()=>analyzeText(),500);
   }catch(err){
     document.getElementById('fileStatus').textContent='⚠️ 파일을 읽는 중 오류가 발생했습니다.';
   }
@@ -1274,25 +1275,110 @@ function buildDocumentInsights(text){
   return{E_score,S_score,G_score,serious_accidents:seriousAccidents,env_violations:envViolations,anti_corruption:antiCorruption,cyber_incidents:cyberIncidents,indicators,key_findings:findings,risk_flags,opportunities,audit_readiness:auditReadiness,compliance_score:complianceScore,disclosure_score:disclosureScore,source_chars:text.length};
 }
 
-function analyzeText(options={}){
+// ══ CLAUDE AI ANALYZE (no user API key needed) ══
+async function analyzeText(options={}){
   const text=document.getElementById('manualText').value.trim();
   if(!text){
     if(!options.silent)alert('분석할 텍스트를 입력하세요.');
     documentInsights=null;
     return null;
   }
-  const btn=document.querySelector('[onclick="analyzeText()"]');
-  if(btn&&!options.silent){btn.disabled=true;btn.textContent='분석 중...';}
-  const res=document.getElementById('aiResult');res.classList.add('show');
-  document.getElementById('aiResultTitle').textContent='AI 분석 중...';
-  ['aiE','aiS','aiG'].forEach(id=>document.getElementById(id).textContent='...');
-  document.getElementById('aiFindingsBox').innerHTML=`<div style="display:flex;align-items:center;gap:8px;color:var(--accent2);font-family:monospace;font-size:11px;"><span class="spinner"></span>내부 자료에서 ESG·감사·규제 항목을 추출하고 있습니다...</div>`;
+
+  const btn=document.getElementById('analyzeBtn');
+  const res=document.getElementById('aiResult');
+  res.classList.add('show');
   document.getElementById('aiApplyRow').style.display='none';
-  const parsed=buildDocumentInsights(text.slice(0,12000));
-  displayAIResults(parsed);
-  if(options.apply)applyAIResults();
-  if(btn&&!options.silent){btn.disabled=false;btn.textContent='AI 문서 분석';}
-  return parsed;
+  if(btn){btn.disabled=true;btn.textContent='AI 분석 중...';}
+  document.getElementById('aiResultTitle').textContent='Claude AI 분석 중...';
+  ['aiE','aiS','aiG'].forEach(id=>document.getElementById(id).textContent='...');
+  document.getElementById('aiFindingsBox').innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--accent2);font-family:monospace;font-size:11px;"><span class="spinner"></span>Claude가 ESG·감사·규제 항목을 심층 분석하고 있습니다...</div>';
+
+  const prompt=`당신은 ESG M&A 실사 전문 분석 AI입니다. 아래 기업 내부 자료를 분석하여 반드시 JSON 형식으로만 응답하세요. 마크다운 코드블록(\`\`\`)이나 다른 텍스트는 절대 포함하지 마세요. 순수 JSON만 출력하세요.
+
+분석 자료:
+"""
+${text.slice(0,10000)}
+"""
+
+응답 형식(JSON만):
+{
+  "E_score": (0~100 정수, 환경 ESG 성과),
+  "S_score": (0~100 정수, 사회 ESG 성과),
+  "G_score": (0~100 정수, 지배구조 ESG 성과),
+  "audit_readiness": (0~100 정수, 감사 대응 준비도),
+  "compliance_score": (0~100 정수, 규제 준수 수준),
+  "disclosure_score": (0~100 정수, 공시 완성도),
+  "serious_accidents": (0~10 정수),
+  "env_violations": (0~15 정수),
+  "anti_corruption": (0~10 정수),
+  "cyber_incidents": (0~10 정수),
+  "key_findings": ["발견사항1","발견사항2","발견사항3"],
+  "risk_flags": ["리스크1","리스크2"],
+  "opportunities": ["기회1","기회2"],
+  "ai_summary": "100자 이내 종합 평가"
+}
+
+점수 기준: 높을수록 양호. 자료에 명시적 근거가 없으면 중간값(55~65)으로 설정.`;
+
+  try{
+    const apiRes=await fetch('/api/analyze',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({text:text.slice(0,10000),prompt:prompt})
+    });
+
+    if(!apiRes.ok){
+      const err=await apiRes.json().catch(()=>({}));
+      throw new Error(err?.error||`서버 오류 (HTTP ${apiRes.status})`);
+    }
+
+    const data=await apiRes.json();
+    if(data.error)throw new Error(data.error);
+    const rawText=data.result||'';
+    const cleaned=rawText.replace(/```json|```/gi,'').trim();
+
+    let parsed;
+    try{parsed=JSON.parse(cleaned);}
+    catch(e){
+      // JSON 파싱 실패 → 로컬 폴백
+      parsed=buildDocumentInsights(text.slice(0,12000));
+      parsed.ai_summary='AI 응답 파싱 실패 — 로컬 분석으로 대체됨';
+    }
+
+    // 누락 indicators 보완
+    if(!parsed.indicators){
+      parsed.indicators={};
+      ESG_INDICATORS.E.forEach((ind,i)=>parsed.indicators[ind.id]=Math.max(0,Math.min(100,Math.round((parsed.E_score||70)+((i%5)-2)*2))));
+      ESG_INDICATORS.S.forEach((ind,i)=>parsed.indicators[ind.id]=Math.max(0,Math.min(100,Math.round((parsed.S_score||70)+((i%5)-2)*2))));
+      ESG_INDICATORS.G.forEach((ind,i)=>parsed.indicators[ind.id]=Math.max(0,Math.min(100,Math.round((parsed.G_score||70)+((i%5)-2)*2))));
+    }
+
+    displayAIResults(parsed);
+    if(options.apply)applyAIResults();
+
+    // AI 종합 평가 배너
+    if(parsed.ai_summary){
+      const box=document.getElementById('aiFindingsBox');
+      const summaryDiv=document.createElement('div');
+      summaryDiv.style.cssText='margin-top:12px;padding:10px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:8px;font-size:11px;color:#93c5fd;line-height:1.6;';
+      summaryDiv.innerHTML='<strong style="font-size:10px;letter-spacing:.08em;color:var(--accent2);">✦ AI 종합 평가</strong><br/>'+escapeHtml(parsed.ai_summary);
+      box.appendChild(summaryDiv);
+    }
+    document.getElementById('aiResultTitle').textContent='Claude AI ESG 분석 완료';
+
+  }catch(err){
+    // 오류 시 로컬 분석 폴백
+    const local=buildDocumentInsights(text.slice(0,12000));
+    displayAIResults(local);
+    document.getElementById('aiResultTitle').textContent='ESG 분석 완료 (로컬)';
+    const box=document.getElementById('aiFindingsBox');
+    const errDiv=document.createElement('div');
+    errDiv.style.cssText='margin-top:10px;padding:9px;background:rgba(244,63,94,0.06);border:1px solid rgba(244,63,94,0.2);border-radius:8px;font-size:10px;color:#f87171;font-family:monospace;';
+    errDiv.innerHTML='<strong>오류:</strong> '+escapeHtml(err.message)+'<br/><span style="color:var(--text-dim)">키워드 기반 로컬 분석 결과입니다.</span>';
+    box.appendChild(errDiv);
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent='🤖 AI 문서 분석';}
+  }
 }
 
 function displayAIResults(data){
