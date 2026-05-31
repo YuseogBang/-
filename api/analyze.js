@@ -1,4 +1,5 @@
 // api/analyze.js
+console.log('ENV KEY:', process.env.GEMINI_API_KEY ? '존재함' : '없음');
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
