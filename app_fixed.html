@@ -1289,9 +1289,9 @@ async function analyzeText(options={}){
   res.classList.add('show');
   document.getElementById('aiApplyRow').style.display='none';
   if(btn){btn.disabled=true;btn.textContent='AI 분석 중...';}
-  document.getElementById('aiResultTitle').textContent='Claude AI 분석 중...';
+  document.getElementById('aiResultTitle').textContent='AI 분석 중...';
   ['aiE','aiS','aiG'].forEach(id=>document.getElementById(id).textContent='...');
-  document.getElementById('aiFindingsBox').innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--accent2);font-family:monospace;font-size:11px;"><span class="spinner"></span>Claude가 ESG·감사·규제 항목을 심층 분석하고 있습니다...</div>';
+  document.getElementById('aiFindingsBox').innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--accent2);font-family:monospace;font-size:11px;"><span class="spinner"></span>AI가 ESG·감사·규제 항목을 심층 분석하고 있습니다...</div>';
 
   const prompt=`당신은 ESG M&A 실사 전문 분석 AI입니다. 아래 기업 내부 자료를 분석하여 반드시 JSON 형식으로만 응답하세요. 마크다운 코드블록(\`\`\`)이나 다른 텍스트는 절대 포함하지 마세요. 순수 JSON만 출력하세요.
 
@@ -1364,7 +1364,7 @@ ${text.slice(0,10000)}
       summaryDiv.innerHTML='<strong style="font-size:10px;letter-spacing:.08em;color:var(--accent2);">✦ AI 종합 평가</strong><br/>'+escapeHtml(parsed.ai_summary);
       box.appendChild(summaryDiv);
     }
-    document.getElementById('aiResultTitle').textContent='Claude AI ESG 분석 완료';
+    document.getElementById('aiResultTitle').textContent='AI ESG 분석 완료';
 
   }catch(err){
     // 오류 시 로컬 분석 폴백
