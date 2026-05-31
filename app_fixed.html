@@ -1275,7 +1275,7 @@ function buildDocumentInsights(text){
   return{E_score,S_score,G_score,serious_accidents:seriousAccidents,env_violations:envViolations,anti_corruption:antiCorruption,cyber_incidents:cyberIncidents,indicators,key_findings:findings,risk_flags,opportunities,audit_readiness:auditReadiness,compliance_score:complianceScore,disclosure_score:disclosureScore,source_chars:text.length};
 }
 
-// ══ CLAUDE AI ANALYZE (no user API key needed) ══
+// ══ AI ANALYZE (no user API key needed) ══
 async function analyzeText(options={}){
   const text=document.getElementById('manualText').value.trim();
   if(!text){
