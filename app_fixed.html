@@ -11,7 +11,8 @@
 :root{--bg:#050810;--surface:#0a0f1e;--surface2:#0f172a;--border:rgba(99,120,180,0.18);--border-bright:rgba(99,120,180,0.38);--accent:#3b82f6;--accent2:#06b6d4;--red:#f43f5e;--green:#22c55e;--gold:#f59e0b;--text:#e2e8f0;--text-dim:#64748b;--text-bright:#f8fafc;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;font-size:13px;line-height:1.6;min-height:100vh;overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;font-size:14px;line-height:1.65;min-height:100vh;overflow-x:hidden;}
+* {font-family:'Pretendard',sans-serif !important;}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(59,130,246,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.035) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0;}
 .app{position:relative;z-index:1;max-width:1360px;margin:0 auto;padding:0 20px 80px;}
 
@@ -51,10 +52,10 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .phase-num{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:800;background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);flex-shrink:0;}
 .phase-item.active .phase-num{background:var(--accent);border-color:var(--accent);color:#fff;}
 .phase-item.done .phase-num{background:rgba(34,197,94,0.2);border-color:rgba(34,197,94,0.45);color:#4ade80;}
-.phase-label{font-size:11px;font-weight:700;letter-spacing:0.04em;color:var(--text-dim);}
+.phase-label{font-size:12px;font-weight:700;letter-spacing:0.03em;color:var(--text-dim);}
 .phase-item.active .phase-label{color:var(--text-bright);}
 .phase-item.done .phase-label{color:#4ade80;}
-.phase-sub{font-size:9px;color:var(--text-dim);display:block;margin-top:1px;font-family:monospace;}
+.phase-sub{font-size:10px;color:var(--text-dim);display:block;margin-top:1px;}
 
 /* SCREENS */
 .screen{display:none;}
@@ -64,16 +65,16 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 /* CARD */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;}
 .card+.card{margin-top:14px;}
-.card-title{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.card-title{font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .card-title-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;}
-.sec-label{font-family:monospace;font-size:10px;color:var(--accent2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;margin-top:14px;}
+.sec-label{font-size:11px;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;margin-top:14px;}
 .sec-label:first-child{margin-top:0;}
 
 /* INPUTS */
-.field{margin-bottom:9px;}
-.field label{font-size:11px;color:var(--text);display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
-.field label .val{font-family:monospace;font-size:11px;color:var(--accent2);font-weight:500;}
-input[type=text],input[type=number],select{width:100%;padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text-bright);font-family:monospace;font-size:12px;outline:none;transition:border-color .2s;}
+.field{margin-bottom:10px;}
+.field label{font-size:12px;color:var(--text);display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.field label .val{font-size:12px;color:var(--accent2);font-weight:600;}
+input[type=text],input[type=number],select{width:100%;padding:7px 11px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text-bright);font-size:13px;outline:none;transition:border-color .2s;}
 input[type=text]{font-family:'Pretendard',sans-serif;}
 input[type=text]:focus,input[type=number]:focus,select:focus{border-color:var(--accent);}
 select{cursor:pointer;}
@@ -84,15 +85,15 @@ textarea:focus{border-color:var(--accent);}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 
 /* BUTTONS */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-family:'Pretendard',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.05em;transition:all .2s;line-height:1.3;white-space:nowrap;text-align:center;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:7px;border:none;cursor:pointer;font-size:12px;font-weight:700;letter-spacing:0.04em;transition:all .2s;line-height:1.3;white-space:nowrap;text-align:center;}
 .btn-primary{background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;box-shadow:0 4px 14px rgba(59,130,246,0.3);}
 .btn-primary:hover{box-shadow:0 6px 20px rgba(59,130,246,0.45);transform:translateY(-1px);}
 .btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border-bright);}
 .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 .btn-row{display:flex;gap:8px;margin-top:12px;justify-content:flex-end;}
-.preset-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
-.preset-btn{font-family:monospace;font-size:10px;padding:3px 9px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);color:var(--text-dim);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;line-height:1.4;white-space:nowrap;}
+.preset-row{display:flex;gap:5px;flex-wrap:nowrap;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;-webkit-overflow-scrolling:touch;}
+.preset-btn{font-size:11px;padding:4px 11px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);color:var(--text-dim);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;line-height:1.4;white-space:nowrap;flex-shrink:0;}
 .preset-btn:hover{border-color:var(--accent2);color:var(--accent2);}
 .preset-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(59,130,246,0.1);}
 
@@ -103,21 +104,21 @@ textarea:focus{border-color:var(--accent);}
 /* 밸류에이션 방법론 탭 선택 */
 .vm-selector-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
 .vm-tab-selector{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);}
-.vm-sel-tab{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 10px;cursor:pointer;transition:all .2s;position:relative;border:none;background:none;overflow:hidden;}
+.vm-sel-tab{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:14px 12px;cursor:pointer;transition:all .2s;position:relative;border:none;background:none;overflow:hidden;}
 .vm-sel-tab:not(:last-child){border-right:1px solid var(--border);}
 .vm-sel-tab.active{background:rgba(59,130,246,.1);border-bottom:2px solid var(--accent);margin-bottom:-1px;}
 .vm-sel-tab:hover:not(.active){background:rgba(59,130,246,.04);}
-.vm-sel-tab-icon{font-size:14px;flex-shrink:0;}
-.vm-sel-tab-name{font-size:11px;font-weight:700;color:var(--text-dim);white-space:nowrap;}
+.vm-sel-tab-icon{font-size:18px;flex-shrink:0;}
+.vm-sel-tab-name{font-size:13px;font-weight:700;color:var(--text-dim);white-space:nowrap;}
 .vm-sel-tab.active .vm-sel-tab-name{color:var(--text-bright);}
 .vm-sel-tab-tag{font-family:monospace;font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;letter-spacing:.06em;opacity:.7;flex-shrink:0;white-space:nowrap;}
 .vm-sel-panel{display:none;padding:0;}.vm-sel-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:0;}
 .vm-sel-info{padding:16px;border-right:1px solid var(--border);overflow:auto;}
 .vm-sel-params{padding:16px;overflow:auto;}
-.vm-sel-title{font-size:13px;font-weight:800;color:var(--text-bright);display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-.vm-sel-desc{font-size:11px;color:var(--text-dim);line-height:1.6;margin-bottom:8px;}
-.vm-sel-role{font-size:10px;color:var(--text-dim);font-style:italic;padding:8px 10px;background:var(--surface2);border-radius:6px;border-left:2px solid var(--accent);line-height:1.5;}
-.vm-sel-params-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;font-family:monospace;}
+.vm-sel-title{font-size:15px;font-weight:800;color:var(--text-bright);display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.vm-sel-desc{font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:8px;}
+.vm-sel-role{font-size:12px;color:var(--text-dim);font-style:italic;padding:9px 12px;background:var(--surface2);border-radius:6px;border-left:2px solid var(--accent);line-height:1.6;}
+.vm-sel-params-title{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);margin-bottom:12px;}
 /* 밸류에이션 3분할 (레거시 유지) */
 .vm-3col-layout{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:start;}
 .vm-3col-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
@@ -135,18 +136,18 @@ textarea:focus{border-color:var(--accent);}
 .peer-panel{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px;}
 .peer-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
 .peer-header-left{display:flex;align-items:center;gap:8px;}
-.peer-title{font-size:11px;font-weight:700;color:var(--text);}
-.peer-multiple-badge{font-size:18px;font-weight:800;color:var(--gold);}
+.peer-title{font-size:12px;font-weight:700;color:var(--text);}
+.peer-multiple-badge{font-size:20px;font-weight:800;color:var(--gold);}
 .peer-toggle{font-size:10px;color:var(--text-dim);padding:2px 8px;border-radius:4px;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;line-height:1.5;flex-shrink:0;}
 .peer-toggle:hover{border-color:var(--accent2);color:var(--accent2);}
 .peer-body{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.4,0,.2,1);}
 .peer-body.open{max-height:600px;margin-top:10px;}
-.peer-table{width:100%;border-collapse:collapse;font-size:11px;}
-.peer-table th{font-family:monospace;font-size:9px;color:var(--text-dim);padding:5px 8px;border-bottom:1px solid var(--border);text-align:right;letter-spacing:0.06em;font-weight:400;}
+.peer-table{width:100%;border-collapse:collapse;font-size:12px;}
+.peer-table th{font-size:10px;color:var(--text-dim);padding:5px 8px;border-bottom:1px solid var(--border);text-align:right;letter-spacing:0.04em;font-weight:500;}
 .peer-table th:first-child,.peer-table th:nth-child(2){text-align:left;}
-.peer-table td{padding:5px 8px;border-bottom:1px solid rgba(99,120,180,0.07);text-align:right;font-family:monospace;font-size:11px;}
-.peer-table td:first-child{text-align:left;color:var(--text);font-family:'Pretendard',sans-serif;}
-.peer-table td:nth-child(2){color:var(--text-dim);font-size:10px;}
+.peer-table td{padding:6px 8px;border-bottom:1px solid rgba(99,120,180,0.07);text-align:right;font-size:12px;}
+.peer-table td:first-child{text-align:left;color:var(--text);}
+.peer-table td:nth-child(2){color:var(--text-dim);font-size:11px;}
 .peer-table tr:hover td{background:rgba(59,130,246,0.04);}
 .peer-table tr.peer-avg td{color:var(--gold);font-weight:600;border-top:1px solid rgba(245,158,11,0.25);}
 .peer-bar{height:3px;border-radius:99px;background:var(--surface);overflow:hidden;margin-top:3px;}
@@ -159,7 +160,7 @@ textarea:focus{border-color:var(--accent);}
 
 /* ESG INDICATOR INPUT */
 .ind-section{margin-bottom:10px;}
-.ind-sec-header{display:flex;align-items:center;justify-content:space-between;padding:6px 11px;border-radius:8px 8px 0 0;font-size:11px;font-weight:700;letter-spacing:0.06em;}
+.ind-sec-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px 8px 0 0;font-size:12px;font-weight:700;letter-spacing:0.05em;}
 .ind-sec-e{background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.25);color:#67e8f9;}
 .ind-sec-s{background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.25);color:#fb923c;}
 .ind-sec-g{background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.25);color:#c4b5fd;}
@@ -168,22 +169,22 @@ textarea:focus{border-color:var(--accent);}
 .esg-col-card .ind-row:first-child{border-top:none;}
 .esg-col-card .ind-row:last-child{border-radius:0 0 10px 10px;}
 .esg-col-card .ind-row:hover{background:rgba(59,130,246,0.04);}
-.ind-name{font-size:11px;color:var(--text);line-height:1.4;}
-.ind-num-inp{width:54px;min-width:54px;box-sizing:border-box;padding:3px 4px;border-radius:4px;border:1px solid var(--border);background:var(--surface);color:var(--text-bright);font-family:monospace;font-size:11px;text-align:center;outline:none;}
+.ind-name{font-size:12px;color:var(--text);line-height:1.4;}
+.ind-num-inp{width:56px;min-width:56px;box-sizing:border-box;padding:4px 4px;border-radius:4px;border:1px solid var(--border);background:var(--surface);color:var(--text-bright);font-size:12px;text-align:center;outline:none;}
 .ind-num-inp:focus{border-color:var(--accent);}
 .esg-preview{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
 .esg-preview-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;}
-.ep-label{font-size:10px;color:var(--text-dim);margin-bottom:3px;}
-.ep-val{font-size:20px;font-weight:800;}
+.ep-label{font-size:11px;color:var(--text-dim);margin-bottom:3px;}
+.ep-val{font-size:22px;font-weight:800;}
 .ep-e{color:#22d3ee;}.ep-s{color:#fb923c;}.ep-g{color:#c4b5fd;}
 
 /* LOADING */
 .loading-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 20px;gap:22px;}
 .loading-spinner{width:56px;height:56px;border:3px solid rgba(59,130,246,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.loading-title{font-size:18px;font-weight:800;color:var(--text-bright);}
-.loading-steps{display:flex;flex-direction:column;gap:9px;min-width:320px;}
-.loading-step{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-dim);transition:all .3s;}
+.loading-title{font-size:20px;font-weight:800;color:var(--text-bright);}
+.loading-steps{display:flex;flex-direction:column;gap:10px;min-width:340px;}
+.loading-step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-dim);transition:all .3s;}
 .loading-step.ls-active{color:var(--text-bright);}
 .loading-step.ls-done{color:#4ade80;}
 .ls-dot{width:8px;height:8px;border-radius:50%;background:var(--border);flex-shrink:0;transition:all .3s;}
@@ -430,9 +431,9 @@ textarea:focus{border-color:var(--accent);}
 .vm-card.vm-recommended{border-color:var(--gold);background:rgba(245,158,11,0.07);}
 .vm-card.vm-recommended.vm-selected{border-color:var(--accent);background:rgba(59,130,246,0.08);}
 .vm-rec-badge{position:absolute;top:-8px;right:10px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.4);color:#fbbf24;letter-spacing:.06em;font-family:monospace;}
-.vm-name{font-size:11px;font-weight:700;color:var(--text-bright);margin-bottom:3px;display:flex;align-items:center;gap:6px;}
-.vm-icon{font-size:14px;}
-.vm-desc{font-size:10px;color:var(--text-dim);line-height:1.5;}
+.vm-name{font-size:13px;font-weight:700;color:var(--text-bright);margin-bottom:3px;display:flex;align-items:center;gap:6px;}
+.vm-icon{font-size:18px;}
+.vm-desc{font-size:11px;color:var(--text-dim);line-height:1.6;}
 .vm-badge{font-size:9px;font-family:monospace;padding:1px 6px;border-radius:3px;border:1px solid;margin-left:auto;}
 .vm-badge-good{color:#4ade80;border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.08);}
 .vm-badge-mid{color:#fbbf24;border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.08);}
@@ -517,12 +518,18 @@ textarea:focus{border-color:var(--accent);}
 <div class="card" style="margin-bottom:18px;">
   <div class="card-title"><span class="card-title-dot"></span>기업 기본 정보</div>
   <div class="preset-row">
-    <span style="font-size:10px;color:var(--text-dim);align-self:center;margin-right:2px;">프리셋:</span>
+    <span style="font-size:11px;color:var(--text-dim);align-self:center;margin-right:2px;flex-shrink:0;">프리셋:</span>
     <div class="preset-btn active" onclick="loadPreset('custom',this)">직접 입력</div>
-    <div class="preset-btn" onclick="loadPreset('construction',this)">건설</div>
-    <div class="preset-btn" onclick="loadPreset('mfg',this)">제조</div>
-    <div class="preset-btn" onclick="loadPreset('tech',this)">IT/테크</div>
-    <div class="preset-btn" onclick="loadPreset('env',this)">환경/폐기물</div>
+    <div class="preset-btn" onclick="loadPreset('construction',this)">🏗 건설</div>
+    <div class="preset-btn" onclick="loadPreset('mfg',this)">⚙️ 제조</div>
+    <div class="preset-btn" onclick="loadPreset('tech',this)">💻 IT/테크</div>
+    <div class="preset-btn" onclick="loadPreset('env',this)">♻️ 환경</div>
+    <div class="preset-btn" onclick="loadPreset('pharma',this)">💊 제약/바이오</div>
+    <div class="preset-btn" onclick="loadPreset('energy',this)">⚡ 에너지</div>
+    <div class="preset-btn" onclick="loadPreset('finance',this)">🏦 금융</div>
+    <div class="preset-btn" onclick="loadPreset('logistics',this)">🚚 물류</div>
+    <div class="preset-btn" onclick="loadPreset('retail',this)">🛒 유통</div>
+    <div class="preset-btn" onclick="loadPreset('infra',this)">🛣 인프라</div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end;">
     <div class="field" style="margin-bottom:0;"><label>기업명</label><input type="text" id="companyName" value="대상기업" style="font-family:'Pretendard',sans-serif;"/></div>
@@ -532,16 +539,40 @@ textarea:focus{border-color:var(--accent);}
 
 <!-- ROW 2: 밸류에이션 방법론 탭 선택 -->
 <div style="margin-bottom:18px;">
-  <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-    <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;"></span>밸류에이션 방법론 선택
-    <div class="vm-rec-panel" id="vmRecPanel" style="flex:1;margin-bottom:0;padding:7px 12px;">
-      <div class="vm-rec-header" style="margin-bottom:0;">
-        <span style="font-size:12px;">🤖</span>
-        <span class="vm-rec-title" style="font-size:10px;">AI 추천</span>
-        <div class="vm-rec-list" id="vmRecList" style="flex-direction:row;flex-wrap:wrap;gap:4px;margin-left:8px;">
-          <div class="vm-rec-item" style="font-size:10px;"><div class="vm-rec-dot"></div>기업 정보를 입력하면 최적 방법론을 추천합니다.</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:16px;">
+    <div style="font-size:16px;font-weight:800;letter-spacing:0.04em;color:var(--text-bright);display:flex;align-items:center;gap:10px;white-space:nowrap;">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;box-shadow:0 0 8px rgba(59,130,246,0.6);"></span>밸류에이션 방법론 선택
+    </div>
+    <!-- 방법론별 특징 요약 칩 -->
+    <div style="display:flex;gap:8px;flex:1;justify-content:flex-end;flex-wrap:wrap;" id="vmFeatureChips">
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:9px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.28);">
+        <span style="font-size:16px;">📊</span>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#a5b4fc;">EV/EBITDA</div>
+          <div style="font-size:11px;color:var(--text-dim);">피어 비교 · 시장가 기준</div>
         </div>
       </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:9px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.28);">
+        <span style="font-size:16px;">📈</span>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#60a5fa;">DCF</div>
+          <div style="font-size:11px;color:var(--text-dim);">미래현금흐름 · ESG 할인</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:9px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);">
+        <span style="font-size:16px;">🔄</span>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#4ade80;">유사거래사례</div>
+          <div style="font-size:11px;color:var(--text-dim);">실거래 멀티플 · 교차검증</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 파라미터 가이드 (업종별) -->
+  <div id="vmRecPanel" style="background:linear-gradient(135deg,rgba(59,130,246,.06),rgba(6,182,212,.04));border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;">
+    <span style="font-size:13px;margin-top:1px;flex-shrink:0;">💡</span>
+    <div id="vmRecList" style="font-size:12px;color:var(--text-dim);line-height:1.7;display:flex;flex-direction:column;gap:3px;">
+      <span>업종·재무 정보를 입력하면 각 방법론의 파라미터 설정 가이드가 업데이트됩니다.</span>
     </div>
   </div>
   <!-- 탭 선택 래퍼 -->
@@ -554,12 +585,12 @@ textarea:focus{border-color:var(--accent);}
 
 <!-- ROW 3: ESG 세부 지표 3분할 -->
 <div style="margin-bottom:18px;">
-  <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-    <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;"></span>ESG 세부 지표 입력
+  <div style="font-size:15px;font-weight:800;letter-spacing:0.04em;color:var(--text-bright);display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+    <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;box-shadow:0 0 8px rgba(59,130,246,0.6);"></span>ESG 세부 지표 입력
     <div style="display:flex;gap:6px;margin-left:auto;">
-      <div class="esg-preview-item" style="padding:4px 10px;"><div class="ep-label" style="font-size:9px;">환경(E)</div><div class="ep-val ep-e" id="prevE" style="font-size:14px;">—</div></div>
-      <div class="esg-preview-item" style="padding:4px 10px;"><div class="ep-label" style="font-size:9px;">사회(S)</div><div class="ep-val ep-s" id="prevS" style="font-size:14px;">—</div></div>
-      <div class="esg-preview-item" style="padding:4px 10px;"><div class="ep-label" style="font-size:9px;">지배구조(G)</div><div class="ep-val ep-g" id="prevG" style="font-size:14px;">—</div></div>
+      <div class="esg-preview-item" style="padding:5px 12px;"><div class="ep-label" style="font-size:10px;">환경(E)</div><div class="ep-val ep-e" id="prevE" style="font-size:16px;">—</div></div>
+      <div class="esg-preview-item" style="padding:5px 12px;"><div class="ep-label" style="font-size:10px;">사회(S)</div><div class="ep-val ep-s" id="prevS" style="font-size:16px;">—</div></div>
+      <div class="esg-preview-item" style="padding:5px 12px;"><div class="ep-label" style="font-size:10px;">지배구조(G)</div><div class="ep-val ep-g" id="prevG" style="font-size:16px;">—</div></div>
     </div>
     <div style="display:flex;gap:5px;">
       <button class="btn btn-secondary" onclick="equalScores(60)" style="font-size:10px;padding:4px 9px;">낮음(60)</button>
@@ -571,8 +602,8 @@ textarea:focus{border-color:var(--accent);}
 </div>
 
 <!-- ROW 4: 리스크+가중치 | AI업로드+분석 | 분석결과+실행 (3분할) -->
-<div style="margin-bottom:8px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:8px;">
-  <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;"></span>리스크 · AI 분석 · 실행
+<div style="margin-bottom:8px;font-size:15px;font-weight:800;letter-spacing:0.04em;color:var(--text-bright);display:flex;align-items:center;gap:10px;">
+  <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;box-shadow:0 0 8px rgba(59,130,246,0.6);"></span>리스크 · AI 분석 · 실행
 </div>
 <div class="input-layout">
 
@@ -887,6 +918,12 @@ const PEER_SETS_ORIGINAL={
   mfg:[{name:'POSCO홀딩스',sector:'철강/소재',ev:5.2,esg:'A',mktcap:65000,ev_val:78000},{name:'LG화학',sector:'화학',ev:8.7,esg:'A',mktcap:55000,ev_val:68000},{name:'롯데케미칼',sector:'화학',ev:6.1,esg:'B+',mktcap:12000,ev_val:15000},{name:'한화솔루션',sector:'소재/에너지',ev:9.4,esg:'A-',mktcap:24000,ev_val:29000},{name:'효성첨단소재',sector:'소재',ev:7.8,esg:'B+',mktcap:9000,ev_val:11000}],
   tech:[{name:'삼성전자',sector:'반도체/전자',ev:10.2,esg:'AA',mktcap:450000,ev_val:510000},{name:'SK하이닉스',sector:'반도체',ev:8.9,esg:'A',mktcap:130000,ev_val:155000},{name:'카카오',sector:'플랫폼',ev:15.4,esg:'A-',mktcap:32000,ev_val:38000},{name:'네이버',sector:'플랫폼',ev:14.1,esg:'A',mktcap:42000,ev_val:50000},{name:'LG전자',sector:'가전/전자',ev:7.6,esg:'A-',mktcap:38000,ev_val:45000}],
   env:[{name:'코엔텍',sector:'폐기물처리',ev:11.2,esg:'B+',mktcap:3200,ev_val:3800},{name:'에코비트',sector:'환경관리',ev:9.8,esg:'B',mktcap:2800,ev_val:3300},{name:'새한환경',sector:'폐기물',ev:8.4,esg:'B',mktcap:1400,ev_val:1700},{name:'인선이엔티',sector:'재활용',ev:10.1,esg:'B+',mktcap:2100,ev_val:2500},{name:'와이엔텍',sector:'소각처리',ev:9.3,esg:'B',mktcap:1600,ev_val:1900}],
+  pharma:[{name:'셀트리온',sector:'바이오/의약품',ev:28.4,esg:'A',mktcap:95000,ev_val:118000},{name:'한미약품',sector:'제약',ev:22.1,esg:'A-',mktcap:38000,ev_val:47000},{name:'종근당',sector:'제약',ev:14.7,esg:'B+',mktcap:18000,ev_val:22000},{name:'유한양행',sector:'제약',ev:19.3,esg:'A',mktcap:28000,ev_val:35000},{name:'보령',sector:'제약',ev:12.8,esg:'B+',mktcap:8500,ev_val:10500}],
+  energy:[{name:'한국전력',sector:'전력/유틸리티',ev:6.2,esg:'A-',mktcap:82000,ev_val:95000},{name:'SK E&S',sector:'가스/에너지',ev:8.9,esg:'A',mktcap:45000,ev_val:56000},{name:'한화에너지',sector:'재생에너지',ev:13.5,esg:'A',mktcap:22000,ev_val:28000},{name:'두산에너빌리티',sector:'에너지/발전',ev:7.4,esg:'B+',mktcap:18000,ev_val:22000},{name:'GS에너지',sector:'에너지',ev:6.8,esg:'B+',mktcap:14000,ev_val:17000}],
+  finance:[{name:'KB금융',sector:'은행/금융지주',ev:7.1,esg:'AA',mktcap:280000,ev_val:320000},{name:'신한지주',sector:'은행/금융지주',ev:6.8,esg:'AA',mktcap:265000,ev_val:295000},{name:'하나금융',sector:'은행/금융지주',ev:5.9,esg:'A',mktcap:195000,ev_val:218000},{name:'메리츠금융',sector:'보험/금융',ev:8.4,esg:'A-',mktcap:58000,ev_val:71000},{name:'키움증권',sector:'증권',ev:9.2,esg:'B+',mktcap:32000,ev_val:39000}],
+  logistics:[{name:'CJ대한통운',sector:'물류/택배',ev:8.3,esg:'A-',mktcap:25000,ev_val:31000},{name:'현대글로비스',sector:'물류/SCM',ev:7.5,esg:'A',mktcap:42000,ev_val:51000},{name:'롯데글로벌로지스',sector:'물류',ev:6.9,esg:'B+',mktcap:12000,ev_val:15000},{name:'한진',sector:'물류/항공',ev:5.8,esg:'B+',mktcap:9500,ev_val:11500},{name:'세방',sector:'항만/물류',ev:5.2,esg:'B',mktcap:4800,ev_val:5800}],
+  retail:[{name:'이마트',sector:'유통/리테일',ev:6.1,esg:'A-',mktcap:52000,ev_val:62000},{name:'롯데쇼핑',sector:'유통/백화점',ev:5.4,esg:'A-',mktcap:38000,ev_val:46000},{name:'GS리테일',sector:'편의점/유통',ev:7.8,esg:'B+',mktcap:22000,ev_val:27000},{name:'BGF리테일',sector:'편의점',ev:8.5,esg:'B+',mktcap:18000,ev_val:22000},{name:'현대백화점',sector:'백화점',ev:6.7,esg:'A-',mktcap:28000,ev_val:34000}],
+  infra:[{name:'맥쿼리한국인프라',sector:'인프라/도로',ev:14.2,esg:'A',mktcap:65000,ev_val:82000},{name:'신한인프라',sector:'인프라펀드',ev:12.8,esg:'A-',mktcap:28000,ev_val:35000},{name:'한국공항공사',sector:'공항/인프라',ev:11.5,esg:'A',mktcap:42000,ev_val:52000},{name:'코레일네트웍스',sector:'철도인프라',ev:10.3,esg:'B+',mktcap:8500,ev_val:10500},{name:'현대엔지니어링',sector:'인프라/플랜트',ev:9.1,esg:'B+',mktcap:18000,ev_val:22000}],
 };
 const PEER_SETS=JSON.parse(JSON.stringify(PEER_SETS_ORIGINAL));
 
@@ -1118,6 +1155,24 @@ function getVmRecommendations(sector, ebitda, esg){
   } else if(/환경|폐기/.test(s)){
     recs.push('규제 수혜·탄소크레딧 가치를 DCF FCF 마진에 반영하세요.');
     recs.push('친환경 M&A 프리미엄으로 경영권 프리미엄을 20% 이상 적용할 수 있습니다.');
+  } else if(/제약|바이오|의약품/.test(s)){
+    recs.push('파이프라인 가치를 DCF FCF 마진(12~20%)에 반영하고 WACC 12~14%를 적용하세요.');
+    recs.push('임상단계별 성공확률을 할인율에 가산하는 rNPV 방식도 병행하면 좋습니다.');
+  } else if(/에너지|발전|전력|가스/.test(s)){
+    recs.push('규제 자산 기반(RAB)이 있으면 EV/EBITDA 6~9x가 적정 범위입니다.');
+    recs.push('재생에너지 비중이 높을수록 ESG 프리미엄 0.5~1.5x를 추가 반영하세요.');
+  } else if(/금융|은행|보험|증권/.test(s)){
+    recs.push('금융업은 EBITDA 대신 P/BV, P/E 멀티플 병행 검토가 표준입니다.');
+    recs.push('DCF는 배당할인모형(DDM) 또는 잉여자본모형(ECM)으로 대체하는 것이 적합합니다.');
+  } else if(/물류|SCM|택배|항만/.test(s)){
+    recs.push('자산 집약도가 높아 EV/EBITDA 5~9x, WACC 8~10%가 일반적입니다.');
+    recs.push('전자상거래 성장에 따른 처리량 증가율을 DCF 성장률에 반영하세요.');
+  } else if(/유통|리테일|편의점|백화점/.test(s)){
+    recs.push('EBITDA 마진이 얇아 유사거래사례 멀티플(4~9x)이 가장 신뢰도 높습니다.');
+    recs.push('오프라인·온라인 채널 믹스 변화를 DCF 마진 가정에 반영하세요.');
+  } else if(/인프라|도로|철도|공항/.test(s)){
+    recs.push('장기 현금흐름 안정성 덕에 DCF 비중을 60% 이상으로 높이고 WACC 6~8%를 적용하세요.');
+    recs.push('인프라는 EV/EBITDA 10~16x의 높은 멀티플이 형성되는 섹터입니다.');
   } else {
     recs.push('3개 방법론 결과의 교집합 구간이 협상 타깃 범위입니다.');
     recs.push('DCF의 Terminal Value 비중이 60% 초과 시 성장률 가정을 재검토하세요.');
@@ -1141,8 +1196,8 @@ function renderVmGrid(){
   const recList = document.getElementById('vmRecList');
   if(recList){
     recList.innerHTML = tips.length
-      ? tips.map(t=>`<div class="vm-rec-item" style="font-size:10px;"><div class="vm-rec-dot"></div>${t}</div>`).join('')
-      : '<div class="vm-rec-item" style="font-size:10px;"><div class="vm-rec-dot"></div>업종을 입력하면 파라미터 가이드를 제공합니다.</div>';
+      ? tips.map(t=>`<span style="color:var(--text);">${t}</span>`).join('')
+      : '<span>업종·재무 정보를 입력하면 각 방법론의 파라미터 설정 가이드가 업데이트됩니다.</span>';
   }
 
   // 탭 UI는 최초 1회만 렌더링
@@ -1176,16 +1231,16 @@ function renderVmGrid(){
       const key = `${m.id}_${p.id}`;
       const val = vmParams[key] ?? p.val;
       const isText = p.type === 'text';
-      return `<div class="field" style="margin-bottom:10px;">
-        <label style="flex-direction:column;align-items:flex-start;gap:1px;">
-          <span style="display:flex;justify-content:space-between;width:100%;font-size:10px;">${p.label}${!isText?` <span class="val" id="vmp_lbl_${key}" style="color:${c.text};">${val}</span>`:''}</span>
-          ${p.hint?`<span style="font-size:9px;color:var(--text-dim);font-weight:400;margin-top:2px;">${p.hint}</span>`:''}
+      return `<div class="field" style="margin-bottom:12px;">
+        <label style="flex-direction:column;align-items:flex-start;gap:2px;">
+          <span style="display:flex;justify-content:space-between;width:100%;font-size:12px;">${p.label}${!isText?` <span class="val" id="vmp_lbl_${key}" style="color:${c.text};font-size:12px;font-weight:600;">${val}</span>`:''}</span>
+          ${p.hint?`<span style="font-size:11px;color:var(--text-dim);font-weight:400;margin-top:2px;">${p.hint}</span>`:''}
         </label>
         ${isText
           ? `<input type="text" id="vmp_${key}" value="${val}" placeholder="${p.placeholder||''}"
-              oninput="vmParams['${key}']=this.value;recalcResult()" style="font-family:'Pretendard',sans-serif;font-size:11px;"/>`
+              oninput="vmParams['${key}']=this.value;recalcResult()" style="font-size:13px;"/>`
           : `<input type="number" id="vmp_${key}" value="${val}" min="${p.min}" max="${p.max}" step="${p.step}"
-              oninput="vmParams['${key}']=parseFloat(this.value);document.getElementById('vmp_lbl_${key}').textContent=this.value;recalcResult()" style="font-size:11px;"/>`
+              oninput="vmParams['${key}']=parseFloat(this.value);document.getElementById('vmp_lbl_${key}').textContent=this.value;recalcResult()" style="font-size:13px;"/>`
         }
       </div>`;
     }).join('');
@@ -1208,10 +1263,10 @@ function renderVmGrid(){
         <div style="margin-top:14px;border-top:1px solid ${c.border};padding-top:14px;">
           <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);font-family:monospace;margin-bottom:10px;">기준 EBITDA · 피어 멀티플</div>
           <div class="field" style="margin-bottom:12px;">
-            <label style="font-size:11px;">EBITDA (억원) <span class="val" id="lEBITDA" style="color:${c.text};">200</span></label>
+            <label style="font-size:12px;">EBITDA (억원) <span class="val" id="lEBITDA" style="color:${c.text};">200</span></label>
             <input type="number" id="ebitda" value="200" min="1" step="10"
               oninput="syncV('ebitda','lEBITDA',true);updatePreview()"
-              style="font-size:12px;font-family:monospace;"/>
+              style="font-size:13px;"/>
           </div>
           <div class="peer-panel" style="margin-bottom:0;background:var(--surface);border-color:${c.border};">
             <div class="peer-header" onclick="togglePeer()">
@@ -1258,9 +1313,9 @@ function renderVmGrid(){
       <div class="vm-sel-params">
         <div class="vm-sel-params-title">파라미터 입력</div>
         ${m.id!=='ev_ebitda'?`<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:rgba(99,102,241,.07);border:1px solid rgba(99,102,241,.2);border-radius:7px;margin-bottom:12px;cursor:pointer;" onclick="switchVmTab(0)" title="EV/EBITDA 탭에서 수정">
-          <span style="font-size:10px;color:var(--text-dim);">기준 EBITDA</span>
-          <span style="font-family:monospace;font-size:12px;font-weight:700;color:#a5b4fc;" id="ebitdaRef_${m.id}">—억원</span>
-          <span style="font-size:9px;color:var(--text-dim);font-family:monospace;">← EV/EBITDA 탭에서 수정</span>
+          <span style="font-size:11px;color:var(--text-dim);">기준 EBITDA</span>
+          <span style="font-size:14px;font-weight:700;color:#a5b4fc;" id="ebitdaRef_${m.id}">—억원</span>
+          <span style="font-size:10px;color:var(--text-dim);">← EV/EBITDA 탭에서 수정</span>
         </div>`:''}
         ${paramCols}
       </div>
@@ -1783,6 +1838,12 @@ function loadPreset(name,btn){
     mfg:{ebitda:250,sa:1,ev:3,ac:0,ci:1,company:'제조사 B',sector:'제조/소재',E:[60,55,48,65,68,72,78,60,50,42],S:[65,68,70,58,48,60,65,72,68],G:[70,65,60,75,65,58,52,68]},
     tech:{ebitda:500,sa:0,ev:1,ac:0,ci:2,company:'테크사 C',sector:'IT/플랫폼',E:[75,72,65,80,78,82,88,75,68,65],S:[75,78,80,72,65,65,70,88,80],G:[80,75,80,85,75,70,68,78]},
     env:{ebitda:150,sa:2,ev:5,ac:0,ci:0,company:'환경사 D',sector:'환경/폐기물',E:[55,65,58,72,78,62,55,80,58,45],S:[55,62,65,48,42,65,72,62,60],G:[60,58,62,68,60,52,48,62]},
+    pharma:{ebitda:380,sa:0,ev:1,ac:1,ci:1,company:'제약사 E',sector:'제약/바이오',E:[65,70,60,62,58,72,80,68,55,62],S:[72,75,78,68,60,58,65,80,75],G:[78,72,80,82,70,72,68,75]},
+    energy:{ebitda:420,sa:2,ev:3,ac:0,ci:0,company:'에너지사 F',sector:'에너지/발전',E:[72,68,78,65,70,75,80,72,68,75],S:[60,65,68,55,48,62,68,65,62],G:[70,65,62,72,68,55,50,65]},
+    finance:{ebitda:650,sa:0,ev:0,ac:2,ci:2,company:'금융사 G',sector:'금융/보험',E:[58,52,45,55,50,60,70,55,42,48],S:[70,72,75,68,65,55,60,80,72],G:[85,80,85,88,80,78,75,82]},
+    logistics:{ebitda:180,sa:2,ev:2,ac:0,ci:1,company:'물류사 H',sector:'물류/SCM',E:[55,58,42,60,65,62,68,52,55,45],S:[60,65,68,55,42,65,68,70,60],G:[65,62,58,68,62,55,50,63]},
+    retail:{ebitda:220,sa:1,ev:1,ac:1,ci:1,company:'유통사 I',sector:'유통/리테일',E:[52,55,40,58,60,58,65,50,48,42],S:[65,68,72,62,58,60,62,75,68],G:[68,65,70,72,65,60,58,65]},
+    infra:{ebitda:350,sa:1,ev:2,ac:0,ci:0,company:'인프라사 J',sector:'인프라/도로',E:[60,65,55,68,70,72,75,65,58,62],S:[58,62,65,55,48,60,65,62,60],G:[72,68,65,75,70,60,55,68]},
   };
   const p=presets[name];
   document.getElementById('ebitda').value=p.ebitda;document.getElementById('lEBITDA').textContent=p.ebitda.toLocaleString('ko-KR');
@@ -1865,7 +1926,12 @@ function toggleDealItem(phaseIdx,itemIdx,currentDone){
 }
 function getSectorRiskBias(sector){
   if(/건설|중공업|제조|철강|화학|소재/.test(sector))return 8;
-  if(/환경|폐기|에너지/.test(sector))return 5;
+  if(/환경|폐기|에너지|발전/.test(sector))return 5;
+  if(/제약|바이오|의약품/.test(sector))return 3;
+  if(/물류|SCM|택배|항만/.test(sector))return 4;
+  if(/유통|리테일|편의점|백화점/.test(sector))return 2;
+  if(/인프라|도로|철도|공항/.test(sector))return 2;
+  if(/금융|은행|보험|증권/.test(sector))return -2;
   if(/플랫폼|IT|반도체|전자|소프트웨어/.test(sector))return -3;
   return 0;
 }
@@ -1873,6 +1939,12 @@ function getSupplierListForSector(sector){
   if(/건설/.test(sector))return ['Tier-1 · 골조/시공','Tier-1 · 안전장비','Tier-2 · 레미콘','Tier-2 · 폐기물 처리','Tier-3 · 현장 하도급','Tier-3 · 해외 자재'];
   if(/제조|철강|화학|소재/.test(sector))return ['Tier-1 · 원재료','Tier-1 · 설비정비','Tier-2 · 물류','Tier-2 · 포장재','Tier-3 · 해외 원료','Tier-3 · 폐수/폐기물'];
   if(/IT|플랫폼|반도체|전자|소프트웨어/.test(sector))return ['Tier-1 · 클라우드','Tier-1 · 보안 운영','Tier-2 · 데이터 처리','Tier-2 · 전자부품','Tier-3 · 해외 개발','Tier-3 · 고객지원'];
+  if(/제약|바이오|의약품/.test(sector))return ['Tier-1 · 원료의약품(API)','Tier-1 · 임상 CRO','Tier-2 · 포장·용기','Tier-2 · 유통/콜드체인','Tier-3 · 해외 위탁생산(CMO)','Tier-3 · 실험장비'];
+  if(/에너지|발전|전력|가스/.test(sector))return ['Tier-1 · 연료/원자재','Tier-1 · 설비 유지보수','Tier-2 · 송배전 장비','Tier-2 · 환경설비','Tier-3 · 해외 EPC','Tier-3 · 폐기물 처리'];
+  if(/금융|은행|보험|증권/.test(sector))return ['Tier-1 · IT 인프라','Tier-1 · 사이버 보안','Tier-2 · 데이터 솔루션','Tier-2 · 준법·감사 서비스','Tier-3 · 해외 아웃소싱','Tier-3 · 고객센터'];
+  if(/물류|SCM|택배|항만/.test(sector))return ['Tier-1 · 운송 차량/항공','Tier-1 · 창고·풀필먼트','Tier-2 · 연료/유류','Tier-2 · IT 물류 솔루션','Tier-3 · 해외 포워더','Tier-3 · 하역 인력'];
+  if(/유통|리테일|편의점|백화점/.test(sector))return ['Tier-1 · 국내 제조사','Tier-1 · PB 공급사','Tier-2 · 물류/배송','Tier-2 · 포장재','Tier-3 · 해외 소싱','Tier-3 · 광고/마케팅'];
+  if(/인프라|도로|철도|공항/.test(sector))return ['Tier-1 · 건설·시공','Tier-1 · 운영 유지보수','Tier-2 · 안전설비','Tier-2 · IT 운영 시스템','Tier-3 · 해외 컨설팅','Tier-3 · 폐기물·환경'];
   return SUPPLIER_LIST.map(s=>s.name);
 }
 function renderSupplierRisk(total,eS,sS,gS,inp){
